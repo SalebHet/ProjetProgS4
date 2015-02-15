@@ -152,7 +152,7 @@ bool can_move (grid g, dir d)
   boolean void_tile;//vaut vrai si il existe une case précédente qui est vide
   switch(d)
   {
-  case UP:
+  case DOWN:
     for(int i=0;i<GRID_SIDE;i++)
     {
       tmp=g->g[i][0];//on initialise à la valeur de la première case
@@ -170,7 +170,7 @@ bool can_move (grid g, dir d)
     return false;//si on a jamais renvoyé vrais alors on ne peut rien faire
     break;
 
-  case DOWN:
+  case UP:
     for(int i=0;i<GRID_SIDE;i++)
     {
       tmp=g->g[i][0];
@@ -231,17 +231,46 @@ void do_move(grid g,dir d){
 
 static void decalage(grid g,dir d){
     switch(d){
-        case RIGHT:
-	  int x_libre=GRID_SIDE-1;
-	  for(int j=0;j<GRID_SIDE;j++){
-	    for(int i=GRID_SIDE-1;i>=0;i--){
-	      if(g->g[i][j]!=0){
-		g[x_libre][j]=g[i][j];
-		x_libre++;
-	      }
-	    }
+
+    case RIGHT:
+      int x_libre=GRID_SIDE-1;
+      for(int j=0;j<GRID_SIDE;j++){
+	x_libre=GRID_SIDE-1;
+	for(int i=GRID_SIDE-1;i>=0;i--){
+	  if(g->g[i][j]!=0){
+	    g[x_libre][j]=g[i][j];
+	    x_libre--;
 	  }
-    }
+	}
+      }
+    break;
+
+
+    case LEFT:
+      int x_libre=0;
+      for(int j=0;j<GRID_SIDE;j++){
+	x_libre=0;
+	for(int i=0;i<GRID_SIDE;i++){
+	  if(g->g[i][j]!=0){
+	    g[x_libre][j]=g[i][j];
+	    x_libre++;
+	  }
+	}
+      }
+      break;
+
+    case UP:
+      int y_libre=0;
+      for(int i=0;i<GRID_SIDE;i++){
+	y_libre=0;
+	for(int j=0;j<GRID_SIDE;j++){
+	  if(g->g[i][j]!=0){
+	    g[i][y_libre]=g[i][j];
+	    y_libre++;
+	  }
+	}
+      }
+      break;
 
 }
 void static fusion (grid g, dir d){
