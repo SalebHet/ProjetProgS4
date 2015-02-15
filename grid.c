@@ -220,7 +220,7 @@ bool can_move (grid g, dir d)
   }
 }
 
-<<<<<<< HEAD
+
 static void decalage(grid g,dir d){
     switch(d){
         case RIGHT:
@@ -231,7 +231,6 @@ static void decalage(grid g,dir d){
     }
 
     }
-=======
 void static fusion (grid g, dir d){
     switch(d){
     case UP:
@@ -245,5 +244,5 @@ void static fusion (grid g, dir d){
             decaler(g, UP);
         }
     }
->>>>>>> origin/master
+
 }
