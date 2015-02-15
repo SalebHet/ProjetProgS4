@@ -42,5 +42,5 @@ unsigned long int grid_score (grid g){
 }
 
 bool game_over (grid g){
-    return not(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
+    return !(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
 }
