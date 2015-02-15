@@ -51,6 +51,22 @@ bool game_over (grid g){
     return !(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
 }
 
+void add_tile(grid g){
+    int x = rand_a_b(0, 4);
+    int y = rand_a_b(0, 4);
+    int alea = rand_a_b(0, 9);
+    int bouh = 0;
+    if (alea <= 4){
+        bouh = 2;
+    }
+    else{
+        bouh = 4;
+    }
+    if (g[x][y] == 0){
+        set_tile(g, x, y, bouh);
+    }
+    add_tile(g);
+}
 
 void play(grid gr,dir d){
     do_move (grid gr, dir d);
