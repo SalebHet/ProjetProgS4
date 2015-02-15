@@ -142,26 +142,29 @@ void play(grid gr,dir d){
     do_move (grid gr, dir d);
     add_tile(g);
 }
+
 bool can_move (grid g, dir d)
 {
-  unsigned int tmp;
-  boolean void_tile;
+  unsigned int tmp;//contient la valeur de la case précédente
+  boolean void_tile;//vaut vrai si il existe une case précédente qui est vide
   switch(d)
   {
   case UP:
     for(int i=0;i<GRID_SIDE;i++)
     {
-      tmp=g->g[i][0];
-      void_tile=false;
+      tmp=g->g[i][0];//on initialise à la valeur de la première case
+      void_tile=false;//et on a pas encore eu de cases vides
       for(int j=1;j<GRID_SIDE;j++)
       {      
-	if(g->g[i][j]==0)
-	  void_tile=true;
-	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
-	  return true;
+	if(g->g[i][j]==0)//si la case est vide
+	  void_tile=true;//alors on marque que on a rencontré une case vide
+	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )//si la case actuelle est la meme que la précedente alors on pourra les fusionner
+	                                                 //et si la case est non vide et qu'on a rencontré une case vide alors on pourra 
+                                                         //décaller
+	  return true;//donc on renvoi vrai
       }
     }
-    return false;
+    return false;//si on a jamais renvoyé vrais alors on ne peut rien faire
     break;
 
   case DOWN:
