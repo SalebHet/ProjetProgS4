@@ -1,4 +1,6 @@
 #include "grid.h"
+#include <time.h>
+#include <stdlib.h>
 
 struct grid_s{
     tile g [GRID_SIDE][GRIDE_SIDE];
