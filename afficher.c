@@ -28,7 +28,7 @@ void afficher(grid g){
   char *nb;
   int val;
   for(int i=0;i<GRID_SIDE;i++){
-    for(int j=0;j<GRID_SIDE;j++){//la taille maxi d'un nombre est de 6,6*4+4+2=29
+    for(int j=0;j<GRID_SIDE;j++){
       val=get_tile(g,i,j);
       if(val!=0)
 	val=pow(2,val);
@@ -39,6 +39,5 @@ void afficher(grid g){
     printf("|\n");
     afficherLigne();
   }
-  afficherLigne();
 }
 
