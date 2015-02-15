@@ -221,13 +221,13 @@ bool can_move (grid g, dir d)
 }
 
 
-void do_move(grid g,dir d)
-{
+void do_move(grid g,dir d){
   while(can_move(g,d)){
     decalage(g,d);
     fusion(g,d);
   }
 }
+
 static void decalage(grid g,dir d){
     switch(d){
         case RIGHT:
