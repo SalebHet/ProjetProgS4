@@ -220,7 +220,8 @@ bool can_move (grid g, dir d)
   }
 }
 
-void decalage(grid g,dir d){
+<<<<<<< HEAD
+static void decalage(grid g,dir d){
     switch(d){
         case RIGHT:
             for (int i=GRID_SIDE-2;i>=0;i--){
@@ -230,4 +231,19 @@ void decalage(grid g,dir d){
     }
 
     }
+=======
+void static fusion (grid g, dir d){
+    switch(d){
+    case UP:
+        for (int j = 0, j<=3, j++){
+            for (int i = 0, i<3, i++){
+                if (g[i][xy] == g[i+1][xy]){
+                    g[i][xy]+=g[i+1][xy];
+                    g[i+1][xy]=0;
+                }
+            }
+            decaler(g, UP);
+        }
+    }
+>>>>>>> origin/master
 }
