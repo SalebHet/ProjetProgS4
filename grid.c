@@ -27,9 +27,17 @@ void copy_grid (grid src, grid dst){
         }
 }
 
+tile get_tile (grid gr, int x, int y){
+    return gr->g[x][y];
+    }
+void set_tile (grid gr, int x, int y, tile t){
+    gr->g[x][y]=t;
+}
+
 unsigned long int grid_score (grid g){
     return g->score;
 }
+
 bool game_over (grid g){
     return not(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
 }
