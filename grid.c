@@ -5,7 +5,7 @@ struct grid_s{
     unsigned int score;
     };
 grid newGrid(){
-    grid gr;
+    grid gr = malloc(sizeof(struct grid_s));
     gr->score=0;
     for(int i=0;i<GRID_SIDE,i++){
             for(int j=0;j<GRID_SIDE;j++){
