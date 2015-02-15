@@ -195,8 +195,11 @@ bool can_move (grid g, dir d)
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
 	  return true;
       }
+    }
+    return false;
+    break;
 
-    case RIGHT:
+  case RIGHT:
     for(int j=0;i<GRID_SIDE;j++)
     {
       tmp=g->g[i][0];
