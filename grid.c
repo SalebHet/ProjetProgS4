@@ -224,13 +224,16 @@ bool can_move (grid g, dir d)
 static void decalage(grid g,dir d){
     switch(d){
         case RIGHT:
-            for (int i=GRID_SIDE-2;i>=0;i--){
+            for (int i=GRID_SIDE-1;i>0;i--){
                 for (int j=0;j<GRID_SIDE;j++){
-                    g->g[i+1][j]+=g->g[i][j];
+                    if(g->g[i][j]==0)
+                        g->g[i][j]=g->g[i-1][j];
+            }
         }
-    }
 
     }
+
+}
 void static fusion (grid g, dir d){
     switch(d){
     case UP:
