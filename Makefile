@@ -1,17 +1,22 @@
-#Makefile
-#le compilateur
 CC= gcc
-#les flags de compilation
-CFLAGS=-std=c99 -Wall -Werror -g
+CFLAGS= -Wall -Werror 
+CPPFLAGS= 
+LDFLAGS= 
+VPATH= 
+CPPFLAGS= 
+LDLIBS=
+SOURCES=grid.c
+OUTFILES=
 
-OUTFILE=test-rationnel
 
-OBJS= grid.o
-
-#LDLIBS=-lm
+all :grid.a
 
 
-$(OUTFILE): $(OBJS)
+grid.a : grid.o
+	ar -cr grid.o
 
-grid.o: grid.c grid.h
-clean: rm -f $(OBJS) $(OUTFILE)
+grid.o:grid.o grid.h
+
+.PHONY: clean
+clean:
+	-rm -f grid.a grid.o
