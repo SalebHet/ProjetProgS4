@@ -227,6 +227,7 @@ void do_move(grid g,dir d)
     decalage(g,d);
     fusion(g,d);
   }
+
 static void decalage(grid g,dir d){
     switch(d){
         case RIGHT:
@@ -236,6 +237,13 @@ static void decalage(grid g,dir d){
                         g->g[i][j]=g->g[i-1][j];
             }
         }
+        case LEFT:
+            for (int i=0;i<GRID_SIDE-1;i++){
+                for (int j=0;j<GRID_SIDE;j++){
+                    if(g->g[i][j]==0)
+                        g->g[i][j]=g->g[i+1][j];
+                }
+            }
 
     }
 
