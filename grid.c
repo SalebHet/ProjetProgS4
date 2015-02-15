@@ -56,16 +56,17 @@ void add_tile(grid g){
     int y = rand_a_b(0, 4);
     int alea = rand_a_b(0, 9);
     int bouh = 0;
-    if (alea <= 4){
+    while (g[x][y]!=0){
+        x = rand_a_b(0, 4);
+        y = rand_a_b(0, 4);
+    }
+    if (alea == 0){
         bouh = 2;
     }
     else{
-        bouh = 4;
+        bouh = 1;
     }
-    if (g[x][y] == 0){
-        set_tile(g, x, y, bouh);
-    }
-    add_tile(g);
+    set_tile(g, x, y, bouh);
 }
 
 void play(grid gr,dir d){
