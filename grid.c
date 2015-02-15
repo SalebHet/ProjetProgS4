@@ -17,6 +17,15 @@ grid new_grid(){
 void delete_grid(grid g){
     free(g);
     }
+
+void copy_grid (grid src, grid dst){
+    dst->score=src->score;
+    for(int i=0;i<GRID_SIDE,i++){
+            for(int j=0;j<GRID_SIDE;j++){
+                dst->g[i][j]=src->g[i][j];
+            }
+        }
+}
 bool game_over (grid g){
     return not(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
 }
