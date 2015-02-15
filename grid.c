@@ -7,7 +7,7 @@ struct grid_s{
     unsigned long int score;
 };
 
-int rand_a_b(int a, int b){
+static int rand_a_b(int a, int b){
     return rand()%(b-a) +a;
 }
 
@@ -217,5 +217,14 @@ bool can_move (grid g, dir d)
     }
     return false;
     break;
+  }
+}
+
+
+void do_move(grid g,dir d)
+{
+  while(can_move(g,d)){
+    decalage(g,d);
+    fusion(g,d);
   }
 }
