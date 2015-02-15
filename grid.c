@@ -4,6 +4,7 @@ struct grid_s{
     tile g [GRID_SIDE][GRIDE_SIDE];
     unsigned long int score;
     };
+
 grid new_grid(){
     grid gr = malloc(sizeof(struct grid_s));
     gr->score=0;
@@ -14,6 +15,7 @@ grid new_grid(){
         }
     return gr;
     }
+
 void delete_grid(grid g){
     free(g);
     }
@@ -30,6 +32,7 @@ void copy_grid (grid src, grid dst){
 tile get_tile (grid gr, int x, int y){
     return gr->g[x][y];
     }
+
 void set_tile (grid gr, int x, int y, tile t){
     gr->g[x][y]=t;
 }
