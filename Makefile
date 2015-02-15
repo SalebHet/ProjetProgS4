@@ -1,4 +1,4 @@
-CC= gcc
+ridCC= gcc
 CFLAGS= -Wall -Werror 
 CPPFLAGS= 
 LDFLAGS= 
@@ -9,14 +9,14 @@ SOURCES=grid.c
 OUTFILES=
 
 
-all :grid.a
+all :libgrid.a
 
 
-grid.a : grid.o
-	ar -cr grid.o
+libgrid.a : grid.o
+	ar -cr libgrid.a grid.o
 
 grid.o:grid.o grid.h
 
 .PHONY: clean
 clean:
-	-rm -f grid.a grid.o
+	-rm -f libgrid.a grid.o
