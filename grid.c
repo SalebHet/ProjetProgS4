@@ -4,7 +4,7 @@ struct grid_s{
     tile g [GRID_SIDE][GRIDE_SIDE];
     unsigned int score;
     };
-grid newGrid(){
+grid new_grid(){
     grid gr = malloc(sizeof(struct grid_s));
     gr->score=0;
     for(int i=0;i<GRID_SIDE,i++){
@@ -14,7 +14,9 @@ grid newGrid(){
         }
     return gr;
     }
-
+void delete_grid(grid g){
+    free(g);
+    }
 bool game_over (grid g){
     return not(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
 }
