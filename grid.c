@@ -252,14 +252,41 @@ static void decalage(grid g,dir d){
 void static fusion (grid g, dir d){
     switch(d){
     case UP:
-        for (int j = 0, j<=3, j++){
-            for (int i = 0, i<3, i++){
-                if (g[i][xy] == g[i+1][xy]){
-                    g[i][xy]+=g[i+1][xy];
-                    g[i+1][xy]=0;
+        for (int y = 0, y<=3, y++){
+            for (int x = 0, i<3, x++){
+                if (g->g[x][y] == g->g[x+1][y]){
+                    g->g[x][y] += g->g[x+1][y];
+                    g->g[x+1][y] = 0;
                 }
             }
-            decaler(g, UP);
+        }
+    case DOWN:
+        for (int y = 0, y<=3, y++){
+            for (int x = 3, x > 0, x--){
+                if (g->g[x][y]==g->g[x-1][y]){
+                    g-> g[x][y]+=g->g[x-1][y];
+                    g-> g[x-1][y] = 0;
+                }
+            }
+        }
+
+    case LEFT:
+        for (int x = 0, x<3, x++){
+            for (int y = 0, y<3, y++){
+                if (g->g[x][y]==g->g[x][y+1]){
+                    g-> g[x][y]+=g->g[x][y+1];
+                    g-> g[x][y+1] = 0;
+                }
+            }
+        }
+    case DOWN:
+        for (int x = 0, x<3, x++){
+            for (int y = 3, y>0, y--){
+                if (g->g[x][y]==g->g[x][y-1]){
+                    g-> g[x][y]+=g->g[x][y-1];
+                    g-> g[x][y-1] = 0;
+                }
+            }
         }
     }
 }
