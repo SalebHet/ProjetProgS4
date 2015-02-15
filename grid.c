@@ -5,7 +5,7 @@
 struct grid_s{
     tile g [GRID_SIDE][GRIDE_SIDE];
     unsigned long int score;
-    };
+};
 
 int rand_a_b(int a, int b){
     return rand()%(b-a) +a;
@@ -35,7 +35,7 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];
       void_tile=false;
       for(int j=1;j<GRID_SIDE;j++)
-      {      
+      {
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
@@ -51,7 +51,7 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];
       void_tile=false;
       for(int j=GRID_SIDE-2;j>=0;j--)
-      {      
+      {
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
@@ -67,7 +67,7 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];
       void_tile=false;
       for(int i=1;i<GRID_SIDE;i++)
-      {      
+      {
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
@@ -83,7 +83,7 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];
       void_tile=false;
       for(int i=GRID_SIDE-2;i>=0;i--)
-      {      
+      {
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
@@ -158,11 +158,11 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];//on initialise à la valeur de la première case
       void_tile=false;//et on a pas encore eu de cases vides
       for(int j=1;j<GRID_SIDE;j++)
-      {      
+      {
 	if(g->g[i][j]==0)//si la case est vide
 	  void_tile=true;//alors on marque que on a rencontré une case vide
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )//si la case actuelle est la meme que la précedente alors on pourra les fusionner
-	                                                 //et si la case est non vide et qu'on a rencontré une case vide alors on pourra 
+	                                                 //et si la case est non vide et qu'on a rencontré une case vide alors on pourra
                                                          //décaller
 	  return true;//donc on renvoi vrai
       }
@@ -176,7 +176,7 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];
       void_tile=false;
       for(int j=GRID_SIDE-2;j>=0;j--)
-      {      
+      {
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
@@ -192,7 +192,7 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];
       void_tile=false;
       for(int i=1;i<GRID_SIDE;i++)
-      {      
+      {
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
@@ -208,7 +208,7 @@ bool can_move (grid g, dir d)
       tmp=g->g[i][0];
       void_tile=false;
       for(int i=GRID_SIDE-2;i>=0;i--)
-      {      
+      {
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	if(tmp==g->g[i][j] || (g[i][j]!=0 && void_tile) )
