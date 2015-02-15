@@ -2,7 +2,7 @@
 
 struct grid_s{
     tile g [GRID_SIDE][GRIDE_SIDE];
-    unsigned int score;
+    unsigned long int score;
     };
 grid new_grid(){
     grid gr = malloc(sizeof(struct grid_s));
@@ -25,6 +25,10 @@ void copy_grid (grid src, grid dst){
                 dst->g[i][j]=src->g[i][j];
             }
         }
+}
+
+unsigned long int grid_score (grid g){
+    return g->score;
 }
 bool game_over (grid g){
     return not(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
