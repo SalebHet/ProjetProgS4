@@ -5,6 +5,10 @@ struct grid_s{
     unsigned long int score;
     };
 
+int rand_a_b(int a, int b){
+    return rand()%(b-a) +a;
+}
+
 grid new_grid(){
     grid gr = malloc(sizeof(struct grid_s));
     gr->score=0;
@@ -43,4 +47,10 @@ unsigned long int grid_score (grid g){
 
 bool game_over (grid g){
     return !(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
+}
+
+
+void play(grid gr,dir d){
+    do_move (grid gr, dir d);
+    add_tile(g);
 }
