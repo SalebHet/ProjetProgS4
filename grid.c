@@ -226,10 +226,8 @@ void do_move(grid g,dir d){
     decalage(g,d);
     fusion(g,d);
   }
-<<<<<<< HEAD
-=======
 }
->>>>>>> origin/master
+
 
 static void decalage(grid g,dir d){
     switch(d){
