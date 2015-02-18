@@ -266,6 +266,16 @@ static void decalage(grid g,dir d){
       break;
 
     case DOWN:
+      y_libre=GRID_SIDE-1;
+      for(int i=0;i<GRID_SIDE;i++){
+	y_libre=0;
+	for(int j=GRID_SIDE;j>=0;j--){
+	  if(g->g[i][j]!=0){
+	    g->g[i][y_libre]=g->g[i][j];
+	    y_libre--;
+	  }
+	}
+      }
       break;
     }
 
