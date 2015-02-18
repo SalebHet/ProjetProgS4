@@ -19,6 +19,8 @@ grid new_grid(){
       gr->g[i][j]=0;
     }
   }
+  add_tile(gr);
+  add_tile(gr);
   return gr;
 }
 
@@ -179,7 +181,7 @@ static void decalage(grid g,dir d){
 	  g->g[x_libre][j]=g->g[i][j];
 	  x_libre++;
 	}
-	  
+
       }
       for(;x_libre<GRID_SIDE;x_libre++){
 	g->g[x_libre][j]=0;
@@ -212,7 +214,7 @@ static void decalage(grid g,dir d){
 	  g->g[i][y_libre]=g->g[i][j];
 	  y_libre--;
 	}
-	  
+
       }
       for(;y_libre>-1;y_libre--){
         g->g[i][y_libre]=0;
