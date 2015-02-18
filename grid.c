@@ -232,6 +232,7 @@ static void decalage(grid g,dir d){
 	for(int i=GRID_SIDE-1;i>=0;i--){
 	  if(g->g[i][j]!=0){
 	    g->g[x_libre][j]=g->g[i][j];
+	    g->g[i][j]=0;
 	    x_libre--;
 	  }
 	}
@@ -246,6 +247,7 @@ static void decalage(grid g,dir d){
 	for(int i=0;i<GRID_SIDE;i++){
 	  if(g->g[i][j]!=0){
 	    g->g[x_libre][j]=g->g[i][j];
+	    g->g[i][j]=0;
 	    x_libre++;
 	  }
 	}
@@ -259,6 +261,7 @@ static void decalage(grid g,dir d){
 	for(int j=0;j<GRID_SIDE;j++){
 	  if(g->g[i][j]!=0){
 	    g->g[i][y_libre]=g->g[i][j];
+	    g->g[i][j]=0;
 	    y_libre++;
 	  }
 	}
@@ -272,6 +275,7 @@ static void decalage(grid g,dir d){
 	for(int j=GRID_SIDE;j>=0;j--){
 	  if(g->g[i][j]!=0){
 	    g->g[i][y_libre]=g->g[i][j];
+	    g->g[i][j]=0;
 	    y_libre--;
 	  }
 	}
