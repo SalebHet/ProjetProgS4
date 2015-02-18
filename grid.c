@@ -225,7 +225,7 @@ static void decalage(grid g,dir d){
   int x_libre,y_libre;
     switch(d){
 
-    case DOWN:
+    case RIGHT:
       x_libre=GRID_SIDE-1;
       for(int j=0;j<GRID_SIDE;j++){
 	x_libre=GRID_SIDE-1;
@@ -236,11 +236,16 @@ static void decalage(grid g,dir d){
 	    x_libre--;
 	  }
 	}
+	for(;x_libre>1;x_libre--){
+            g->g[x_libre][j]=0;
+
+	}
       }
+
       break;
 
 
-    case UP:
+    case LEFT:
       x_libre=0;
       for(int j=0;j<GRID_SIDE;j++){
 	x_libre=0;
@@ -250,11 +255,14 @@ static void decalage(grid g,dir d){
 	    g->g[i][j]=0;
 	    x_libre++;
 	  }
+	  for(;x_libre<GRID_SIDE;x_libre++){
+        g->g[x_libre][j]=0;
+	  }
 	}
       }
       break;
 
-    case LEFT:
+    case UP:
       y_libre=0;
       for(int i=0;i<GRID_SIDE;i++){
 	y_libre=0;
@@ -264,11 +272,14 @@ static void decalage(grid g,dir d){
 	    g->g[i][j]=0;
 	    y_libre++;
 	  }
+	  for(;y_libre<GRID_SIDE;y_libre++){
+        g->g[i][y_libre]=0;
+	  }
 	}
       }
       break;
 
-    case RIGHT:
+    case DOWN:
       y_libre=GRID_SIDE-1;
       for(int i=0;i<GRID_SIDE;i++){
 	y_libre=GRID_SIDE-1;
@@ -277,6 +288,9 @@ static void decalage(grid g,dir d){
 	    g->g[i][y_libre]=g->g[i][j];
 	    g->g[i][j]=0;
 	    y_libre--;
+	  }
+	  for(;y_libre>-1GRID_SIDE;y_libre--){
+        g->g[i][y_libre]=0;
 	  }
 	}
       }
