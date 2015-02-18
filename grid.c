@@ -313,10 +313,9 @@ void static fusion (grid g, dir d){
 }
 
 void do_move(grid g,dir d){
-  while(can_move(g,d)){
     decalage(g,d);
     fusion(g,d);
-  }
+    decalage(g,d);
 }
 
 
