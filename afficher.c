@@ -21,7 +21,10 @@ static char* itoa(int i){
 
 
 void afficherLigne(){
-    printf("+------+------+------+------+\n");
+  printf("+");
+  for(int i=0;i<GRID_SIDE;i++)
+    printf("------+");
+  printf("\n");
 }
 void afficher(grid g){
   afficherLigne();
