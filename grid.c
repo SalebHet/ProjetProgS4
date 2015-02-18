@@ -289,7 +289,7 @@ void static fusion (grid g, dir d){
     case LEFT:
       for (int y = 0; y<=GRID_SIDE-1; y++){
 	for (int x = 0; x<GRID_SIDE-1; x++){
-                if (g->g[x][y] == g->g[x+1][y]){
+                if (g->g[x][y]!=0 && g->g[x][y] == g->g[x+1][y]){
                     g->g[x][y] += 1;
                     g->g[x+1][y] = 0;
                 }
@@ -299,7 +299,7 @@ void static fusion (grid g, dir d){
     case RIGHT:
       for (int y = 0; y<=GRID_SIDE-1; y++){
 	for (int x = GRID_SIDE-1; x > 0; x--){
-                if (g->g[x][y]==g->g[x-1][y]){
+                if (g->g[x][y]!=0 && g->g[x][y]==g->g[x-1][y]){
                     g-> g[x][y]+=1;
                     g-> g[x-1][y] = 0;
                 }
@@ -309,7 +309,7 @@ void static fusion (grid g, dir d){
     case UP:
       for (int x = 0; x<GRID_SIDE-1; x++){
 	for (int y = 0; y<GRID_SIDE-1; y++){
-                if (g->g[x][y]==g->g[x][y+1]){
+                if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
                     g-> g[x][y]+= 1;
                     g-> g[x][y+1] = 0;
                 }
@@ -319,7 +319,7 @@ void static fusion (grid g, dir d){
     case DOWN:
       for (int x = 0; x<GRID_SIDE-1; x++){
 	for (int y = GRID_SIDE-1; y>0; y--){
-                if (g->g[x][y]==g->g[x][y+1]){
+                if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
                     g-> g[x][y]+=1;
                     g-> g[x][y+1] = 0;
                 }
@@ -331,8 +331,9 @@ void static fusion (grid g, dir d){
 
 void do_move(grid g,dir d){
     decalage(g,d);
+    //if(0)
     fusion(g,d);
-    decalage(g,d);
+    //decalage(g,d);
 }
 
 
