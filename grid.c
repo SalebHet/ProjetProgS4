@@ -291,6 +291,7 @@ void static fusion (grid g, dir d){
                 }
             }
         }
+      break;
     case RIGHT:
       for (int y = 0; y<=GRID_SIDE-1; y++){
 	for (int x = GRID_SIDE-1; x > 0; x--){
@@ -300,7 +301,7 @@ void static fusion (grid g, dir d){
                 }
             }
         }
-
+      break;
     case UP:
       for (int x = 0; x<GRID_SIDE-1; x++){
 	for (int y = 0; y<GRID_SIDE-1; y++){
@@ -310,6 +311,7 @@ void static fusion (grid g, dir d){
                 }
             }
         }
+      break;
     case DOWN:
       for (int x = 0; x<GRID_SIDE-1; x++){
 	for (int y = GRID_SIDE-1; y>0; y--){
@@ -319,14 +321,14 @@ void static fusion (grid g, dir d){
                 }
             }
         }
+      break;
     }
 }
 
 void do_move(grid g,dir d){
     decalage(g,d);
-    if(0)
-      fusion(g,d);
-    //decalage(g,d);
+    fusion(g,d);
+    decalage(g,d);
 }
 
 
