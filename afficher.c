@@ -27,8 +27,8 @@ void afficher(grid g){
   afficherLigne();
   char *nb;
   int val;
-  for(int i=0;i<GRID_SIDE;i++){
-    for(int j=0;j<GRID_SIDE;j++){
+  for(int j=0;j<GRID_SIDE;j++){
+    for(int i=0;i<GRID_SIDE;i++){
       val=get_tile(g,i,j);
       if(val!=0)
 	val=pow(2,val);
