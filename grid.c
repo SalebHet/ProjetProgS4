@@ -225,7 +225,7 @@ static void decalage(grid g,dir d){
   int x_libre,y_libre;
     switch(d){
 
-    case RIGHT:
+    case DOWN:
       x_libre=GRID_SIDE-1;
       for(int j=0;j<GRID_SIDE;j++){
 	x_libre=GRID_SIDE-1;
@@ -239,7 +239,7 @@ static void decalage(grid g,dir d){
       break;
 
 
-    case LEFT:
+    case UP:
       x_libre=0;
       for(int j=0;j<GRID_SIDE;j++){
 	x_libre=0;
@@ -252,7 +252,7 @@ static void decalage(grid g,dir d){
       }
       break;
 
-    case UP:
+    case LEFT:
       y_libre=0;
       for(int i=0;i<GRID_SIDE;i++){
 	y_libre=0;
@@ -265,10 +265,10 @@ static void decalage(grid g,dir d){
       }
       break;
 
-    case DOWN:
+    case RIGHT:
       y_libre=GRID_SIDE-1;
       for(int i=0;i<GRID_SIDE;i++){
-	y_libre=0;
+	y_libre=GRID_SIDE-1;
 	for(int j=GRID_SIDE;j>=0;j--){
 	  if(g->g[i][j]!=0){
 	    g->g[i][y_libre]=g->g[i][j];
@@ -313,9 +313,9 @@ void static fusion (grid g, dir d){
     case DOWN:
       for (int x = 0; x<GRID_SIDE-1; x++){
 	for (int y = GRID_SIDE-1; y>0; y--){
-                if (g->g[x][y]==g->g[x][y-1]){
+                if (g->g[x][y]==g->g[x][y+1]){
                     g-> g[x][y]+=1;
-                    g-> g[x][y-1] = 0;
+                    g-> g[x][y+1] = 0;
                 }
             }
         }
@@ -324,8 +324,9 @@ void static fusion (grid g, dir d){
 
 void do_move(grid g,dir d){
     decalage(g,d);
-    fusion(g,d);
-    decalage(g,d);
+    if(0)
+      fusion(g,d);
+    //decalage(g,d);
 }
 
 
