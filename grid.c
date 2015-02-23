@@ -19,8 +19,6 @@ grid new_grid(){
       gr->g[i][j]=0;
     }
   }
-  add_tile(gr);
-  add_tile(gr);
   return gr;
 }
 
