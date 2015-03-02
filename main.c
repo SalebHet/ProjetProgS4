@@ -44,6 +44,6 @@ int main(){
             do_move(g,d);
             add_tile(g);
     }
-    printf("game over");
+    printf("game over \n");
     return EXIT_SUCCESS;
 }

@@ -12,6 +12,7 @@ static int rand_a_b(int a, int b){
 }
 
 grid new_grid(){
+    srand(time(NULL));
   grid gr = malloc(sizeof(struct grid_s));
   gr->score=0;
   for(int i=0;i<GRID_SIDE;i++){
