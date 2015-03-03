@@ -52,7 +52,7 @@ bool can_move (grid g, dir d)
     case DOWN:
       for(int i=0;i<GRID_SIDE;i++)
 	{
-	  tmp=g->g[i][0];
+	  tmp=g->g[i][GRID_SIDE-1];
 	  void_tile=tmp==0;
 	  for(int j=GRID_SIDE-2;j>=0;j--)
 	    {
@@ -90,7 +90,7 @@ bool can_move (grid g, dir d)
     case RIGHT:
       for(int j=0;j<GRID_SIDE;j++)
 	{
-	  tmp=g->g[0][j];
+	  tmp=g->g[GRID_SIDE-1][j];
 	  void_tile=tmp==0;
 	  for(int i=GRID_SIDE-2;i>=0;i--)
 	    {
