@@ -4,7 +4,9 @@
 #include <stdlib.h>
 
 dir getDir(){
-    char c = getchar();
+  while(true){
+  char c = getchar();
+    
     switch(c){
         case 'z':
             return UP;
@@ -14,7 +16,9 @@ dir getDir(){
             return DOWN;
         case 'd':
             return RIGHT;
+
     }
+  }
 }
 /*
 int main(){
@@ -40,9 +44,12 @@ int main(){
     while(!game_over(g)){
         afficher(g);
         dir d = getDir();
-        if(can_move(g,d))
-            do_move(g,d);
-            add_tile(g);
+        if(can_move(g,d)){
+	  do_move(g,d);
+	  add_tile(g);
+	}
+	else
+	  printf("mouvement impossible\n");
     }
     printf("game over \n");
     return EXIT_SUCCESS;
