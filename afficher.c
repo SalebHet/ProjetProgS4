@@ -8,11 +8,11 @@
 
 static char* itoa(int i){
   char* ret=malloc(7*sizeof(char));
-  char* copie=ret;
+  char* copie=ret+5;
   memset(ret,' ',6);
   while(i!=0){
     *copie=(i%10)+48;
-    copie++;
+    copie--;
     i/=10;
   }
   ret[6]='\0';
