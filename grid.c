@@ -248,7 +248,7 @@ void static fusion (grid g, dir d){
     break;
   case RIGHT:
     for (int y = 0; y<=GRID_SIDE-1; y++){
-      for (int x = GRID_SIDE-2; x >= 0; x--){
+      for (int x = GRID_SIDE-1; x >= 0; x--){
 	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x-1][y]){
 	  g-> g[x][y]+=1;
 	  g-> g[x-1][y] = 0;
