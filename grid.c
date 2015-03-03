@@ -39,8 +39,11 @@ bool can_move (grid g, dir d)
 	    {
 	      if(g->g[i][j]==0)
 		void_tile=true;
-	      if(tmp==g->g[i][j] || (g->g[i][j]!=0 && void_tile) )
-		return true;
+	      else{
+		if(tmp==g->g[i][j] || void_tile )
+		  return true;
+		tmp=g->g[i][j];
+	      }
 	    }
 	}
       return false;
@@ -55,8 +58,11 @@ bool can_move (grid g, dir d)
 	    {
 	      if(g->g[i][j]==0)
 		void_tile=true;
-	      if(tmp==g->g[i][j] || (g->g[i][j]!=0 && void_tile) )
-		return true;
+	      else{
+		if(tmp==g->g[i][j] ||  void_tile )
+		  return true;
+		tmp=g->g[i][j];
+	      }
 	    }
 	}
       return false;
@@ -71,8 +77,11 @@ bool can_move (grid g, dir d)
 	    {
 	      if(g->g[i][j]==0)
 		void_tile=true;
-	      if(tmp==g->g[i][j] || (g->g[i][j]!=0 && void_tile) )
-		return true;
+	      else{
+		if(tmp==g->g[i][j] || void_tile )
+		  return true;
+		tmp=g->g[i][j];
+	      }
 	    }
 	}
       return false;
@@ -87,8 +96,11 @@ bool can_move (grid g, dir d)
 	    {
 	      if(g->g[i][j]==0)
 		void_tile=true;
-	      if(tmp==g->g[i][j] || (g->g[i][j]!=0 && void_tile) )
-		return true;
+	      else{
+		if(tmp==g->g[i][j] || void_tile )
+		  return true;
+		tmp=g->g[i][j];
+	      }
 	    }
 	}
       return false;
