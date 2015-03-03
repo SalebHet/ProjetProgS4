@@ -3,7 +3,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+dir getDir(){
+    char c = getchar();
+    switch(c){
+        case 'z':
+            return UP;
+        case 'q':
+            return LEFT;
+        case 's':
+            return DOWN;
+        case 'd':
+            return RIGHT;
+    }
+}
+/*
 int main(){
     grid g = new_grid();
     set_tile(g,1,2,2);
@@ -17,5 +30,20 @@ int main(){
     do_move(g,LEFT);
     afficher(g);
     delete_grid(g);
+    return EXIT_SUCCESS;
+}*/
+
+int main(){
+    grid g = new_grid();
+    add_tile(g);
+    add_tile(g);
+    while(!game_over(g)){
+        afficher(g);
+        dir d = getDir();
+        if(can_move(g,d))
+            do_move(g,d);
+            add_tile(g);
+    }
+    printf("game over \n");
     return EXIT_SUCCESS;
 }

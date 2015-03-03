@@ -12,6 +12,7 @@ static int rand_a_b(int a, int b){
 }
 
 grid new_grid(){
+    srand(time(NULL));
   grid gr = malloc(sizeof(struct grid_s));
   gr->score=0;
   for(int i=0;i<GRID_SIDE;i++){
@@ -179,7 +180,7 @@ static void decalage(grid g,dir d){
 	  g->g[x_libre][j]=g->g[i][j];
 	  x_libre++;
 	}
-	  
+
       }
       for(;x_libre<GRID_SIDE;x_libre++){
 	g->g[x_libre][j]=0;
@@ -212,7 +213,7 @@ static void decalage(grid g,dir d){
 	  g->g[i][y_libre]=g->g[i][j];
 	  y_libre--;
 	}
-	  
+
       }
       for(;y_libre>-1;y_libre--){
         g->g[i][y_libre]=0;
