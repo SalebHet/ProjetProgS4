@@ -34,7 +34,7 @@ bool can_move (grid g, dir d)
       for(int i=0;i<GRID_SIDE;i++)
 	{
 	  tmp=g->g[i][0];
-	  void_tile=false;
+	  void_tile=tmp==0;
 	  for(int j=1;j<GRID_SIDE;j++)
 	    {
 	      if(g->g[i][j]==0)
@@ -50,7 +50,7 @@ bool can_move (grid g, dir d)
       for(int i=0;i<GRID_SIDE;i++)
 	{
 	  tmp=g->g[i][0];
-	  void_tile=false;
+	  void_tile=tmp==0;
 	  for(int j=GRID_SIDE-2;j>=0;j--)
 	    {
 	      if(g->g[i][j]==0)
@@ -66,7 +66,7 @@ bool can_move (grid g, dir d)
       for(int j=0;j<GRID_SIDE;j++)
 	{
 	  tmp=g->g[0][j];
-	  void_tile=false;
+	  void_tile=tmp==0;
 	  for(int i=1;i<GRID_SIDE;i++)
 	    {
 	      if(g->g[i][j]==0)
@@ -82,7 +82,7 @@ bool can_move (grid g, dir d)
       for(int j=0;j<GRID_SIDE;j++)
 	{
 	  tmp=g->g[0][j];
-	  void_tile=false;
+	  void_tile=tmp==0;
 	  for(int i=GRID_SIDE-2;i>=0;i--)
 	    {
 	      if(g->g[i][j]==0)
@@ -245,7 +245,7 @@ void static fusion (grid g, dir d){
     }
     break;
   case UP:
-    for (int x = 0; x<GRID_SIDE-1; x++){
+    for (int x = 0; x<=GRID_SIDE-1; x++){
       for (int y = 0; y<GRID_SIDE-1; y++){
 	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
 	  g-> g[x][y]+= 1;
@@ -255,7 +255,7 @@ void static fusion (grid g, dir d){
     }
     break;
   case DOWN:
-    for (int x = 0; x<GRID_SIDE-1; x++){
+    for (int x = 0; x<=GRID_SIDE-1; x++){
       for (int y = GRID_SIDE-1; y>0; y--){
 	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
 	  g-> g[x][y]+=1;
