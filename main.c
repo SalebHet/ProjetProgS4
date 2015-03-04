@@ -6,7 +6,7 @@
 dir getDir(){
   while(true){
   char c = getchar();
-    
+
     switch(c){
         case 'z':
             return UP;
@@ -51,6 +51,8 @@ int main(){
 	else
 	  printf("mouvement impossible\n");
     }
+    afficher(g);
     printf("game over \n");
+    delete_grid(g);
     return EXIT_SUCCESS;
 }
