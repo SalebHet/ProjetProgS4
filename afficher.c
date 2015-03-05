@@ -6,8 +6,8 @@
 
 #include "afficher.h"
 
-static char* itoa(int i){
-  char* ret=malloc(7*sizeof(char));
+static char* itoa(int i){ //Permet de transformer un entier en chaine de charactère
+  char* ret=malloc(7*sizeof(char)); //Alloue l'espace mémoire permettant d'afficher une chaine de 7 charactères.
   char* copie=ret+5;
   memset(ret,' ',6);
   while(i!=0){
@@ -20,13 +20,13 @@ static char* itoa(int i){
 }
 
 
-void afficherLigne(){
+void afficherLigne(){ //Fonction permettant d'afficher une ligne horizontale à la taille de la grille
   printf("+");
   for(int i=0;i<GRID_SIDE;i++)
     printf("------+");
   printf("\n");
 }
-void afficher(grid g){
+void afficher(grid g){  //Affiche l'ensemble d'une grid
   afficherLigne();
   char *nb;
   int val;
@@ -34,10 +34,10 @@ void afficher(grid g){
     for(int i=0;i<GRID_SIDE;i++){
       val=get_tile(g,i,j);
       if(val!=0)
-	val=pow(2,val);
+	val=pow(2,val); //Transforme la valeur logarithmique en valeur décimale
       nb=itoa(val);
       printf("|%s",nb);
-      free(nb);
+      free(nb); //Libère la mémoire employer par la chaine de charactère
     }
     printf("|\n");
     afficherLigne();

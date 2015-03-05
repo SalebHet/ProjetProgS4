@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-dir getDir(){
+dir getDir(){  //Fonction permettant de récupérer une touche du clavier et d'y associer une direction
   while(true){
   char c = getchar();
 
@@ -38,22 +38,22 @@ int main(){
 }*/
 
 int main(){
-    grid g = new_grid();
-    add_tile(g);
+    grid g = new_grid(); //Création de la grille de jeu
+    add_tile(g); //ajout des 2 première tiles pour le jeux
     add_tile(g);
     printf("z, q, s ou d et 'entrée' pour faire un mouvement\n");
-    while(!game_over(g)){
-        afficher(g);
-        dir d = getDir();
-        if(can_move(g,d)){
-	  play(g,d);
+    while(!game_over(g)){ //Boucle jusqu'à la fin de la partie
+        afficher(g); //Affiche la grille à chaque mouvement
+        dir d = getDir(); //Récupère la direction pour le prochain tour
+        if(can_move(g,d)){ //Vérifie si le mouvement est possible
+	  play(g,d); //Effectue le mouvement si le mouvement est possible
 
 	}
 	else
-	  printf("mouvement impossible\n");
+	  printf("mouvement impossible\n"); //Indique que le mouvement n'est pas possible
     }
-    afficher(g);
-    printf("game over \n");
-    delete_grid(g);
+    afficher(g); //Affiche la grid lors du dernier tour
+    printf("game over \n"); //Affiche que la partie est terminer
+    delete_grid(g); //Supprime la Grid
     return EXIT_SUCCESS;
 }
