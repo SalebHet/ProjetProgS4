@@ -41,6 +41,7 @@ int main(){
     grid g = new_grid();
     add_tile(g);
     add_tile(g);
+    printf("z, q, s ou d et 'entrée' pour faire un mouvement\n");
     while(!game_over(g)){
         afficher(g);
         dir d = getDir();
