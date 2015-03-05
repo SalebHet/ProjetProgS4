@@ -22,12 +22,67 @@ grid new_grid(){ // Fonction permettant l'instantiation d'une nouvelle grille
   }
   return gr;
 }
-
+bool not_over(int i,dir d)
+{
+  if(d==1)
+    return i<GRID_SIDE;
+  else
+    return i>=0;
+}
 
 bool can_move (grid g, dir d)
 {
+  int d2,i,j,dep;
+  int *inc1,*inc2;
+
+  switch(d){
+  case UP:
+  case LEFT:
+    d2=1;
+    dep=0;
+    break;
+
+  case DOWN:
+  case RIGHT:
+    d2=-1;
+    dep=GRID_SIDE-1;
+    break;
+  }
+
+  switch(d){
+  case UP:
+  case DOWN:
+    inc1=&i;
+    inc2=&j;
+    break;
+
+  case LEFT:
+  case RIGHT:
+    inc1=&j;
+    inc2=&i;
+    break;
+  }
+  unsigned long int tmp;
+  bool void_tile;
+  for((*inc1)=dep;not_over(*inc1,d2);(*inc1)+=d2){
+    for((*inc2)=dep,tmp=g->g[i][j],void_tile=(tmp==0),(*inc2)++;not_over(*inc2,d2);(*inc2)+=d){
+      if(g->g[i][j]==0)
+	void_tile=true;
+      else{
+	if(tmp==g->g[i][j] || void_tile )
+	  return true;
+	tmp=g->g[i][j];
+      }
+    }
+  }
+
+  return false;
+      
+
+#if 0
   unsigned int tmp;
   bool void_tile;
+
   switch(d)
     {
     case UP:
@@ -107,6 +162,7 @@ bool can_move (grid g, dir d)
       break;
     }
   return false;
+#endif
 }
 void delete_grid(grid g){
   free(g);
