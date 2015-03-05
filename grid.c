@@ -65,7 +65,11 @@ bool can_move (grid g, dir d)
   unsigned long int tmp;
   bool void_tile;
   for((*inc1)=dep;not_over(*inc1,d2);(*inc1)+=d2){
-    for((*inc2)=dep,tmp=g->g[i][j],void_tile=(tmp==0),(*inc2)++;not_over(*inc2,d2);(*inc2)+=d2){
+    (*inc2)=dep;
+    tmp=g->g[i][j];
+    void_tile=(tmp==0);//si la case [i][j] vaut 0 alors on a rencontré une case vide
+    (*inc2)+=d2;//et on pase à la case suivante,on vient de traiter la première
+    for(;not_over(*inc2,d2);(*inc2)+=d2){
       if(g->g[i][j]==0)
 	void_tile=true;
       else{
