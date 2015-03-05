@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct grid_s{
-  tile g [GRID_SIDE][GRID_SIDE]; // On créer un tableau statique de tile nous servant à stoquer l'ensemble des tiles de notre grille.
+  tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
   unsigned long int score; //Variable permettant de stocker le score
 };
 
@@ -164,11 +164,11 @@ bool can_move (grid g, dir d)
   return false;
 #endif
 }
-void delete_grid(grid g){
+void delete_grid(grid g){ //Permet de libérer l'espace mémoire employer par une instance de grille
   free(g);
 }
 
-void copy_grid (grid src, grid dst){
+void copy_grid (grid src, grid dst){ // Fonction permettant de retourner une grille dans une nouvelle instance de grille
   dst->score=src->score;
   for(int i=0;i<GRID_SIDE;i++){
     for(int j=0;j<GRID_SIDE;j++){
@@ -177,43 +177,43 @@ void copy_grid (grid src, grid dst){
   }
 }
 
-tile get_tile (grid gr, int x, int y){
+tile get_tile (grid gr, int x, int y){ // Fonction retournant une tile situé en position (x,y) dans une instance de grid)
   return gr->g[x][y];
 }
 
-void set_tile (grid gr, int x, int y, tile t){
+void set_tile (grid gr, int x, int y, tile t){ //affecte une tile à une position(x,y) dans une grid
   gr->g[x][y]=t;
 }
 
-unsigned long int grid_score (grid g){
+unsigned long int grid_score (grid g){ //retourne le score d'une grid
   return g->score;
 }
 
-bool game_over (grid g){
+bool game_over (grid g){ // Evalue si un mouvement est encore possible dans une grid si ce n'est pas le cas retourne "game_over"
   return !(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
 }
 
-void add_tile(grid g){
-  int x = rand_a_b(0, 4);
-  int y = rand_a_b(0, 4);
-  int alea = rand_a_b(0, 9);
+void add_tile(grid g){ //Ajoute une tile de manière aléatoire dans une grid
+  int x = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position x
+  int y = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position y
+  int alea = rand_a_b(0, 10); //récupère un entier dans l'intervalle [0;10[ pour savoir si la tuile aura la valeur 2 ou 4
   int bouh = 0;
-  while (g->g[x][y]!=0){
+  while (g->g[x][y]!=0){ //Vérifie si la position trouvé n'est pas déjà occupé si c'est le cas retire une nouvelle position
     x = rand_a_b(0, 4);
     y = rand_a_b(0, 4);
   }
-  if (alea == 0){
+  if (alea == 0){ //Permet de voir si la valeur de la nouvelle tuile est de 4 (Une chance sur dix)
     bouh = 2;
   }
-  else{
+  else{ //Met la valeur de la tuile à 2
     bouh = 1;
   }
-  set_tile(g, x, y, bouh);
+  set_tile(g, x, y, bouh); // affecte la tuile dans la grid
 }
 
 void play(grid gr,dir d){
-  do_move (gr, d);
-  add_tile(gr);
+  do_move (gr, d); // Effectue le mouvement dans la direction donné en paramètre
+  add_tile(gr); // Ajoute une tile de manière aléatoire
 }
 
 static void decalage(grid g,dir d){
@@ -339,10 +339,10 @@ void static fusion (grid g, dir d){
   }
 }
 
-void do_move(grid g,dir d){
-  decalage(g,d);
-  fusion(g,d);
-  decalage(g,d);
+void do_move(grid g,dir d){ //Fonction permettant d'effectuer un mouvement
+  decalage(g,d); //Plaque l'ensemble des tuiles dans la direction donné en paramètre
+  fusion(g,d); //Fusionne les tuiles devant fusionner entre elle
+  decalage(g,d); //Replaque les tuiles dans la bonne direction
 }
 
 
