@@ -3,20 +3,20 @@
 #include <stdlib.h>
 
 struct grid_s{
-  tile g [GRID_SIDE][GRID_SIDE];
-  unsigned long int score;
+  tile g [GRID_SIDE][GRID_SIDE]; // On créer un tableau statique de tile nous servant à stoquer l'ensemble des tiles de notre grille.
+  unsigned long int score; //Variable permettant de stocker le score
 };
 
-static int rand_a_b(int a, int b){
+static int rand_a_b(int a, int b){ // fonction permettant de retourner un entier dans l'intervalle [a;b[
   return rand()%(b-a) +a;
 }
 
-grid new_grid(){
-    srand(time(NULL));
-  grid gr = malloc(sizeof(struct grid_s));
-  gr->score=0;
+grid new_grid(){ // Fonction permettant l'instantiation d'une nouvelle grille
+    srand(time(NULL)); // Initialisation de TIME pour le random
+  grid gr = malloc(sizeof(struct grid_s)); //Allocation mémoire pour la nouvelle instance de grille
+  gr->score=0; //Initialisation du score à 0
   for(int i=0;i<GRID_SIDE;i++){
-    for(int j=0;j<GRID_SIDE;j++){
+    for(int j=0;j<GRID_SIDE;j++){ //Initialisation de l'ensemble des tuiles à 0
       gr->g[i][j]=0;
     }
   }
