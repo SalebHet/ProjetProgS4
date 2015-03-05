@@ -46,8 +46,8 @@ int main(){
         afficher(g);
         dir d = getDir();
         if(can_move(g,d)){
-	  do_move(g,d);
-	  add_tile(g);
+	  play(g,d);
+
 	}
 	else
 	  printf("mouvement impossible\n");
