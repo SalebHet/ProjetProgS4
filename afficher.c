@@ -42,5 +42,6 @@ void afficher(grid g){  //Affiche l'ensemble d'une grid
     printf("|\n");
     afficherLigne();
   }
+  printf("Score: %d \n",grid_score(g));
 }
 

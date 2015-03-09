@@ -1,6 +1,7 @@
 #include "grid.h"
 #include <time.h>
 #include <stdlib.h>
+#include <math.h>
 
 struct grid_s{
   tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
@@ -81,7 +82,7 @@ bool can_move (grid g, dir d)
   }
 
   return false;
-      
+
 
 #if 0
   unsigned int tmp;
@@ -302,7 +303,7 @@ void static fusion (grid g, dir d){
 	if (g->g[x][y]!=0 && g->g[x][y] == g->g[x+1][y]){
 	  g->g[x][y] += 1;
 	  g->g[x+1][y] = 0;
-	  g->score=g->g[x][y];
+	  g->score+=pow(2,g->g[x][y]);
 	  x++;
 	}
       }
@@ -314,7 +315,7 @@ void static fusion (grid g, dir d){
 	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x-1][y]){
 	  g-> g[x][y]+=1;
 	  g-> g[x-1][y] = 0;
-	  g->score=g->g[x][y];
+	  g->score+=pow(2,g->g[x][y]);
 	  x--;
 	}
       }
@@ -326,7 +327,7 @@ void static fusion (grid g, dir d){
 	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
 	  g-> g[x][y]+= 1;
 	  g-> g[x][y+1] = 0;
-	  g->score=g->g[x][y];
+	  g->score+=pow(2,g->g[x][y]);
 	  y++;
 	}
       }
@@ -338,7 +339,7 @@ void static fusion (grid g, dir d){
 	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
 	  g-> g[x][y]+=1;
 	  g-> g[x][y+1] = 0;
-	  g->score=g->g[x][y];
+	  g->score+=pow(2,g->g[x][y]);
 	  y--;
 	}
       }
