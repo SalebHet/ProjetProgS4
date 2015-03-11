@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+static void turn(grid g);
+
 struct grid_s{
   tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
   unsigned long int score; //Variable permettant de stocker le score
@@ -355,5 +357,43 @@ void do_move(grid g,dir d){ //Fonction permettant d'effectuer un mouvement
 }
 
 
-
-
+/**
+ * \brief turn the grid in the anticlockwise
+ * \param g the grid
+ */
+static void turn(grid g)
+{
+  for(int x=0;x<GRID_SIDE/2;x++){
+    for(int y=0;y<(GRID_SIDE+1)/2;y++){
+      int oldx=x;
+      int oldy=y;
+      int tmp1=g->g[x][y];
+      for(int i=0;i<4;i++){
+	/*On va appliquer au point une rotation d'un quart de cercle.
+	  Rappel : si p est un point de la forme a+ib alors p*i vaut -b+ia et p*i est l'image de p après y avoir appliqué une rotion
+	  de PI/2 dans le sens antihorraire autour du sens du reperre.
+	  on décale donc le repère (et donc la tuile) afin que le centre du repère soit au centre de la grille
+	  Pour celà on applique une translation à la tuile de -GRID_SIDE/2;-GRID_SIDE/2
+	  on multiplie ensuite le point obtenu par PI puis on redécale le repère dans le sens opposé afin de remettre la grille à sa
+	  place d'origine.
+	  détails des calculs:
+	  translation:
+	  (a+ib)+(-GRID_SIDE/2-i*GRID_SIDE/2)=(a-GRID_SIDE/2) + i(b-GRID_SIDE/2)
+	  rotation:
+	  [a-GRID_SIDE/2 + i(b-GRID_SIDE/2)]*i=i*(a-GRID_SIDE/2) + i²(b-GRID_SIDE/2)= -(b-GRID_SIDE/2) + i*(a-GRID_SIDE/2)
+	  =-b+GRID_SIDE/2 + i*(a-GRID_SIDE/2)
+	  re-translation:
+	  -b+GRID_SIDE/2 + i*(a-GRID_SIDE/2) + (GRID_SIDE/2 +i*GRID_SIDE)
+	  =-b+2*GRID_SIDE/2 +i*a=-b+GRID_SIDE +i*a
+	 */
+	int newx=-oldy+GRID_SIDE;
+	int newy=oldx;
+	int tmp2=g->g[newx][newy];
+	g->g[newx][newy]=tmp1;
+	tmp1=tmp2;
+	oldx=newx;
+	oldy=newy;
+      }
+    }
+  }
+}
