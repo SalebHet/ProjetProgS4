@@ -4,8 +4,8 @@
 #include <math.h>
 
 static void turn(grid g);
-static void turningxtimes(grid g, int x);
 
+static void turningxtimes(grid g, int x);
 struct grid_s{
   tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
   unsigned long int score; //Variable permettant de stocker le score
@@ -298,7 +298,7 @@ static void decalage(grid g,dir d){
     break;
   }
 }
-void static fusion (grid g, dir d){
+/*void static fusion (grid g, dir d){
   switch(d){
   case LEFT:
     for (int y = 0; y<=GRID_SIDE-1; y++){
@@ -349,9 +349,9 @@ void static fusion (grid g, dir d){
     }
     break;
   }
-}
+}*/
 
-/*static void fusion (grid g, dir d){
+static void fusion (grid g, dir d){
     int rota1; // le nombre de rotation à faire avant la fusion
     int rota2; // le nombre de rotation à faire après la fusion
     switch (d){
@@ -384,7 +384,7 @@ void static fusion (grid g, dir d){
       }
     }
     turningxtimes(g, rota2);
-}*/
+}
 
 void do_move(grid g,dir d){ //Fonction permettant d'effectuer un mouvement
   decalage(g,d); //Plaque l'ensemble des tuiles dans la direction donné en paramètre
@@ -422,7 +422,7 @@ static void turn(grid g)
 	  -b+GRID_SIDE/2 + i*(a-GRID_SIDE/2) + (GRID_SIDE/2 +i*GRID_SIDE)
 	  =-b+2*GRID_SIDE/2 +i*a=-b+GRID_SIDE +i*a
 	 */
-        int newx=-oldy+GRID_SIDE;
+        int newx=-oldy+GRID_SIDE-1;
         int newy=oldx;
         int tmp2=g->g[newx][newy];
         g->g[newx][newy]=tmp1;
@@ -434,8 +434,8 @@ static void turn(grid g)
   }
 }
 
-/*static void turningxtimes (grid g,int x){
-    for (int i = 0; i<=x; i++){
+static void turningxtimes (grid g,int x){
+    for (int i = 0; i<x; i++){
         turn(g);
     }
-}*/
+}
