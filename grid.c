@@ -6,6 +6,24 @@
 static void turn(grid g);
 
 static void turningxtimes(grid g, int x);
+
+static int firstRota(dir d)
+{
+  switch (d){
+    case UP:
+        return 0;
+        break;
+    case LEFT:
+        return 1;
+        break;
+    case DOWN:
+        return 2;
+        break;
+    case RIGHT:
+        return 3;
+        break;
+    }
+}
 struct grid_s{
   tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
   unsigned long int score; //Variable permettant de stocker le score
@@ -36,141 +54,25 @@ bool not_over(int i,dir d)
 
 bool can_move (grid g, dir d)
 {
-  int d2,i,j,dep;
-  int *inc1,*inc2;
+  turningxtimes(g,firstRota(d));
 
-  switch(d){
-  case UP:
-  case LEFT:
-    d2=1;
-    dep=0;
-    break;
-
-  case DOWN:
-  case RIGHT:
-    d2=-1;
-    dep=GRID_SIDE-1;
-    break;
-  }
-
-  switch(d){
-  case UP:
-  case DOWN:
-    inc1=&i;
-    inc2=&j;
-    break;
-
-  case LEFT:
-  case RIGHT:
-    inc1=&j;
-    inc2=&i;
-    break;
-  }
-  unsigned long int tmp;
-  bool void_tile;
-  for((*inc1)=dep;not_over(*inc1,d2);(*inc1)+=d2){
-    (*inc2)=dep;
-    tmp=g->g[i][j];
-    void_tile=(tmp==0);//si la case [i][j] vaut 0 alors on a rencontré une case vide
-    (*inc2)+=d2;//et on pase à la case suivante,on vient de traiter la première
-    for(;not_over(*inc2,d2);(*inc2)+=d2){
-      if(g->g[i][j]==0)
-	void_tile=true;
-      else{
-	if(tmp==g->g[i][j] || void_tile )
-	  return true;
-	tmp=g->g[i][j];
+  for(int i=0;i<GRID_SIDE;i++){
+    int tmp=g->g[i][0];
+    bool void_tile= (tmp==0);
+    for(int j=1;j<GRID_SIDE;j++){
+	if(g->g[i][j]==0)
+	  void_tile=true;
+	else{
+	  if(tmp==g->g[i][j] || void_tile )
+	    return true;
+	  tmp=g->g[i][j];
+	}
       }
     }
-  }
-
   return false;
 
+  turningxtimes(g,secondRota(d));
 
-#if 0
-  unsigned int tmp;
-  bool void_tile;
-
-  switch(d)
-    {
-    case UP:
-      for(int i=0;i<GRID_SIDE;i++)
-	{
-	  tmp=g->g[i][0];
-	  void_tile=tmp==0;
-	  for(int j=1;j<GRID_SIDE;j++)
-	    {
-	      if(g->g[i][j]==0)
-		void_tile=true;
-	      else{
-		if(tmp==g->g[i][j] || void_tile )
-		  return true;
-		tmp=g->g[i][j];
-	      }
-	    }
-	}
-      return false;
-      break;
-
-    case DOWN:
-      for(int i=0;i<GRID_SIDE;i++)
-	{
-	  tmp=g->g[i][GRID_SIDE-1];
-	  void_tile=tmp==0;
-	  for(int j=GRID_SIDE-2;j>=0;j--)
-	    {
-	      if(g->g[i][j]==0)
-		void_tile=true;
-	      else{
-		if(tmp==g->g[i][j] ||  void_tile )
-		  return true;
-		tmp=g->g[i][j];
-	      }
-	    }
-	}
-      return false;
-      break;
-
-    case LEFT:
-      for(int j=0;j<GRID_SIDE;j++)
-	{
-	  tmp=g->g[0][j];
-	  void_tile=tmp==0;
-	  for(int i=1;i<GRID_SIDE;i++)
-	    {
-	      if(g->g[i][j]==0)
-		void_tile=true;
-	      else{
-		if(tmp==g->g[i][j] || void_tile )
-		  return true;
-		tmp=g->g[i][j];
-	      }
-	    }
-	}
-      return false;
-      break;
-
-    case RIGHT:
-      for(int j=0;j<GRID_SIDE;j++)
-	{
-	  tmp=g->g[GRID_SIDE-1][j];
-	  void_tile=tmp==0;
-	  for(int i=GRID_SIDE-2;i>=0;i--)
-	    {
-	      if(g->g[i][j]==0)
-		void_tile=true;
-	      else{
-		if(tmp==g->g[i][j] || void_tile )
-		  return true;
-		tmp=g->g[i][j];
-	      }
-	    }
-	}
-      return false;
-      break;
-    }
-  return false;
-#endif
 }
 void delete_grid(grid g){ //Permet de libérer l'espace mémoire employer par une instance de grille
   free(g);
