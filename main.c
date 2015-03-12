@@ -41,7 +41,7 @@ int main(){
     grid g = new_grid(); //Création de la grille de jeu
     add_tile(g); //ajout des 2 première tiles pour le jeux
     add_tile(g);
-    printf("z, q, s ou d et 'entrée' pour faire un mouvement\n");
+    printf("z, q, s ou d et 'entree' pour faire un mouvement\n");
     while(!game_over(g)){ //Boucle jusqu'à la fin de la partie
         afficher(g); //Affiche la grille à chaque mouvement
         dir d = getDir(); //Récupère la direction pour le prochain tour
