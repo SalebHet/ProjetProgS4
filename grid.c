@@ -4,8 +4,8 @@
 #include <math.h>
 
 static void turn(grid g);
-
 static void turningxtimes(grid g, int x);
+
 struct grid_s{
   tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
   unsigned long int score; //Variable permettant de stocker le score
@@ -224,7 +224,7 @@ void play(grid gr,dir d){
   add_tile(gr); // Ajoute une tile de manière aléatoire
 }
 
-static void decalage(grid g,dir d){
+/*static void decalage(grid g,dir d){
   int x_libre,y_libre;
   switch(d){
 
@@ -298,81 +298,37 @@ static void decalage(grid g,dir d){
     break;
   }
 }
-/*void static fusion (grid g, dir d){
-  switch(d){
-  case LEFT:
-    for (int y = 0; y<=GRID_SIDE-1; y++){
-      for (int x = 0; x<GRID_SIDE-1; x++){
-	if (g->g[x][y]!=0 && g->g[x][y] == g->g[x+1][y]){
-	  g->g[x][y] += 1;
-	  g->g[x+1][y] = 0;
-	  g->score+=pow(2,g->g[x][y]);
-	  x++;
-	}
+*/
+/**
+* \brief movement of the tiles upwards
+* \param g the grid
+* \param d the direction given by the user
+*/
+static void decalage(grid g,dir d){
+    int y_libre = 0;
+    turningxtimes(g, firstRota(d));
+    for(int i=0;i<GRID_SIDE;i++){
+      y_libre=0;
+      for(int j=0;j<GRID_SIDE;j++){
+        if(g->g[i][j]!=0){
+            g->g[i][y_libre]=g->g[i][j];
+            y_libre++;
+        }
+      }
+      for(;y_libre<GRID_SIDE;y_libre++){
+        g->g[i][y_libre]=0;
       }
     }
-    break;
-  case RIGHT:
-    for (int y = 0; y<=GRID_SIDE-1; y++){
-      for (int x = GRID_SIDE-1; x >= 0; x--){
-	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x-1][y]){
-	  g-> g[x][y]+=1;
-	  g-> g[x-1][y] = 0;
-	  g->score+=pow(2,g->g[x][y]);
-	  x--;
-	}
-      }
-    }
-    break;
-  case UP:
-    for (int x = 0; x<=GRID_SIDE-1; x++){
-      for (int y = 0; y<GRID_SIDE-1; y++){
-	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
-	  g-> g[x][y]+= 1;
-	  g-> g[x][y+1] = 0;
-	  g->score+=pow(2,g->g[x][y]);
-	  y++;
-	}
-      }
-    }
-    break;
-  case DOWN:
-    for (int x = 0; x<=GRID_SIDE-1; x++){
-      for (int y = GRID_SIDE-2; y>=0; y--){
-	if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
-	  g-> g[x][y]+=1;
-	  g-> g[x][y+1] = 0;
-	  g->score+=pow(2,g->g[x][y]);
-	  y--;
-	}
-      }
-    }
-    break;
-  }
-}*/
+    turningxtimes(g, secondRota(d));
+}
 
+/**
+ * \brief fusion between two consecutive tiles
+ * \param g the grid
+ * \param d the direction given by the user
+ */
 static void fusion (grid g, dir d){
-    int rota1; // le nombre de rotation à faire avant la fusion
-    int rota2; // le nombre de rotation à faire après la fusion
-    switch (d){
-    case UP:
-        rota1 = 0;
-        rota2 = 0;
-        break;
-    case LEFT:
-        rota1 = 1;
-        rota2 = 3;
-        break;
-    case DOWN:
-        rota1 = 2;
-        rota2 = 2;
-        break;
-    case RIGHT:
-        rota1 = 3;
-        rota2 = 1;
-        break;
-    }
-    turningxtimes(g, rota1);
+    turningxtimes(g, firstRota(d));
     for (int x = 0; x<=GRID_SIDE-1; x++){
       for (int y = GRID_SIDE-2; y>=0; y--){
         if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
@@ -383,9 +339,13 @@ static void fusion (grid g, dir d){
         }
       }
     }
-    turningxtimes(g, rota2);
+    turningxtimes(g, secondRota(d));
 }
-
+/**
+*\brief make a move
+*\param g the grid
+*\param d the direction given by the user
+*/
 void do_move(grid g,dir d){ //Fonction permettant d'effectuer un mouvement
   decalage(g,d); //Plaque l'ensemble des tuiles dans la direction donné en paramètre
   fusion(g,d); //Fusionne les tuiles devant fusionner entre elle
@@ -433,9 +393,17 @@ static void turn(grid g)
     }
   }
 }
-
+/**
+* \brief turn the grid x times
+* \param g the grid
+* \param x the number of times the grid will be turn
+*/
 static void turningxtimes (grid g,int x){
     for (int i = 0; i<x; i++){
         turn(g);
     }
+}
+
+static int secondeRota(dir d){
+    return ((4-firstRota(d))%4);
 }
