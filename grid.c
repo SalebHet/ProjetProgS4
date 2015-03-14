@@ -307,6 +307,6 @@ static void turningxtimes (grid g,int x){
     }
 }
 
-static int secondeRota(dir d){
+static int secondRota(dir d){
     return ((4-firstRota(d))%4);
 }
