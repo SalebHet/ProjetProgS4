@@ -64,15 +64,17 @@ bool can_move (grid g, dir d)
 	if(g->g[i][j]==0)
 	  void_tile=true;
 	else{
-	  if(tmp==g->g[i][j] || void_tile )
-	    return true;
+	  if(tmp==g->g[i][j] || void_tile ){
+        turningxtimes(g,secondRota(d));
+        return true;
+	  }
 	  tmp=g->g[i][j];
 	}
       }
     }
+    turningxtimes(g,secondRota(d));
   return false;
 
-  turningxtimes(g,secondRota(d));
 
 }
 void delete_grid(grid g){ //Permet de libérer l'espace mémoire employer par une instance de grille
@@ -158,12 +160,12 @@ static void decalage(grid g,dir d){
 static void fusion (grid g, dir d){
     turningxtimes(g, firstRota(d));
     for (int x = 0; x<=GRID_SIDE-1; x++){
-      for (int y = GRID_SIDE-2; y>=0; y--){
+      for (int y = 0; y<GRID_SIDE-1; y++){
         if (g->g[x][y]!=0 && g->g[x][y]==g->g[x][y+1]){
             g-> g[x][y]+=1;
             g-> g[x][y+1] = 0;
             g->score+=pow(2,g->g[x][y]);
-            y--;
+            y++;
         }
       }
     }
