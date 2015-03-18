@@ -20,7 +20,7 @@ static int firstRota(dir d)
     case DOWN:
         return 2;
         break;
-    case RIGHT:
+    default:
         return 3;
         break;
     }
