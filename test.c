@@ -5,11 +5,17 @@
 #include <stdbool.h>
 
 int main(){
+    printf("test initialisation:\n");
     test_init();
+    printf("test de add_tile:\n");
     test_add();
+    printf("test de can_move\n");
     test_can_move();
+    printf("test de game_over");
     test_over();
+    printf("test de play\n");
     test_play();
+    printf("test de do_move");
     test_do_play();
 }
 
@@ -18,14 +24,14 @@ void test_init(){
     for (int x = 0; x<GRID_SIDE; x++){
         for (int y = 0; y<GRID_SIDE; y++){
             if (get_tile(g, x, y)!=0){
-               printf("bug: initialisation, la grille n'est pas à 0");
+               printf("bug: initialisation, la grille n'est pas à 0\n");
                delete_grid(g);
                return;
             }
         }
     }
     delete_grid(g);
-    print("succes");
+    print("succes\n");
 }
 
 void test_add(){
@@ -38,7 +44,7 @@ void test_add(){
                 if (get_tile(g, i, j)==1 || get_tile(g, i, j)== 2)
                     nb_tile+=1;
                 else{
-                    printf("bug: add_tile, mauvaise valeur");
+                    printf("bug: add_tile, mauvaise valeur\n");
                     delete_grid(g);
                     return;
                 }
@@ -46,16 +52,16 @@ void test_add(){
         }
     }
     if (nb_tile > 1){
-        printf("bug: add_tile, trop de tuiles générées");
+        printf("bug: add_tile, trop de tuiles générées\n");
         delete_grid(g);
         return;
     }
     if (nb_tile == 0){
-        printf("bug: add_tile, aucune tuile définie");
+        printf("bug: add_tile, aucune tuile définie\n");
         delete_grid(g);
         return;
     }
-    printf("succes add_tile");
+    printf("succes add_tile\n");
     delete_grid(g);
 }
 
@@ -73,11 +79,11 @@ void test_over(){
         }
     }
     if (!game_over(g)){
-        printf("bug: game over");
+        printf("bug: game over\n");
         delete_grid(g);
         return;
     }
-    printf("succes game over");
+    printf("succes game over\n");
     delete_grid(g);
 }
 
@@ -91,11 +97,11 @@ void test_can_move(){
     }
     if ((can_move(g_u_d, UP) || can_move(g_u_d, DOWN) ||
          can_move(g_r_l, LEFT) || can_move(g_r_l, RIGHT)){
-        printf("bug can_move");
+        printf("bug can_move\n");
         delete_grid(g);
         return;
         }
-    printf("succes can_move");
+    printf("succes can_move\n");
     delete_grid(g);
 }
 void test_do_play(){
