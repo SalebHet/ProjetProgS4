@@ -7,7 +7,14 @@ static void turn(grid g);
 static void turningxtimes(grid g, int x);
 static int firstRota(dir d);
 static int secondRota(dir d);
+static int rand_a_b(int a,int b);
+static void fusion (grid g, dir d);
+static void decalage(grid g, dir d);
 
+/**
+ * \brief calculate the number of rotation needed for simulated that the direction is UP
+ * \param d the direction given by the user
+ */
 static int firstRota(dir d)
 {
   switch (d){
@@ -29,12 +36,14 @@ struct grid_s{
   tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
   unsigned long int score; //Variable permettant de stocker le score
 };
-
+/**
+ * \brief return an integer in the interval [a;b[ 
+ */
 static int rand_a_b(int a, int b){ // fonction permettant de retourner un entier dans l'intervalle [a;b[
   return rand()%(b-a) +a;
 }
 
-grid new_grid(){ // Fonction permettant l'instantiation d'une nouvelle grille
+grid new_grid(){
     srand(time(NULL)); // Initialisation de TIME pour le random
   grid gr = malloc(sizeof(struct grid_s)); //Allocation mémoire pour la nouvelle instance de grille
   gr->score=0; //Initialisation du score à 0
@@ -44,13 +53,6 @@ grid new_grid(){ // Fonction permettant l'instantiation d'une nouvelle grille
     }
   }
   return gr;
-}
-bool not_over(int i,dir d)
-{
-  if(d==1)
-    return i<GRID_SIDE;
-  else
-    return i>=0;
 }
 
 bool can_move (grid g, dir d)
@@ -77,11 +79,11 @@ bool can_move (grid g, dir d)
 
 
 }
-void delete_grid(grid g){ //Permet de libérer l'espace mémoire employer par une instance de grille
+void delete_grid(grid g){
   free(g);
 }
 
-void copy_grid (grid src, grid dst){ // Fonction permettant de retourner une grille dans une nouvelle instance de grille
+void copy_grid (grid src, grid dst){ 
   dst->score=src->score;
   for(int i=0;i<GRID_SIDE;i++){
     for(int j=0;j<GRID_SIDE;j++){
@@ -90,23 +92,23 @@ void copy_grid (grid src, grid dst){ // Fonction permettant de retourner une gri
   }
 }
 
-tile get_tile (grid gr, int x, int y){ // Fonction retournant une tile situé en position (x,y) dans une instance de grid)
+tile get_tile (grid gr, int x, int y){
   return gr->g[x][y];
 }
 
-void set_tile (grid gr, int x, int y, tile t){ //affecte une tile à une position(x,y) dans une grid
+void set_tile (grid gr, int x, int y, tile t){
   gr->g[x][y]=t;
 }
 
-unsigned long int grid_score (grid g){ //retourne le score d'une grid
+unsigned long int grid_score (grid g){ 
   return g->score;
 }
 
-bool game_over (grid g){ // Evalue si un mouvement est encore possible dans une grid si ce n'est pas le cas retourne "game_over"
+bool game_over (grid g){
   return !(can_move(g, UP) || can_move(g, DOWN) || can_move(g, LEFT) || can_move(g, RIGHT));
 }
 
-void add_tile(grid g){ //Ajoute une tile de manière aléatoire dans une grid
+void add_tile(grid g){
   int x = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position x
   int y = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position y
   int alea = rand_a_b(0, 10); //récupère un entier dans l'intervalle [0;10[ pour savoir si la tuile aura la valeur 2 ou 4
@@ -130,10 +132,10 @@ void play(grid gr,dir d){
 }
 
 /**
-* \brief movement of the tiles upwards
-* \param g the grid
-* \param d the direction given by the user
-*/
+ * \brief movement of the tiles upwards
+ * \param g the grid
+ * \param d the direction given by the user
+ */
 static void decalage(grid g,dir d){
     int y_libre = 0;
     turningxtimes(g, firstRota(d));
@@ -171,12 +173,8 @@ static void fusion (grid g, dir d){
     }
     turningxtimes(g, secondRota(d));
 }
-/**
-*\brief make a move
-*\param g the grid
-*\param d the direction given by the user
-*/
-void do_move(grid g,dir d){ //Fonction permettant d'effectuer un mouvement
+
+void do_move(grid g,dir d){
   decalage(g,d); //Plaque l'ensemble des tuiles dans la direction donné en paramètre
   fusion(g,d); //Fusionne les tuiles devant fusionner entre elle
   decalage(g,d); //Replaque les tuiles dans la bonne direction
@@ -233,7 +231,10 @@ static void turningxtimes (grid g,int x){
         turn(g);
     }
 }
-
+/**
+ * \brief calculate the number of rotation needed for reset the rotation after call turningxtime(g,firstRota(g))
+ * \param d the direction given by the user
+ */
 static int secondRota(dir d){
     return ((4-firstRota(d))%4);
 }
