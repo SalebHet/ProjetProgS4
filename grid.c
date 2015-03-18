@@ -7,6 +7,9 @@ static void turn(grid g);
 static void turningxtimes(grid g, int x);
 static int firstRota(dir d);
 static int secondRota(dir d);
+static int rand_a_b(int a,int b);
+static void fusion (grid g, dir d);
+static void decalage(grid g, dir d);
 
 static int firstRota(dir d)
 {
@@ -44,13 +47,6 @@ grid new_grid(){ // Fonction permettant l'instantiation d'une nouvelle grille
     }
   }
   return gr;
-}
-bool not_over(int i,dir d)
-{
-  if(d==1)
-    return i<GRID_SIDE;
-  else
-    return i>=0;
 }
 
 bool can_move (grid g, dir d)
