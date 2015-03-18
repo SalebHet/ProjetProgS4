@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-
+#include <ncurses.h>
 
 #include "afficher.h"
 
@@ -21,11 +21,12 @@ static char* itoa(int i){ //Permet de transformer un entier en chaine de charact
 
 
 void afficherLigne(){ //Fonction permettant d'afficher une ligne horizontale à la taille de la grille
-  printf("+");
+  printw("+");
   for(int i=0;i<GRID_SIDE;i++)
-    printf("------+");
-  printf("\n");
+    printw("------+");
+  printw("\n");
 }
+
 void afficher(grid g){  //Affiche l'ensemble d'une grid
   afficherLigne();
   char *nb;
@@ -36,12 +37,14 @@ void afficher(grid g){  //Affiche l'ensemble d'une grid
       if(val!=0)
 	val=pow(2,val); //Transforme la valeur logarithmique en valeur décimale
       nb=itoa(val);
-      printf("|%s",nb);
+      printw("|%s",nb);
       free(nb); //Libère la mémoire employer par la chaine de charactère
     }
-    printf("|\n");
+    printw("|\n");
     afficherLigne();
   }
-  printf("Score: %ld \n",grid_score(g));
+  printw("Score: %ld \n",grid_score(g));
+refresh();
+erase();
 }
 
