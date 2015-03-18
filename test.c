@@ -7,6 +7,8 @@
 int main(){
     printf("test initialisation:\n");
     test_init();
+    printf("test de set_tile en 3, 2, avec la valeur affichée 2:\n");
+    test_set_tile();
     printf("test de add_tile:\n");
     test_add();
     printf("test de can_move\n");
@@ -17,6 +19,8 @@ int main(){
     test_play();
     printf("test de do_move");
     test_do_play();
+    printf("test de copy\n");
+    test_copy();
 }
 
 void test_init(){
@@ -141,3 +145,29 @@ void test_play(){
     afficher(g);
     delete_grid(g);
 }
+
+void test_set_tile(){
+    grid g = new grid;
+    set_tile(g, 3, 2, 1);
+    afficher(g);
+    delete_grid(g);
+}
+
+void test_copy(){
+    grid g, d = new grid;
+    set_tile(g, 0, 0, 1);
+    afficher(g);
+    copy_grid(g, d);
+    afficher(d);
+
+}
+
+void test_score(){
+    grid g = new grid;
+    set_tile(g, 0, 0, 1);
+    set_tile(g, 0, 1, 1);
+    afficher(g)
+    fusion(g, LEFT);
+    grid_score(g);
+}
+
