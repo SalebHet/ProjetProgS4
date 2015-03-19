@@ -4,26 +4,54 @@
 #include <stdlib.h>
 #include <ncurses.h>
 
-dir getDir(){  //Fonction permettant de récupérer une touche du clavier et d'y associer une direction
+static dir getDir(){  //Fonction permettant de récupérer une touche du clavier et d'y associer une direction
   while(true){
-  char c = getchar();
-
+  int c = getch();
+  printw("toto");
+  if(c!=ERR){
     switch(c){
-        case 'z':
+        case KEY_UP:
             return UP;
-        case 'q':
+        case KEY_LEFT:
             return LEFT;
-        case 's':
+        case KEY_DOWN:
             return DOWN;
-        case 'd':
+        case KEY_RIGHT:
             return RIGHT;
-
+	}
     }
   }
 }
+<<<<<<< HEAD
+
+/*
+int main(){
+    grid g = new_grid();
+    set_tile(g,1,2,2);
+    set_tile(g,2,2,2);
+    for (int j=0;j<GRID_SIDE;j++){
+        set_tile(g,0,j,2);
+    }
+    if(get_tile(g,1,2)!=2)
+        printf("Mauvais retour de valeur");
+    afficher(g);
+    do_move(g,LEFT);
+    afficher(g);
+    delete_grid(g);
+    return EXIT_SUCCESS;
+}*/
 
 int main(){
     initscr();
+curs_set(FALSE);
+    keypad(stdscr,TRUE);
+    timeout(-1);
+    noecho();
+=======
+
+int main(){
+    initscr();
+>>>>>>> 5de216f239b9b541f4c5af1222ab931320d743ce
     grid g = new_grid(); //Création de la grille de jeu
     add_tile(g); //ajout des 2 première tiles pour le jeux
     add_tile(g);

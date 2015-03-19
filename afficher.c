@@ -28,6 +28,7 @@ void afficherLigne(){ //Fonction permettant d'afficher une ligne horizontale à l
 }
 
 void afficher(grid g){  //Affiche l'ensemble d'une grid
+  erase();
   afficherLigne();
   char *nb;
   int val;
@@ -45,6 +46,10 @@ void afficher(grid g){  //Affiche l'ensemble d'une grid
   }
   printw("Score: %ld \n",grid_score(g));
 refresh();
+<<<<<<< HEAD
+
+=======
 erase();
+>>>>>>> 5de216f239b9b541f4c5af1222ab931320d743ce
 }
 
