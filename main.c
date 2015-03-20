@@ -22,7 +22,7 @@ static dir getDir(){  //Fonction permettant de récupérer une touche du clavier e
     }
   }
 }
-<<<<<<< HEAD
+
 
 /*
 int main(){
@@ -47,11 +47,6 @@ curs_set(FALSE);
     keypad(stdscr,TRUE);
     timeout(-1);
     noecho();
-=======
-
-int main(){
-    initscr();
->>>>>>> 5de216f239b9b541f4c5af1222ab931320d743ce
     grid g = new_grid(); //Création de la grille de jeu
     add_tile(g); //ajout des 2 première tiles pour le jeux
     add_tile(g);
