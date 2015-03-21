@@ -92,6 +92,7 @@ void test_over(){
 }
 
 void test_can_move(){
+
     grid g_u_d, g_r_l = new grid;
     for (int x = 0; x<GRID_SIDE; x ++){
         set_tile(g_r_l, x, 0, x);
