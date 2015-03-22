@@ -36,6 +36,7 @@ struct grid_s {
     tile g[GRID_SIDE][GRID_SIDE];       // On crée un tableau statique de tuiles nous servant à stoquer l'ensemble des tuiles de notre grille.
     unsigned long int score;    //Variable permettant de stocker le score
 };
+
 /**
  * \brief return an integer in the interval [a;b[
  */
@@ -75,9 +76,8 @@ bool can_move(grid g, dir d) {
     }
     turningxtimes(g, secondRota(d));
     return false;
-
-
 }
+
 void delete_grid(grid g) {
     free(g);
 }
