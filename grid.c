@@ -33,11 +33,11 @@ static int firstRota(dir d)
     }
 }
 struct grid_s{
-  tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tiles nous servant à stoquer l'ensemble des tiles de notre grille.
+  tile g [GRID_SIDE][GRID_SIDE]; // On crée un tableau statique de tuiles nous servant à stoquer l'ensemble des tuiles de notre grille.
   unsigned long int score; //Variable permettant de stocker le score
 };
 /**
- * \brief return an integer in the interval [a;b[ 
+ * \brief return an integer in the interval [a;b[
  */
 static int rand_a_b(int a, int b){ // fonction permettant de retourner un entier dans l'intervalle [a;b[
   return rand()%(b-a) +a;
@@ -83,7 +83,7 @@ void delete_grid(grid g){
   free(g);
 }
 
-void copy_grid (grid src, grid dst){ 
+void copy_grid (grid src, grid dst){
   dst->score=src->score;
   for(int i=0;i<GRID_SIDE;i++){
     for(int j=0;j<GRID_SIDE;j++){
@@ -100,7 +100,7 @@ void set_tile (grid gr, int x, int y, tile t){
   gr->g[x][y]=t;
 }
 
-unsigned long int grid_score (grid g){ 
+unsigned long int grid_score (grid g){
   return g->score;
 }
 
@@ -111,9 +111,9 @@ bool game_over (grid g){
 void add_tile(grid g){
   int x = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position x
   int y = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position y
-  int alea = rand_a_b(0, 10); //récupère un entier dans l'intervalle [0;10[ pour savoir si la tuile aura la valeur 2 ou 4
+  int alea = rand_a_b(0, 10); //récupère un entier dans l'intervalle [0;10[ pour savoir si la tuile aura pour valeur 2 ou 4
   int bouh = 0;
-  while (g->g[x][y]!=0){ //Vérifie si la position trouvé n'est pas déjà occupé si c'est le cas retire une nouvelle position
+  while (g->g[x][y]!=0){ //Vérifie si la position trouvée n'est pas déjà occupée. Si c'est le cas, on retire une nouvelle position
     x = rand_a_b(0, 4);
     y = rand_a_b(0, 4);
   }
@@ -123,12 +123,12 @@ void add_tile(grid g){
   else{ //Met la valeur de la tuile à 2
     bouh = 1;
   }
-  set_tile(g, x, y, bouh); // affecte la tuile dans la grid
+  set_tile(g, x, y, bouh); // affecte la tuile dans la grille
 }
 
 void play(grid gr,dir d){
-  do_move (gr, d); // Effectue le mouvement dans la direction donné en paramètre
-  add_tile(gr); // Ajoute une tile de manière aléatoire
+  do_move (gr, d); // Effectue le mouvement dans la direction donnée en paramètre
+  add_tile(gr); // Ajoute une tuile de manière aléatoire
 }
 
 /**
@@ -175,9 +175,9 @@ static void fusion (grid g, dir d){
 }
 
 void do_move(grid g,dir d){
-  decalage(g,d); //Plaque l'ensemble des tuiles dans la direction donné en paramètre
+  decalage(g,d); //Place l'ensemble des tuiles dans la direction donnée en paramètre
   fusion(g,d); //Fusionne les tuiles devant fusionner entre elle
-  decalage(g,d); //Replaque les tuiles dans la bonne direction
+  decalage(g,d); //Replace les tuiles dans la bonne direction
 }
 
 
@@ -193,20 +193,24 @@ static void turn(grid g)
       int oldy=y;
       int tmp1=g->g[x][y];
       for(int i=0;i<4;i++){
-	/*On va appliquer au point une rotation d'un quart de cercle.
-	  Rappel : si p est un point de la forme a+ib alors p*i vaut -b+ia et p*i est l'image de p après y avoir appliqué une rotion
-	  de PI/2 dans le sens antihorraire autour du sens du reperre.
-	  on décale donc le repère (et donc la tuile) afin que le centre du repère soit au centre de la grille
-	  Pour celà on applique une translation à la tuile de -GRID_SIDE/2;-GRID_SIDE/2
-	  on multiplie ensuite le point obtenu par PI puis on redécale le repère dans le sens opposé afin de remettre la grille à sa
-	  place d'origine.
-	  détails des calculs:
-	  translation:
+    /*On va appliquer au point une rotation d'un quart de cercle.
+        Rappel : si p est un point de la forme a+ib alors p*i vaut -b+ia et p*i est l'image de
+      p après y avoir appliqué une rotation  de PI/2 dans le sens antihoraire autour du sens du repère.
+      On décale donc le repère (et donc la tuile) afin que le centre du repère soit au centre de la grille.
+
+        Pour cela on applique une translation à la tuile de -GRID_SIDE/2;-GRID_SIDE/2.
+
+        On multiplie ensuite le point obtenu par PI puis on re-décale le repère dans le sens opposé afin de remettre la grille à sa place d'origine.
+
+        Détails des calculs:
+        Translation:
 	  (a+ib)+(-GRID_SIDE/2-i*GRID_SIDE/2)=(a-GRID_SIDE/2) + i(b-GRID_SIDE/2)
-	  rotation:
+
+	  Rotation:
 	  [a-GRID_SIDE/2 + i(b-GRID_SIDE/2)]*i=i*(a-GRID_SIDE/2) + i²(b-GRID_SIDE/2)= -(b-GRID_SIDE/2) + i*(a-GRID_SIDE/2)
 	  =-b+GRID_SIDE/2 + i*(a-GRID_SIDE/2)
-	  re-translation:
+
+	  Re-translation:
 	  -b+GRID_SIDE/2 + i*(a-GRID_SIDE/2) + (GRID_SIDE/2 +i*GRID_SIDE)
 	  =-b+2*GRID_SIDE/2 +i*a=-b+GRID_SIDE +i*a
 	 */
