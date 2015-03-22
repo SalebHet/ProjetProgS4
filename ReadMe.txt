@@ -8,7 +8,7 @@ Création de l'éxecutable:
 	 -cmake .
 	 -make
 
-L'exécutable de jeu ainsi qu'un programme de test est créé dans un dossier build à la racine du projet.
+L'exécutable de jeu ainsi qu'un programme de test est créé dans un dossier bin à la racine du projet.
 La bibliothèque grid est créée dans un dossier lib à la racine du projet.
 
 
