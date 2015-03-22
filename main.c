@@ -55,11 +55,8 @@ curs_set(FALSE);
         afficher(g); //Affiche la grille à chaque mouvement
         dir d = getDir(); //Récupère la direction pour le prochain tour
         if(can_move(g,d)){ //Vérifie si le mouvement est possible
-	  play(g,d); //Effectue le mouvement si le mouvement est possible
-
-	}
-	else
-	  printw("mouvement impossible\n"); //Indique que le mouvement n'est pas possible
+	  		play(g,d); //Effectue le mouvement si le mouvement est possible
+		}
     }
     afficher(g); //Affiche la grid lors du dernier tour
     printw("game over \n"); //Affiche que la partie est terminer
