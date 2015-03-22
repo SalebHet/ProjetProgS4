@@ -9,8 +9,8 @@
 static char* itoa(int i);
 static void afficherLigne();
 /**
- * \brief transforme un int en chaine de caractère de taille 6 (plus le 0 final)
- * \pre la taille du nombre en base 10 doit etre inférieur ou égal à 6 chiffres
+ * \brief turns an int into a 6 sized string
+ * \pre the number must be lower or equal to one million in base 10.
  */
 static char* itoa(int i){
   char* ret=malloc(7*sizeof(char)); //Alloue l'espace mémoire permettant de stocker une chaine de 7 charactères. (dont le 0 final)
@@ -26,8 +26,8 @@ static char* itoa(int i){
 }
 
 /**
- * \brief affiche une ligne contenant GRID_SIDE fois le coté supérieur (ou inférieur) des tuiles 
- * \pre la taille du terminal doit etre sufisant pour afficher une largeur de grille
+ * \brief display a line of GRID_SIZE times the size of a tile (left or up side)
+ * \pre the window must be large enough to display the grid
  */
 static void afficherLigne(){ //Fonction permettant d'afficher une ligne horizontale à la taille de la grille
   printw("+");
