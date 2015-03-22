@@ -13,7 +13,7 @@ static void test_play();
 static void test_do_move();
 static void test_copy();
 
-int main(){
+int main() {
     printf("test initialisation:\n");
     test_init();
     printf("test de set_tile\n");
@@ -32,14 +32,14 @@ int main(){
     test_copy();
 }
 
-void test_init(){
-  grid g = new_grid();
-    for (int x = 0; x<GRID_SIDE; x++){
-        for (int y = 0; y<GRID_SIDE; y++){
-            if (get_tile(g, x, y)!=0){
-               printf("bug: initialisation, la grille n'est pas à 0\n");
-               delete_grid(g);
-               return;
+void test_init() {
+    grid g = new_grid();
+    for (int x = 0; x < GRID_SIDE; x++) {
+        for (int y = 0; y < GRID_SIDE; y++) {
+            if (get_tile(g, x, y) != 0) {
+                printf("bug: initialisation, la grille n'est pas à 0\n");
+                delete_grid(g);
+                return;
             }
         }
     }
@@ -47,16 +47,16 @@ void test_init(){
     printf("succes\n");
 }
 
-void test_add(){
+void test_add() {
     grid g = new_grid();
     int nb_tile = 0;
     add_tile(g);
-    for (int i = 0; i<GRID_SIDE; i++){
-        for (int j = 0; j<GRID_SIDE; j++){
-            if (get_tile(g, i, j)!=0){
-                if (get_tile(g, i, j)==1 || get_tile(g, i, j)== 2)
-                    nb_tile+=1;
-                else{
+    for (int i = 0; i < GRID_SIDE; i++) {
+        for (int j = 0; j < GRID_SIDE; j++) {
+            if (get_tile(g, i, j) != 0) {
+                if (get_tile(g, i, j) == 1 || get_tile(g, i, j) == 2)
+                    nb_tile += 1;
+                else {
                     printf("bug: add_tile, mauvaise valeur\n");
                     delete_grid(g);
                     return;
@@ -64,12 +64,12 @@ void test_add(){
             }
         }
     }
-    if (nb_tile > 1){
+    if (nb_tile > 1) {
         printf("bug: add_tile, trop de tuiles générées\n");
         delete_grid(g);
         return;
     }
-    if (nb_tile == 0){
+    if (nb_tile == 0) {
         printf("bug: add_tile, aucune tuile définie\n");
         delete_grid(g);
         return;
@@ -78,16 +78,16 @@ void test_add(){
     delete_grid(g);
 }
 
-void test_over(){
-  grid g = new_grid();
+void test_over() {
+    grid g = new_grid();
     int val_tile = 1;
-    for (int i = 0; i < GRID_SIDE ; i++){
-        for (int j = 0; j < GRID_SIDE ; j++){
+    for (int i = 0; i < GRID_SIDE; i++) {
+        for (int j = 0; j < GRID_SIDE; j++) {
             set_tile(g, i, j, val_tile);
             val_tile++;
         }
     }
-    if (!game_over(g)){
+    if (!game_over(g)) {
         printf("bug: game over\n");
         delete_grid(g);
         return;
@@ -96,111 +96,110 @@ void test_over(){
     delete_grid(g);
 }
 
-void test_can_move(){
-  grid g1 = new_grid();
-  for (int y = 0; y<GRID_SIDE; y++){
-    set_tile(g1, 0, y, y);
-  }
-  if ((!can_move(g1, UP)) || can_move(g1, DOWN)){
-    printf("1bug can_move\n");
+void test_can_move() {
+    grid g1 = new_grid();
+    for (int y = 0; y < GRID_SIDE; y++) {
+        set_tile(g1, 0, y, y);
+    }
+    if ((!can_move(g1, UP)) || can_move(g1, DOWN)) {
+        printf("1bug can_move\n");
+        delete_grid(g1);
+        return;
+    }
     delete_grid(g1);
-    return;
-  }
-  delete_grid(g1);
-  grid g2 = new_grid();
-  for (int x = 0; x<GRID_SIDE; x ++){
-    set_tile(g2, x, 0, x+1);
-  }
-    if(can_move(g2, LEFT) || can_move(g2, RIGHT)){
-      printf("bug can_move\n");
-      delete_grid(g2);
-      return;
+    grid g2 = new_grid();
+    for (int x = 0; x < GRID_SIDE; x++) {
+        set_tile(g2, x, 0, x + 1);
+    }
+    if (can_move(g2, LEFT) || can_move(g2, RIGHT)) {
+        printf("bug can_move\n");
+        delete_grid(g2);
+        return;
     }
     printf("succes can_move\n");
     delete_grid(g2);
 }
 
-void test_do_move(){
-  grid g = new_grid();
-    for (int i = 0; i<GRID_SIDE; i++){
-        for (int j = 0; j < GRID_SIDE; j++){
+void test_do_move() {
+    grid g = new_grid();
+    for (int i = 0; i < GRID_SIDE; i++) {
+        for (int j = 0; j < GRID_SIDE; j++) {
             set_tile(g, i, j, 1);
         }
     }
-    do_move(g,DOWN);
-    do_move(g,RIGHT);
-    do_move(g,UP);
-    do_move(g,LEFT);
-    for(int x=0;x<GRID_SIDE;x++)
-      for(int y=0;y<GRID_SIDE;y++)
-	if(x!=0 && y!=0 && get_tile(g,x,y)){
-	  printf("bug do_move : tuiles non fusionnees\n");
-	    delete_grid(g);
-	    return;
-	  }
-     if(get_tile(g,0,0)==5)
-       printf("succes do_move\n");
-     else
-       printf("bug do_move\n");
-     delete_grid(g);
-}
-
-void test_play(){
-  grid g = new_grid();
-  set_tile(g,1,2,1);
-  set_tile(g,0,2,1);
-  play(g,LEFT);
-  int compteur=0;
-  for(int x=0;x<GRID_SIDE;x++)
-    for(int y=0;y<GRID_SIDE;y++)
-      if(get_tile(g,x,y))
-	 compteur++;
-   if(compteur<2)
-     printf("bug play : tuiles manquantes\n");
-   else if(compteur>2)
-     printf("bug play : trop de tuiles generees\n");
-   else
-     printf("succes play\n");
+    do_move(g, DOWN);
+    do_move(g, RIGHT);
+    do_move(g, UP);
+    do_move(g, LEFT);
+    for (int x = 0; x < GRID_SIDE; x++)
+        for (int y = 0; y < GRID_SIDE; y++)
+            if (x != 0 && y != 0 && get_tile(g, x, y)) {
+                printf("bug do_move : tuiles non fusionnees\n");
+                delete_grid(g);
+                return;
+            }
+    if (get_tile(g, 0, 0) == 5)
+        printf("succes do_move\n");
+    else
+        printf("bug do_move\n");
     delete_grid(g);
 }
 
-void test_set_tile(){
-  grid g = new_grid();
+void test_play() {
+    grid g = new_grid();
+    set_tile(g, 1, 2, 1);
+    set_tile(g, 0, 2, 1);
+    play(g, LEFT);
+    int compteur = 0;
+    for (int x = 0; x < GRID_SIDE; x++)
+        for (int y = 0; y < GRID_SIDE; y++)
+            if (get_tile(g, x, y))
+                compteur++;
+    if (compteur < 2)
+        printf("bug play : tuiles manquantes\n");
+    else if (compteur > 2)
+        printf("bug play : trop de tuiles generees\n");
+    else
+        printf("succes play\n");
+    delete_grid(g);
+}
+
+void test_set_tile() {
+    grid g = new_grid();
     set_tile(g, 3, 2, 1);
-    for(int x=0;x<GRID_SIDE;x++)
-      for(int y=0;y<GRID_SIDE;y++)
-	if(x!=3 && y!=2 && get_tile(g,x,y)!=0){
-	  printf("mauvaise tuile modifiee\n");
-	  delete_grid(g);
-	  return;
-	}
+    for (int x = 0; x < GRID_SIDE; x++)
+        for (int y = 0; y < GRID_SIDE; y++)
+            if (x != 3 && y != 2 && get_tile(g, x, y) != 0) {
+                printf("mauvaise tuile modifiee\n");
+                delete_grid(g);
+                return;
+            }
     printf("succes set_tile\n");
     delete_grid(g);
 }
 
-void test_copy(){
-  grid g = new_grid();
-  grid c = new_grid();
+void test_copy() {
+    grid g = new_grid();
+    grid c = new_grid();
     set_tile(g, 0, 0, 1);
     copy_grid(g, c);
-    for(int x=0;x<GRID_SIDE;x++)
-      for(int y=0;y<GRID_SIDE;y++)
-	if(get_tile(g,x,y)!=get_tile(c,x,y)){
-	  printf("bug copy_grid : erreur lors de la copie");
-	  delete_grid(g);
-	  delete_grid(c);
-	}
+    for (int x = 0; x < GRID_SIDE; x++)
+        for (int y = 0; y < GRID_SIDE; y++)
+            if (get_tile(g, x, y) != get_tile(c, x, y)) {
+                printf("bug copy_grid : erreur lors de la copie");
+                delete_grid(g);
+                delete_grid(c);
+            }
     printf("succes copy_grid\n");
     delete_grid(g);
     delete_grid(c);
 }
 
-void test_score(){
-  grid g = new_grid();
+void test_score() {
+    grid g = new_grid();
     set_tile(g, 0, 0, 1);
     set_tile(g, 0, 1, 1);
     afficher(g);
     do_move(g, LEFT);
     grid_score(g);
 }
-
