@@ -6,40 +6,22 @@
 
 static dir getDir(){  //Fonction permettant de récupérer une touche du clavier et d'y associer une direction
   while(true){
-  int c = getch();
-  printw("toto");
-  if(c!=ERR){
-    switch(c){
-        case KEY_UP:
-            return UP;
-        case KEY_LEFT:
-            return LEFT;
-        case KEY_DOWN:
-            return DOWN;
-        case KEY_RIGHT:
-            return RIGHT;
-	}
+  	int c = getch();
+  	if(c!=ERR){
+    	switch(c){
+        	case KEY_UP:
+            	return UP;
+        	case KEY_LEFT:
+            	return LEFT;
+        	case KEY_DOWN:
+            	return DOWN;
+        	case KEY_RIGHT:
+            	return RIGHT;
+		}
     }
   }
 }
 
-
-/*
-int main(){
-    grid g = new_grid();
-    set_tile(g,1,2,2);
-    set_tile(g,2,2,2);
-    for (int j=0;j<GRID_SIDE;j++){
-        set_tile(g,0,j,2);
-    }
-    if(get_tile(g,1,2)!=2)
-        printf("Mauvais retour de valeur");
-    afficher(g);
-    do_move(g,LEFT);
-    afficher(g);
-    delete_grid(g);
-    return EXIT_SUCCESS;
-}*/
 
 int main(){
     initscr();
