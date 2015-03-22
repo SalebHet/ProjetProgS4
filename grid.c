@@ -112,18 +112,15 @@ void add_tile(grid g){
   int x = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position x
   int y = rand_a_b(0, 4); //récupère un entier dans l'intervalle [0;4[ pour la position y
   int alea = rand_a_b(0, 10); //récupère un entier dans l'intervalle [0;10[ pour savoir si la tuile aura pour valeur 2 ou 4
-  int bouh = 0;
+  int val_tile = 1; // la valeur de la tuile, initialisée à 2 par défaut
   while (g->g[x][y]!=0){ //Vérifie si la position trouvée n'est pas déjà occupée. Si c'est le cas, on retire une nouvelle position
     x = rand_a_b(0, 4);
     y = rand_a_b(0, 4);
   }
   if (alea == 0){ //Permet de voir si la valeur de la nouvelle tuile est de 4 (Une chance sur dix)
-    bouh = 2;
+    val_tile = 2;
   }
-  else{ //Met la valeur de la tuile à 2
-    bouh = 1;
-  }
-  set_tile(g, x, y, bouh); // affecte la tuile dans la grille
+  set_tile(g, x, y, val_tile); // affecte la tuile dans la grille
 }
 
 void play(grid gr,dir d){
@@ -137,7 +134,7 @@ void play(grid gr,dir d){
  * \param d the direction given by the user
  */
 static void decalage(grid g,dir d){
-    int y_libre = 0;
+    int y_libre;
     turningxtimes(g, firstRota(d));
     for(int i=0;i<GRID_SIDE;i++){
       y_libre=0;
