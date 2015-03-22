@@ -24,8 +24,8 @@ static dir getDir(){  //Fonction permettant de récupérer une touche du clavier e
 
 
 int main(){
-    initscr();
-curs_set(FALSE);
+    initscr(); 
+	curs_set(FALSE);
     keypad(stdscr,TRUE);
     timeout(-1);
     noecho();
