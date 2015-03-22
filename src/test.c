@@ -85,7 +85,6 @@ void test_over(){
         for (int j = 0; j < GRID_SIDE ; j++){
             set_tile(g, i, j, val_tile);
             val_tile++;
-            
         }
     }
     if (!game_over(g)){
@@ -98,26 +97,20 @@ void test_over(){
 }
 
 void test_can_move(){
-
   grid g1 = new_grid();
-
   for (int y = 0; y<GRID_SIDE; y++){
     set_tile(g1, 0, y, y);
   }
-
-  
   if ((!can_move(g1, UP)) || can_move(g1, DOWN)){
     printf("1bug can_move\n");
     delete_grid(g1);
     return;
   }
   delete_grid(g1);
-
   grid g2 = new_grid();
   for (int x = 0; x<GRID_SIDE; x ++){
     set_tile(g2, x, 0, x+1);
   }
-
     if(can_move(g2, LEFT) || can_move(g2, RIGHT)){
       printf("bug can_move\n");
       delete_grid(g2);
@@ -126,9 +119,9 @@ void test_can_move(){
     printf("succes can_move\n");
     delete_grid(g2);
 }
+
 void test_do_move(){
   grid g = new_grid();
-
     for (int i = 0; i<GRID_SIDE; i++){
         for (int j = 0; j < GRID_SIDE; j++){
             set_tile(g, i, j, 1);
@@ -138,7 +131,6 @@ void test_do_move(){
     do_move(g,RIGHT);
     do_move(g,UP);
     do_move(g,LEFT);
-
     for(int x=0;x<GRID_SIDE;x++)
       for(int y=0;y<GRID_SIDE;y++)
 	if(x!=0 && y!=0 && get_tile(g,x,y)){
@@ -158,7 +150,6 @@ void test_play(){
   set_tile(g,1,2,1);
   set_tile(g,0,2,1);
   play(g,LEFT);
-
   int compteur=0;
   for(int x=0;x<GRID_SIDE;x++)
     for(int y=0;y<GRID_SIDE;y++)
@@ -170,8 +161,6 @@ void test_play(){
      printf("bug play : trop de tuiles generees\n");
    else
      printf("succes play\n");
-
-    
     delete_grid(g);
 }
 
