@@ -1,8 +1,10 @@
 #include "afficher.h"
 #include "grid.h"
+#include "strategy.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 static void test_init();
 static void test_set_tile();
@@ -12,8 +14,10 @@ static void test_over();
 static void test_play();
 static void test_do_move();
 static void test_copy();
+static void test_strat();
 
 int main() {
+    srand(time(NULL)); 
     printf("test initialisation:\n");
     test_init();
     printf("test de set_tile\n");
@@ -30,6 +34,7 @@ int main() {
     test_do_move();
     printf("test de copy\n");
     test_copy();
+    test_strat();
 }
 
 void test_init() {
@@ -215,4 +220,33 @@ void test_score() {
     else
         printf("bug : grid_score");
     delete_grid(g);
+}
+
+void test_strat(){ 
+    grid* tabGrid = malloc(sizeof(grid)*100);
+    for (int i= 0; i<100; i++){
+        tabGrid[i] = new_grid();
+        add_tile(tabGrid[i]);
+        add_tile(tabGrid[i]);
+        while(!game_over(tabGrid[i])){
+            play(tabGrid[i],FirstStrat(tabGrid[i]));
+        }
+    }
+
+    int max = 0;
+    int moyenne = 0;
+    for (int i = 0 ; i<100;i++){
+        moyenne+=grid_score(tabGrid[i]);
+        if (max<grid_score(tabGrid[i]))
+            max=grid_score(tabGrid[i]);
+    }
+
+    moyenne = moyenne/100;
+    printf("Le score moyen est de: %i et le score max est de: %i \n",moyenne,max);
+    for (int i = 0 ; i<100;i++){
+        delete_grid(tabGrid[i]);
+    }
+    free(tabGrid);
+
+
 }
