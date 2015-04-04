@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <math.h>
 
 static void test_init();
 static void test_set_tile();
@@ -222,9 +223,20 @@ void test_score() {
     delete_grid(g);
 }
 
+static int max_grid(grid g){
+    int m = 0;
+    for (int i = 0 ; i<GRID_SIDE;i++){
+        for (int j = 0 ; j<GRID_SIDE;j++){
+            if(get_tile(g,i,j)>m)
+                m= (int)pow(2,get_tile(g,i,j));
+        }
+    }
+    return m;
+}
+
 void test_strat(){ 
-    grid* tabGrid = malloc(sizeof(grid)*100);
-    for (int i= 0; i<100; i++){
+    grid* tabGrid = malloc(sizeof(grid)*10000);
+    for (int i= 0; i<10000; i++){
         tabGrid[i] = new_grid();
         add_tile(tabGrid[i]);
         add_tile(tabGrid[i]);
@@ -232,18 +244,21 @@ void test_strat(){
             play(tabGrid[i],FirstStrat(tabGrid[i]));
         }
     }
-
+    int tmax = 0;
     int max = 0;
     int moyenne = 0;
-    for (int i = 0 ; i<100;i++){
+    for (int i = 0 ; i<10000;i++){
         moyenne+=grid_score(tabGrid[i]);
         if (max<grid_score(tabGrid[i]))
             max=grid_score(tabGrid[i]);
+        if(max_grid(tabGrid[i])>tmax){
+            tmax = max_grid(tabGrid[i]);
+        }
     }
 
-    moyenne = moyenne/100;
-    printf("Le score moyen est de: %i et le score max est de: %i \n",moyenne,max);
-    for (int i = 0 ; i<100;i++){
+    moyenne = moyenne/10000;
+    printf("Le score moyen est de: %i , le score max est de: %i et la tuile max obtenue est : %i\n",moyenne,max,tmax);
+    for (int i = 0 ; i<10000;i++){
         delete_grid(tabGrid[i]);
     }
     free(tabGrid);
