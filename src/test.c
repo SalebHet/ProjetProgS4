@@ -241,11 +241,11 @@ void test_strat(){
         add_tile(tabGrid[i]);
         add_tile(tabGrid[i]);
         while(!game_over(tabGrid[i])){
-            play(tabGrid[i],FirstStrat(tabGrid[i]));
+	  play(tabGrid[i],FirstStrat(NULL,tabGrid[i]));
         }
     }
     int tmax = 0;
-    int max = 0;
+    unsigned long int max = 0;
     int moyenne = 0;
     for (int i = 0 ; i<10000;i++){
         moyenne+=grid_score(tabGrid[i]);
@@ -257,7 +257,7 @@ void test_strat(){
     }
 
     moyenne = moyenne/10000;
-    printf("Le score moyen est de: %i , le score max est de: %i et la tuile max obtenue est : %i\n",moyenne,max,tmax);
+    printf("Le score moyen est de: %i , le score max est de: %li et la tuile max obtenue est : %i\n",moyenne,max,tmax);
     for (int i = 0 ; i<10000;i++){
         delete_grid(tabGrid[i]);
     }
