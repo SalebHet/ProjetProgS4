@@ -2,7 +2,9 @@
 #include "stdlib.h"
 #include <stdbool.h>
 
-
+int static choose_best_dir(grid g, int i);
+double static choose_worst_tile(grid g, int i);
+dir ExpectedMax(grid g, int i);
 void free_memless_strat (strategy strat)
 {
   free (strat);
@@ -14,8 +16,9 @@ dir static int_to_dir(int i){
 		return RIGHT;
 	if (i==2)
 		return DOWN;
-	if (i==3)
+	else{
 		return LEFT;
+	}
 }
 int choose_best_dir(grid g, int i){
 	if(game_over(g))
@@ -57,17 +60,18 @@ double choose_worst_tile(grid g, int i){
 	}
 	return m/n;
 }
+
 dir ExpectedMax(grid g, int i){
 	double vMax=0;
 	dir d;
 	grid g2 = new_grid();
-	for (int i = 0 ; i<4,i++){
+	for (int i = 0 ; i<4;i++){
 		dir d2 = int_to_dir(i);
 		if(!(can_move(g,d2)))
 			continue;
 		copy_grid(g,g2);
 		do_move(g2,d2);
-		double vInter = Choose_worst_tile(g2,3);
+		double vInter = choose_worst_tile(g2,3);
 		if(vInter>vMax){
 			vMax = vInter;
 			d=d2;
