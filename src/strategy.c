@@ -2,14 +2,14 @@
 #include "stdlib.h"
 #include <stdbool.h>
 
-int static choose_best_dir(grid g, int i);
-double static choose_worst_tile(grid g, int i);
-dir ExpectedMax(grid g, int i);
+static int choose_best_dir(grid g, int i);
+static double choose_worst_tile(grid g, int i);
+static dir ExpectedMax(strategy s,grid g);
 void free_memless_strat (strategy strat)
 {
   free (strat);
 }
-dir static int_to_dir(int i){
+static dir int_to_dir(int i){
 	if (i==0)
 		return UP;
 	if (i==1)
@@ -26,7 +26,7 @@ dir static int_to_dir(int i){
  *
  *
  **/
-int choose_best_dir(grid g, int i){
+static int choose_best_dir(grid g, int i){
   if(game_over(g))// si on a un game over, alors la valeur de la grille est de 0
 		return 0;
   if (i==0)//sinon de celle du score
@@ -40,7 +40,7 @@ int choose_best_dir(grid g, int i){
 		copy_grid(g,g2);
 		do_move(g2,d);
 		int vInter = choose_worst_tile(g,i);
-		if(vInter<vMax)
+		if(vInter>vMax)
 			vMax=vInter;
 
 	}
@@ -52,13 +52,13 @@ int choose_best_dir(grid g, int i){
  *
  **/
 
-double choose_worst_tile(grid g, int i){
+static double choose_worst_tile(grid g, int i){
 	if (game_over(g))
 		return 0;
 	int n = 0;
-	int m = 0 ;
-	for (int x =0 ; i<GRID_SIDE;i++){
-		for (int y = 0; i<GRID_SIDE;i++){
+	int m = 0;
+	for (int x =0 ; x<GRID_SIDE;x++){
+		for (int y = 0; y<GRID_SIDE;y++){
 			if(get_tile(g,x,y)==0){
 				set_tile(g,x,y,1);
 				m+=choose_best_dir(g,i-1);
@@ -69,6 +69,8 @@ double choose_worst_tile(grid g, int i){
 			}
 		}
 	}
+	if(n==0)
+	  return choose_best_dir(g,i-1);
 	return m/n;
 }
 
@@ -77,7 +79,7 @@ double choose_worst_tile(grid g, int i){
  * \brief renvoie la direction indiquée par l'algo expected Max avec une profondeur de 3.
  *
  */
-dir ExpectedMax(grid g, int i){
+static dir ExpectedMax(strategy s,grid g){
 	double vMax=0;
 	dir d;
 	grid g2 = new_grid();
@@ -98,7 +100,14 @@ dir ExpectedMax(grid g, int i){
 	delete_grid(g2);
 	return d;
 }
-
+strategy expectedMaxConstruct(){
+  strategy s=malloc(sizeof(struct strategy_s));
+  s->play_move=ExpectedMax;
+  s->name="algo expectedMax groupe H";
+  s->mem=NULL;
+  s->free_strategy=free_memless_strat;
+  return s;
+}
 strategy firstStratConstruct(){
   strategy s=malloc(sizeof(struct strategy_s));
   s->play_move=FirstStrat;
@@ -121,5 +130,5 @@ dir FirstStrat(strategy s,grid g){
 }
 
 
-strategy (*listFunctionsStrat[])()={firstStratConstruct,NULL};
-char* listNamesStrat[]={"firstStrat",NULL};
+strategy (*listFunctionsStrat[])()={firstStratConstruct,expectedMaxConstruct,NULL};
+char* listNamesStrat[]={"firstStrat","expectedMax",NULL};

@@ -66,6 +66,8 @@ int main (){
       usleep(300000);
     }
     
+    sleep(2);
+
     endwin();
 
 }
