@@ -102,6 +102,7 @@ dir FirstStrat(strategy s,grid g){
 		return RIGHT;
 	}
 }
+}
 
 strategy (*listFunctionsStrat[])()={firstStratConstruct,NULL};
 char* listNamesStrat[]={"firstStrat",NULL};
