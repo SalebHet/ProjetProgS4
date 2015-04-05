@@ -20,10 +20,16 @@ dir static int_to_dir(int i){
 		return LEFT;
 	}
 }
+/**
+ * \brief cette fonction renvoie la valeur de la grille si i==0, ou si on a un game over.
+ *  sinon elle renvoie la valeur de la grille qu'on aura après avoir effectuer le meilleur mouvement possible. 
+ *
+ *
+ **/
 int choose_best_dir(grid g, int i){
-	if(game_over(g))
+  if(game_over(g))// si on a un game over, alors la valeur de la grille est de 0
 		return 0;
-	if (i==0)
+  if (i==0)//sinon de celle du score
 		return grid_score(g);
 	grid g2 = new_grid();
 	int vMax=0;
@@ -41,6 +47,11 @@ int choose_best_dir(grid g, int i){
 	delete_grid(g2);
 	return vMax;
 }
+/**
+ * \brief cette fonction renvoi la valeur moyenne des grilles obtenues en plaçant un 2 ou un 4 dans une case vide
+ *
+ **/
+
 double choose_worst_tile(grid g, int i){
 	if (game_over(g))
 		return 0;
@@ -61,6 +72,11 @@ double choose_worst_tile(grid g, int i){
 	return m/n;
 }
 
+
+/**
+ * \brief renvoie la direction indiquée par l'algo expected Max avec une profondeur de 3.
+ *
+ */
 dir ExpectedMax(grid g, int i){
 	double vMax=0;
 	dir d;
