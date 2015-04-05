@@ -97,6 +97,7 @@ dir ExpectedMax(grid g, int i){
 	}
 	delete_grid(g2);
 	return d;
+}
 
 strategy firstStratConstruct(){
   strategy s=malloc(sizeof(struct strategy_s));
@@ -118,7 +119,7 @@ dir FirstStrat(strategy s,grid g){
 		return RIGHT;
 	}
 }
-}
+
 
 strategy (*listFunctionsStrat[])()={firstStratConstruct,NULL};
 char* listNamesStrat[]={"firstStrat",NULL};
