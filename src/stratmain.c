@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <time.h>
+#define __USE_BSD
 #include <unistd.h>
 
 /*
@@ -62,7 +63,7 @@ int main (){
     while(!game_over(g)){
       afficher(g);
       play(g,strat->play_move(NULL,g));
-      sleep(1);
+      usleep(300000);
     }
     
     endwin();
