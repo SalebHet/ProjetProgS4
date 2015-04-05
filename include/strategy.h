@@ -37,4 +37,6 @@ struct strategy_s
  */
 extern void free_memless_strat (strategy strat);
 
+dir FirstStrat(grid g);
+
 #endif /* STRATEGY_H_ */
