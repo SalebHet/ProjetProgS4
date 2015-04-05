@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ncurses.h>
+#include <time.h>
 
 static dir getDir() {           //Fonction permettant de récupérer une touche du clavier et d'y associer une direction
     while (true) {
@@ -24,6 +25,7 @@ static dir getDir() {           //Fonction permettant de récupérer une touche du
 
 
 int main() {
+    srand(time(NULL));  
     initscr();
     curs_set(FALSE);
     initscr();
