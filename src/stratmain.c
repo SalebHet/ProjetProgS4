@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <time.h>
+#define __USE_BSD
 #include <unistd.h>
 
 /*
@@ -17,7 +18,7 @@ struct strategy_s
   void (*free_strategy) (strategy); Frees any resources allocated during the strategy's creation (<name>, <mem>, ...).
 };
 */
-
+ /*
 static int getStrat() {              //Fonction permettant de récupérer une touche du clavier et d'y associer une stratégie
     while (true) {
         int c = getch();
@@ -31,26 +32,40 @@ static int getStrat() {              //Fonction permettant de récupérer une touc
             }
         }
     }
-}
+    }*/
 
 int main (){
-     initscr();
+     
+    grid g = new_grid();        //Création de la grille de jeu
+    strategy strat;
+    add_tile(g);                //ajout des 2 premières tuiles pour le jeux
+    add_tile(g);
+    int i=0;
+    while(listNamesStrat[i]!=NULL){
+      printf("strat n %d : %s\n",i,listNamesStrat[i]);
+      i++;
+    }
+    printf("Choisissez une strategie a executer : ");
+    unsigned int nb_strat;
+    do{
+      scanf("%d",&nb_strat);
+    }while(nb_strat>=i);
+    strat=listFunctionsStrat[nb_strat]();
+
+    initscr();
     curs_set(FALSE);
     initscr();
     curs_set(FALSE);
     keypad(stdscr, TRUE);
     timeout(-1);
     noecho();
-    grid g = new_grid();        //Création de la grille de jeu
-    strategy_s strat = new strategy_s;
-    add_tile(g);                //ajout des 2 premières tuiles pour le jeux
-    add_tile(g);
-    int nb_strat = getStrat();
-    switch (nb_strat){
-    case 1:
-        strat -> name = new_char "Strategie Rapide";
-        strat -> (*play_move)
-    }
 
+    while(!game_over(g)){
+      afficher(g);
+      play(g,strat->play_move(NULL,g));
+      usleep(300000);
+    }
+    
+    endwin();
 
 }

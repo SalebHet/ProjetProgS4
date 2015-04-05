@@ -21,16 +21,15 @@ int main() {
     add_tile(g);
     while (!game_over(g)) {     //Boucle jusqu'à la fin de la partie
         afficher(g);            //Affiche la grille à chaque mouvement
-        dir d = FirstStrat(g);       //Récupère la direction pour le prochain tour
+        dir d = FirstStrat(NULL,g);       //Récupère la direction pour le prochain tour
         if (can_move(g, d)) {   //Vérifie si le mouvement est possible
             play(g, d);
-            sleep(2);         //Effectue le mouvement, s'il est possible
+            sleep(1);         //Effectue le mouvement, s'il est possible
         }
     }
     afficher(g);                //Affiche la grille lors du dernier tour
     printw("game over \n");     //Affiche que la partie est terminée
     delete_grid(g);             //Supprime la grille
     endwin();
-    refresh();
     return EXIT_SUCCESS;
 }

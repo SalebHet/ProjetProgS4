@@ -8,13 +8,16 @@
 #define STRATEGY_H_
 
 #include "grid.h"
-
+#include <stdlib.h>
 
 
 /** \b strategy is a pointer to a strategy_s structure */
 typedef struct strategy_s *strategy;
 
+strategy firstStratConstruct();
 
+extern strategy (*listFunctionsStrat[])();//={firstStratConstruct,NULL};
+extern char* listNamesStrat[];//={"firstStrat",NULL};
 /**
  * \b Structure that contains a strategy.
  *
@@ -37,6 +40,8 @@ struct strategy_s
  */
 extern void free_memless_strat (strategy strat);
 
-dir FirstStrat(grid g);
+
+
+dir FirstStrat(strategy s,grid g);
 
 #endif /* STRATEGY_H_ */
