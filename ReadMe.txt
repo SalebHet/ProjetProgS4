@@ -17,3 +17,7 @@ Dans le jeu:
 			-rentrez la direction du mouvement souhaité à l'aide des flèches multidirectionnelle du clavier.
 			-Si le mouvement est impossible, aucun ne sera effectué.
 			-Pour quitter le jeu en pleine partie, faites un CTRl-C.
+
+Stratégie:
+	-Les 2 stratégies sont éxécutées sans mode graphique dans le programme grid-test
+	-Vous pouvez choisir la stratégie que vous souhaitez éxecutés en mode graphique dans stratMain 

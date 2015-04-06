@@ -16,6 +16,7 @@ static void test_play();
 static void test_do_move();
 static void test_copy();
 static void test_strat();
+static void test_strat_opti();
 
 int main() {
     srand(time(NULL)); 
@@ -36,6 +37,7 @@ int main() {
     printf("test de copy\n");
     test_copy();
     test_strat();
+    test_strat_opti();
 }
 
 void test_init() {
@@ -264,4 +266,18 @@ void test_strat(){
     free(tabGrid);
 
 
+}
+
+void test_strat_opti(){
+    grid g = new_grid();        //Création de la grille de jeu
+    strategy strat;
+    add_tile(g);                //ajout des 2 premières tuiles pour le jeux
+    add_tile(g);
+    strat=listFunctionsStrat[1]();
+    while(!game_over(g)){
+      play(g,strat->play_move(NULL,g));
+  }
+  int Tmax = max_grid(g);
+  printf("Vous avez obtenue un score de %i et votre plus grande tuile est %i \n",(int)grid_score(g),Tmax);
+  delete_grid(g);
 }
