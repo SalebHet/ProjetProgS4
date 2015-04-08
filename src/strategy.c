@@ -22,7 +22,7 @@ static dir int_to_dir(int i){
 }
 /**
  * \brief cette fonction renvoie la valeur de la grille si i==0, ou si on a un game over.
- *  sinon elle renvoie la valeur de la grille qu'on aura après avoir effectuer le meilleur mouvement possible. 
+ *  sinon elle renvoie la valeur de la grille qu'on aura après avoir effectuer le meilleur mouvement possible.
  *
  *
  **/
@@ -33,7 +33,7 @@ static int choose_best_dir(grid g, int i){
 		return grid_score(g);
 	grid g2 = new_grid();
 	int vMax=0;
-	for(int a = 0;a<4;a++){
+	for(int a = 0;a<4;a++){ // 4 représente ici le nombre de directions
 		dir d = int_to_dir(a);
 		if (!(can_move(g,d)))
 			continue;
