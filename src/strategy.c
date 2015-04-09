@@ -12,6 +12,7 @@ void free_memless_strat (strategy strat)
   free (strat);
 }
 
+
 static int valeur_grille(grid g){
   return 1;
   if(game_over(g))
@@ -53,7 +54,6 @@ static int valeur_grille(grid g){
 * \param int i the int to turn
 *
 **/
-
 static dir int_to_dir(int i){
 	if (i==0)
 		return UP;

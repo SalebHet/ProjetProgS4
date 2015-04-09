@@ -19,7 +19,7 @@ static void test_strat();
 static void test_strat_opti();
 
 int main() {
-    srand(time(NULL)); 
+    srand(time(NULL));
     printf("test initialisation:\n");
     test_init();
     printf("test de set_tile\n");
@@ -216,7 +216,7 @@ void test_score() {
     grid g = new_grid();
     set_tile(g, 0, 0, 1);
     set_tile(g, 0, 1, 1);
-    afficher(g);
+    display(g);
     do_move(g, LEFT);
     if (grid_score(g) == 4)
         printf("succes : grid_score");
@@ -236,7 +236,7 @@ static int max_grid(grid g){
     return m;
 }
 
-void test_strat(){ 
+void test_strat(){
     grid* tabGrid = malloc(sizeof(grid)*10000);
     for (int i= 0; i<10000; i++){
         tabGrid[i] = new_grid();
