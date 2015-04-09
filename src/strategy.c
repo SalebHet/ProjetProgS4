@@ -1,13 +1,46 @@
 #include "strategy.h"
 #include "stdlib.h"
 #include <stdbool.h>
-
+#include <assert.h>
 static int choose_best_dir(grid g, int i);
 static double choose_worst_tile(grid g, int i);
 static dir ExpectedMax(strategy s,grid g);
 void free_memless_strat (strategy strat)
 {
   free (strat);
+}
+static int valeur_grille(grid g){
+  return 1;
+  if(game_over(g))
+    return 0;
+  int grille_pleines=1;
+  int diff_tuiles=0;
+  int nb_diff_tuile=0;
+  for(int i=0;i<GRID_SIDE;i++)
+    if(get_tile(g,i,0)!=0)
+       grille_pleines++;
+  for(int i=1;i<GRID_SIDE;i++)
+    if(get_tile(g,0,i)!=0)
+       grille_pleines++;
+  for(int i=1;i<GRID_SIDE;i++)
+    for(int j=1;j<GRID_SIDE;j++){
+      int a=get_tile(g,i,j);
+      int b=get_tile(g,i-1,j);
+      if(a!=0){
+	grille_pleines++;
+	if(b!=0){
+	  diff_tuiles+=abs(a-b);
+	  nb_diff_tuile++;
+	}
+	b=get_tile(g,i,j-1);
+	if(b!=0){
+	  diff_tuiles+=abs(a-b);
+	  nb_diff_tuile++;
+	}
+      } 
+    }
+  float moy_diff_tuiles=(nb_diff_tuile!=0)?1+diff_tuiles/nb_diff_tuile:1;
+  return grid_score(g)*2/moy_diff_tuiles;
 }
 static dir int_to_dir(int i){
 	if (i==0)
@@ -30,7 +63,7 @@ static int choose_best_dir(grid g, int i){
   if(game_over(g))// si on a un game over, alors la valeur de la grille est de 0
 		return 0;
   if (i==0)//sinon de celle du score
-		return grid_score(g);
+		return valeur_grille(g);
 	grid g2 = new_grid();
 	int vMax=0;
 	for(int a = 0;a<4;a++){
@@ -42,7 +75,6 @@ static int choose_best_dir(grid g, int i){
 		int vInter = choose_worst_tile(g,i);
 		if(vInter>vMax)
 			vMax=vInter;
-
 	}
 	delete_grid(g2);
 	return vMax;
@@ -89,7 +121,7 @@ static dir ExpectedMax(strategy s,grid g){
 			continue;
 		copy_grid(g,g2);
 		do_move(g2,d2);
-		double vInter = choose_worst_tile(g2,3);
+		double vInter = choose_worst_tile(g2,5);
 		if(vInter>=vMax){
 			vMax = vInter;
 			d=d2;

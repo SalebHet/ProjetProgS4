@@ -63,9 +63,9 @@ int main (){
     while(!game_over(g)){
       afficher(g);
       play(g,strat->play_move(NULL,g));
-      usleep(300000);
+      //usleep(50000);
     }
-    
+    afficher(g);
     sleep(2);
 
     endwin();
