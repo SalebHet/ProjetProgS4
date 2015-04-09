@@ -5,10 +5,13 @@
 static int choose_best_dir(grid g, int i);
 static double choose_worst_tile(grid g, int i);
 static dir ExpectedMax(strategy s,grid g);
+
+
 void free_memless_strat (strategy strat)
 {
   free (strat);
 }
+
 static int valeur_grille(grid g){
   return 1;
   if(game_over(g))
@@ -42,6 +45,15 @@ static int valeur_grille(grid g){
   float moy_diff_tuiles=(nb_diff_tuile!=0)?1+diff_tuiles/nb_diff_tuile:1;
   return grid_score(g)*2/moy_diff_tuiles;
 }
+
+
+/**
+*
+* \brief turn a int between 0 and 4 into a direction
+* \param int i the int to turn
+*
+**/
+
 static dir int_to_dir(int i){
 	if (i==0)
 		return UP;
@@ -53,10 +65,13 @@ static dir int_to_dir(int i){
 		return LEFT;
 	}
 }
+
 /**
- * \brief cette fonction renvoie la valeur de la grille si i==0, ou si on a un game over.
- *  sinon elle renvoie la valeur de la grille qu'on aura après avoir effectuer le meilleur mouvement possible. 
  *
+ * \brief returns grid's value if i == 0 or if there's game over.
+ *  Else, this function returns the grid's value after the best mouvment.
+ * \param grid g the grid
+ * \param int i the direction
  *
  **/
 static int choose_best_dir(grid g, int i){
@@ -66,7 +81,7 @@ static int choose_best_dir(grid g, int i){
 		return valeur_grille(g);
 	grid g2 = new_grid();
 	int vMax=0;
-	for(int a = 0;a<4;a++){
+	for(int a = 0;a<4;a++){ // 4 représente ici le nombre de directions
 		dir d = int_to_dir(a);
 		if (!(can_move(g,d)))
 			continue;
@@ -79,11 +94,15 @@ static int choose_best_dir(grid g, int i){
 	delete_grid(g2);
 	return vMax;
 }
+
+
 /**
- * \brief cette fonction renvoi la valeur moyenne des grilles obtenues en plaçant un 2 ou un 4 dans une case vide
+ *
+ * \brief this function returns the medium grid's value obtained by placing 2 or 4 in a free case
+ * \param grid g, the grid
+ * \param int i, the direction
  *
  **/
-
 static double choose_worst_tile(grid g, int i){
 	if (game_over(g))
 		return 0;
@@ -108,7 +127,10 @@ static double choose_worst_tile(grid g, int i){
 
 
 /**
- * \brief renvoie la direction indiquée par l'algo expected Max avec une profondeur de 3.
+ *
+ * \brief give out the direction choose by expectedMax
+ * \param strategy s, structure strategy
+ * \param grid g, the grid
  *
  */
 static dir ExpectedMax(strategy s,grid g){
@@ -132,6 +154,12 @@ static dir ExpectedMax(strategy s,grid g){
 	delete_grid(g2);
 	return d;
 }
+
+/**
+*
+* \brief construct a nex structure strategy
+*
+**/
 strategy expectedMaxConstruct(){
   strategy s=malloc(sizeof(struct strategy_s));
   s->play_move=ExpectedMax;
@@ -149,6 +177,13 @@ strategy firstStratConstruct(){
   return s;
 }
 
+/**
+*
+* \brief choose the first direction possible in this order: LEFT, DOWN, UP, RIGHT
+* \param strategy s, a structure strategy
+* \param grid g, the grid
+*
+**/
 dir FirstStrat(strategy s,grid g){
 	if(can_move(g,LEFT))
 		return LEFT;

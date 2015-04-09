@@ -35,7 +35,7 @@ static int getStrat() {              //Fonction permettant de récupérer une touc
     }*/
 
 int main (){
-     
+
     grid g = new_grid();        //Création de la grille de jeu
     strategy strat;
     add_tile(g);                //ajout des 2 premières tuiles pour le jeux
@@ -61,11 +61,11 @@ int main (){
     noecho();
 
     while(!game_over(g)){
-      afficher(g);
+      display(g);
       play(g,strat->play_move(NULL,g));
       //usleep(50000);
     }
-    afficher(g);
+    display(g);
     sleep(2);
 
     endwin();
