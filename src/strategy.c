@@ -20,29 +20,32 @@ static int valeur_grille(grid g){
   int grille_pleines=1;
   int diff_tuiles=0;
   int nb_diff_tuile=0;
-  for(int i=0;i<GRID_SIDE;i++)
+  for(int i=0;i<GRID_SIDE;i++){
     if(get_tile(g,i,0)!=0)
        grille_pleines++;
-  for(int i=1;i<GRID_SIDE;i++)
+  }
+  for(int i=1;i<GRID_SIDE;i++){
     if(get_tile(g,0,i)!=0)
        grille_pleines++;
-  for(int i=1;i<GRID_SIDE;i++)
+  }
+  for(int i=1;i<GRID_SIDE;i++){
     for(int j=1;j<GRID_SIDE;j++){
       int a=get_tile(g,i,j);
       int b=get_tile(g,i-1,j);
       if(a!=0){
-	grille_pleines++;
-	if(b!=0){
-	  diff_tuiles+=abs(a-b);
-	  nb_diff_tuile++;
-	}
-	b=get_tile(g,i,j-1);
-	if(b!=0){
-	  diff_tuiles+=abs(a-b);
-	  nb_diff_tuile++;
-	}
-      } 
+        grille_pleines++;
+        if(b!=0){
+            diff_tuiles+=abs(a-b);
+            nb_diff_tuile++;
+        }
+        b=get_tile(g,i,j-1);
+        if(b!=0){
+            diff_tuiles+=abs(a-b);
+            nb_diff_tuile++;
+        }
+      }
     }
+  }
   float moy_diff_tuiles=(nb_diff_tuile!=0)?1+diff_tuiles/nb_diff_tuile:1;
   return log(grid_score(g))/log(2)+1.5f/moy_diff_tuiles;
 }
@@ -185,7 +188,7 @@ strategy hybridAlgoConstruct(){
   strategy s=expectedMaxConstruct();
   s->play_move=hybridAlgo;
   return s;
-}  
+}
 /**
 *
 * \brief choose the first direction possible in this order: LEFT, DOWN, UP, RIGHT
