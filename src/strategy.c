@@ -1,6 +1,7 @@
 #include "strategy.h"
 #include "stdlib.h"
 #include <stdbool.h>
+#include <math.h>
 #include <assert.h>
 static int choose_best_dir(grid g, int i);
 static double choose_worst_tile(grid g, int i);
@@ -14,7 +15,6 @@ void free_memless_strat (strategy strat)
 
 
 static int valeur_grille(grid g){
-  return 1;
   if(game_over(g))
     return 0;
   int grille_pleines=1;
@@ -44,7 +44,7 @@ static int valeur_grille(grid g){
       } 
     }
   float moy_diff_tuiles=(nb_diff_tuile!=0)?1+diff_tuiles/nb_diff_tuile:1;
-  return grid_score(g)*2/moy_diff_tuiles;
+  return log(grid_score(g))/log(2)+1.5f/moy_diff_tuiles;
 }
 
 
@@ -133,6 +133,11 @@ static double choose_worst_tile(grid g, int i){
  * \param grid g, the grid
  *
  */
+static dir hybridAlgo(strategy s,grid g){
+  if(grid_score(g)<500)
+    return FirstStrat(s,g);
+  return ExpectedMax(s,g);
+}
 static dir ExpectedMax(strategy s,grid g){
 	double vMax=0;
 	dir d;
@@ -143,7 +148,7 @@ static dir ExpectedMax(strategy s,grid g){
 			continue;
 		copy_grid(g,g2);
 		do_move(g2,d2);
-		double vInter = choose_worst_tile(g2,5);
+		double vInter = choose_worst_tile(g2,4);
 		if(vInter>=vMax){
 			vMax = vInter;
 			d=d2;
@@ -176,7 +181,11 @@ strategy firstStratConstruct(){
   s->free_strategy=free_memless_strat;
   return s;
 }
-
+strategy hybridAlgoConstruct(){
+  strategy s=expectedMaxConstruct();
+  s->play_move=hybridAlgo;
+  return s;
+}  
 /**
 *
 * \brief choose the first direction possible in this order: LEFT, DOWN, UP, RIGHT
@@ -197,5 +206,5 @@ dir FirstStrat(strategy s,grid g){
 }
 
 
-strategy (*listFunctionsStrat[])()={firstStratConstruct,expectedMaxConstruct,NULL};
-char* listNamesStrat[]={"firstStrat","expectedMax",NULL};
+strategy (*listFunctionsStrat[])()={firstStratConstruct,expectedMaxConstruct,hybridAlgoConstruct,NULL};
+char* listNamesStrat[]={"firstStrat","expectedMax","algo hybride",NULL};
