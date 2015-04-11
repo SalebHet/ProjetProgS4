@@ -35,11 +35,10 @@ static int getStrat() {              //Fonction permettant de récupérer une to
     }*/
 
 int main (){
-    grid g = new_grid();        //Création de la grille de jeu
 
     grid g = new_grid();        //Cr�ation de la grille de jeu
     strategy strat;
-    add_tile(g);                //ajout des 2 premières tuiles pour le jeux
+    add_tile(g);                //ajout des 2 premi�res tuiles pour le jeux
     add_tile(g);
     int i=0;
     while(listNamesStrat[i]!=NULL){
