@@ -200,6 +200,7 @@ strategy expectedMaxConstruct(){
   strategy s=malloc(sizeof(struct strategy_s));
   s->play_move=ExpectedMax;
   s->name="algo expectedMax groupe H";
+  s->mem=NULL;
   s->mem=malloc(sizeof(int));
   *(int*)(s->mem)=3;
   s->free_strategy=free_memless_strat;
