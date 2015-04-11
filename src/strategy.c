@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
-static int choose_best_dir(grid g, int i);
-static double choose_worst_tile(grid g, int i);
+static int choose_best_dir(grid g, int i,int score);
+static double choose_worst_tile(grid g, int i, int score);
 static dir ExpectedMax(strategy s,grid g);
 
 
@@ -13,42 +13,57 @@ void free_memless_strat (strategy strat)
   free (strat);
 }
 
+static int value_grid(grid g,int score){
+	if (game_over(g))
+		return 0;
+	int score_move = grid_score(g)-score;
+	int void_tile = 0;
+	for(int i = 0 ; i<GRID_SIDE ; i++){
+		for (int j = 0 ; j<GRID_SIDE ; j++){
+			if (get_tile(g,i,j)==0)
+				void_tile++;
+		}
+	}
 
-static int valeur_grille(grid g){
-  if(game_over(g))
-    return 0;
-  int grille_pleines=1;
-  int diff_tuiles=0;
-  int nb_diff_tuile=0;
-  for(int i=0;i<GRID_SIDE;i++){
-    if(get_tile(g,i,0)!=0)
-       grille_pleines++;
-  }
-  for(int i=1;i<GRID_SIDE;i++){
-    if(get_tile(g,0,i)!=0)
-       grille_pleines++;
-  }
-  for(int i=1;i<GRID_SIDE;i++){
-    for(int j=1;j<GRID_SIDE;j++){
-      int a=get_tile(g,i,j);
-      int b=get_tile(g,i-1,j);
-      if(a!=0){
-        grille_pleines++;
-        if(b!=0){
-            diff_tuiles+=abs(a-b);
-            nb_diff_tuile++;
-        }
-        b=get_tile(g,i,j-1);
-        if(b!=0){
-            diff_tuiles+=abs(a-b);
-            nb_diff_tuile++;
-        }
-      }
-    }
-  }
-  float moy_diff_tuiles=(nb_diff_tuile!=0)?1+diff_tuiles/nb_diff_tuile:1;
-  return log(grid_score(g))/log(2)+1.5f/moy_diff_tuiles;
+	return score_move + void_tile*2;
 }
+
+//static int valeur_grille(grid g){
+  //if(game_over(g))
+    //return 0;
+  //int grille_pleines=1;
+  //int diff_tuiles=0;
+  //int nb_diff_tuile=0;
+  //for(int i=0;i<GRID_SIDE;i++){
+    //if(get_tile(g,i,0)!=0)
+      // grille_pleines++;
+  //}
+  //for(int i=1;i<GRID_SIDE;i++){
+    //if(get_tile(g,0,i)!=0)
+      // grille_pleines++;
+  //}
+  //for(int i=1;i<GRID_SIDE;i++){
+    //for(int j=1;j<GRID_SIDE;j++){
+      //int a=get_tile(g,i,j);
+      //int b=get_tile(g,i-1,j);
+      //if(a!=0){
+        //grille_pleines++;
+        //if(b!=0){
+          //  diff_tuiles+=abs(a-b);
+            //nb_diff_tuile++;
+        //}
+        //b=get_tile(g,i,j-1);
+        //if(b!=0){
+           // diff_tuiles+=abs(a-b);
+          //  nb_diff_tuile++;
+        //}
+      //}
+    //}
+  //}
+  //float moy_diff_tuiles=(nb_diff_tuile!=0)?1+diff_tuiles/nb_diff_tuile:1;
+  //return log(grid_score(g))/log(2)+1.5f/moy_diff_tuiles;
+//}
+
 
 
 /**
@@ -77,11 +92,11 @@ static dir int_to_dir(int i){
  * \param int i the direction
  *
  **/
-static int choose_best_dir(grid g, int i){
+static int choose_best_dir(grid g, int i, int score){
   if(game_over(g))// si on a un game over, alors la valeur de la grille est de 0
 		return 0;
   if (i==0)//sinon de celle du score
-		return valeur_grille(g);
+		return value_grid(g,score);
 	grid g2 = new_grid();
 	int vMax=0;
 	for(int a = 0;a<4;a++){ // 4 représente ici le nombre de directions
@@ -90,7 +105,7 @@ static int choose_best_dir(grid g, int i){
 			continue;
 		copy_grid(g,g2);
 		do_move(g2,d);
-		int vInter = choose_worst_tile(g,i);
+		int vInter = choose_worst_tile(g,i,score);
 		if(vInter>vMax)
 			vMax=vInter;
 	}
@@ -106,7 +121,7 @@ static int choose_best_dir(grid g, int i){
  * \param int i, the direction
  *
  **/
-static double choose_worst_tile(grid g, int i){
+static double choose_worst_tile(grid g, int i,int score){
 	if (game_over(g))
 		return 0;
 	int n = 0;
@@ -115,16 +130,16 @@ static double choose_worst_tile(grid g, int i){
 		for (int y = 0; y<GRID_SIDE;y++){
 			if(get_tile(g,x,y)==0){
 				set_tile(g,x,y,1);
-				m+=choose_best_dir(g,i-1);
+				m+=choose_best_dir(g,i-1,score);
 				set_tile(g,x,y,2);
-				m+=choose_best_dir(g,i-1);
+				m+=choose_best_dir(g,i-1,score);
 				set_tile(g,x,y,0);
 				n+=2;
 			}
 		}
 	}
 	if(n==0)
-	  return choose_best_dir(g,i-1);
+	  return choose_best_dir(g,i-1,score);
 	return m/n;
 }
 
@@ -150,8 +165,9 @@ static dir ExpectedMax(strategy s,grid g){
 		if(!(can_move(g,d2)))
 			continue;
 		copy_grid(g,g2);
+		int score = grid_score(g);
 		do_move(g2,d2);
-		double vInter = choose_worst_tile(g2,4);
+		double vInter = choose_worst_tile(g2,4,score);
 		if(vInter>=vMax){
 			vMax = vInter;
 			d=d2;
