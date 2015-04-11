@@ -139,6 +139,17 @@ static double choose_worst_tile(grid g, int i){
 static dir hybridAlgo(strategy s,grid g){
   if(grid_score(g)<500)
     return FirstStrat(s,g);
+  int cases_vides=0;
+  for(int i=0;i<GRID_SIDE;i++)
+    for(int j=0;j<GRID_SIDE;j++)
+      if(get_tile(g,i,j)==0)
+	cases_vides++;
+  if(cases_vides==0)
+    *(int*)s->mem=5;
+  else if(cases_vides<5)
+    *(int*)s->mem=4;
+  else
+    *(int*)s->mem=3;
   return ExpectedMax(s,g);
 }
 static dir ExpectedMax(strategy s,grid g){
@@ -151,7 +162,7 @@ static dir ExpectedMax(strategy s,grid g){
 			continue;
 		copy_grid(g,g2);
 		do_move(g2,d2);
-		double vInter = choose_worst_tile(g2,4);
+		double vInter = choose_worst_tile(g2,*(int*)s->mem);
 		if(vInter>=vMax){
 			vMax = vInter;
 			d=d2;
@@ -172,7 +183,8 @@ strategy expectedMaxConstruct(){
   strategy s=malloc(sizeof(struct strategy_s));
   s->play_move=ExpectedMax;
   s->name="algo expectedMax groupe H";
-  s->mem=NULL;
+  s->mem=malloc(sizeof(int));
+  *(int*)(s->mem)=3;
   s->free_strategy=free_memless_strat;
   return s;
 }
