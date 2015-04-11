@@ -7,4 +7,4 @@
  * \param g the grid
  * \pre the window must be large enough to display the grid
  */
-void afficher(grid g);
+void display(grid g);

@@ -109,13 +109,13 @@ bool game_over(grid g) {
 }
 
 void add_tile(grid g) {
-    int x = rand_a_b(0, 4);     //récupère un entier dans l'intervalle [0;4[ pour la position x
-    int y = rand_a_b(0, 4);     //récupère un entier dans l'intervalle [0;4[ pour la position y
+    int x = rand_a_b(0, GRID_SIDE);     //récupère un entier dans l'intervalle [0;4[ pour la position x
+    int y = rand_a_b(0, GRID_SIDE);     //récupère un entier dans l'intervalle [0;4[ pour la position y
     int alea = rand_a_b(0, 10); //récupère un entier dans l'intervalle [0;10[ pour savoir si la tuile aura pour valeur 2 ou 4
     int val_tile = 1;           // la valeur de la tuile, initialisée à 2 par défaut
     while (g->g[x][y] != 0) {   //Vérifie si la position trouvée n'est pas déjà occupée. Si c'est le cas, on retire une nouvelle position
-        x = rand_a_b(0, 4);
-        y = rand_a_b(0, 4);
+        x = rand_a_b(0, GRID_SIDE);
+        y = rand_a_b(0, GRID_SIDE);
     }
     if (alea == 0) {            //Permet de voir si la valeur de la nouvelle tuile est de 4 (Une chance sur dix)
         val_tile = 2;
@@ -188,7 +188,7 @@ static void turn(grid g) {
             int oldx = x;
             int oldy = y;
             int tmp1 = g->g[x][y];
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < GRID_SIDE; i++) {
                 /*On va appliquer au point une rotation d'un quart de cercle.
                    Rappel : si p est un point de la forme a+ib alors p*i vaut -b+ia et p*i est l'image de
                    p après y avoir appliqué une rotation  de PI/2 dans le sens antihoraire autour du sens du repère.
