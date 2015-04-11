@@ -230,10 +230,10 @@ static int max_grid(grid g){
     for (int i = 0 ; i<GRID_SIDE;i++){
         for (int j = 0 ; j<GRID_SIDE;j++){
             if(get_tile(g,i,j)>m)
-                m= (int)pow(2,get_tile(g,i,j));
+                m= get_tile(g,i,j);
         }
     }
-    return m;
+    return (int) pow(2,m);
 }
 
 void test_strat(){ 

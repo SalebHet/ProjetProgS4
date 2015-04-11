@@ -89,7 +89,7 @@ static dir ExpectedMax(strategy s,grid g){
 			continue;
 		copy_grid(g,g2);
 		do_move(g2,d2);
-		double vInter = choose_worst_tile(g2,3);
+		double vInter = choose_worst_tile(g2,5);
 		if(vInter>vMax){
 			vMax = vInter;
 			d=d2;

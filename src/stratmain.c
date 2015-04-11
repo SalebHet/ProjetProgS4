@@ -19,7 +19,7 @@ struct strategy_s
 };
 */
  /*
-static int getStrat() {              //Fonction permettant de récupérer une touche du clavier et d'y associer une stratégie
+static int getStrat() {              //Fonction permettant de rÃ©cupÃ©rer une touche du clavier et d'y associer une stratÃ©gie
     while (true) {
         int c = getch();
         if (c != ERR) {
@@ -36,9 +36,9 @@ static int getStrat() {              //Fonction permettant de récupérer une touc
 
 int main (){
      
-    grid g = new_grid();        //Création de la grille de jeu
+    grid g = new_grid();        //CrÃ©ation de la grille de jeu
     strategy strat;
-    add_tile(g);                //ajout des 2 premières tuiles pour le jeux
+    add_tile(g);                //ajout des 2 premiÃ¨res tuiles pour le jeux
     add_tile(g);
     int i=0;
     while(listNamesStrat[i]!=NULL){
@@ -63,7 +63,7 @@ int main (){
     while(!game_over(g)){
       afficher(g);
       play(g,strat->play_move(NULL,g));
-      usleep(300000);
+      //usleep(300000);
     }
     
     sleep(2);
