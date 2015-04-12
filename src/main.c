@@ -49,6 +49,5 @@ int main() {
     printw("game over \n");     //Affiche que la partie est terminée
     delete_grid(g);             //Supprime la grille
     endwin();
-    refresh();
     return EXIT_SUCCESS;
 }
