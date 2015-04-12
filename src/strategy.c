@@ -213,11 +213,11 @@ static dir hybridAlgo(strategy s,grid g){
     for(int j=0;j<GRID_SIDE;j++)
       if(get_tile(g,i,j)==0)
 	cases_vides++;
-  if(cases_vides<2)
+  if(cases_vides<0)
     *(int*)s->mem=5;
-  else if(cases_vides<6)
+  else if(cases_vides<4)
     *(int*)s->mem=4;
-  else if(cases_vides<9)
+  else if(cases_vides<7)
     *(int*)s->mem=3;
   else
     *(int*)s->mem=2;
