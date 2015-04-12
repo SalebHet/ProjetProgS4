@@ -17,60 +17,12 @@ void free_memless_strat (strategy strat)
   free (strat);
 }
 static int homogeneous_tile(grid g,int i,int j){
-	int homo = 0;
-	if (i==0){
-		if(get_tile(g,i,j-1)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
-		if(get_tile(g,i,j+1)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
-		if(get_tile(g,i+1,j)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
-		return homo;
-	}
-	if (j == 0){
-		if(get_tile(g,i-1,j)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
-		if(get_tile(g,i,j+1)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
-		if(get_tile(g,i+1,j)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
-		return homo;
-	}
-	if (i== GRID_SIDE-1){
-		if(get_tile(g,i-1,j)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
-		if(get_tile(g,i,j+1)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
-		if(get_tile(g,i,j-1)!=0)
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
-		return homo;
-	}
-
-	if (j== GRID_SIDE-1){
-		if(get_tile(g,i-1,j)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
-		if(get_tile(g,i,j-1)!=0)
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
-		if(get_tile(g,i+1,j)!=0)
-		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
-		return homo;
-	}
-	 if(i==0 && j==0){
-	 	if(get_tile(g,i,j+1)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
-		if(get_tile(g,i+1,j)!=0)
-		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
-		return homo;
-	 }
-
-	 if(j==GRID_SIDE-1 && i==GRID_SIDE-1){
-	 	if(get_tile(g,i-1,j)!=0)
-			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
-		if(get_tile(g,i,j-1)!=0)
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
-		return homo;
-	 }
-	 return homo;
+  int diff=0;
+  if(i!=0 && get_tile(g,i-1,j)!=0)
+    diff+=abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+  if(j!=0 && get_tile(g,i,j-1)!=0)
+    diff+=abs(get_tile(g,i,j)-get_tile(g,i,j-1));
+  return diff;
 }
 static int value_grid(grid g,int score){
 	if (game_over(g))
@@ -86,7 +38,7 @@ static int value_grid(grid g,int score){
 		}
 	}
 
-	return score_move*3 + void_tile*5 - 2*homo + max_on_side(g);
+	return log(score_move)*3 + void_tile*5 +5*(10000-homo) + max_on_side(g);
 }
 
 //static int valeur_grille(grid g){
@@ -217,7 +169,8 @@ static double choose_worst_tile(grid g, int i,int score){
  *
  */
 static dir hybridAlgo(strategy s,grid g){
-  if(grid_score(g)<500)
+  if(*(int*)s->mem==0 && (grid_score(g)<500 ||
+  (get_tile(g,0,GRID_SIDE-1) < get_tile(g,0,GRID_SIDE-1) || get_tile(g,0,GRID_SIDE-1)<get_tile(g,1,GRID_SIDE-1))))
     return FirstStrat(s,g);
   int cases_vides=0;
   for(int i=0;i<GRID_SIDE;i++)
@@ -280,6 +233,7 @@ strategy firstStratConstruct(){
 }
 strategy hybridAlgoConstruct(){
   strategy s=expectedMaxConstruct();
+  *(int*)s->mem=0;
   s->play_move=hybridAlgo;
   return s;
 }
