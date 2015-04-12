@@ -6,8 +6,11 @@
 static int choose_best_dir(grid g, int i,int score);
 static double choose_worst_tile(grid g, int i, int score);
 static dir ExpectedMax(strategy s,grid g);
+static int max_j (grid g);
+static int max_i (grid g);
+static int max_on_side(grid g);
 
-# define const_side = 50;
+# define const_side 25
 
 void free_memless_strat (strategy strat)
 {
@@ -16,42 +19,54 @@ void free_memless_strat (strategy strat)
 static int homogeneous_tile(grid g,int i,int j){
 	int homo = 0;
 	if (i==0){
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
-		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
+		if(get_tile(g,i,j-1)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
+		if(get_tile(g,i,j+1)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		if(get_tile(g,i+1,j)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
 		return homo;
 	}
 	if (j == 0){
-
-		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
-		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
+		if(get_tile(g,i-1,j)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		if(get_tile(g,i,j+1)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		if(get_tile(g,i+1,j)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
 		return homo;
 	}
 	if (i== GRID_SIDE-1){
-
-		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		if(get_tile(g,i-1,j)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		if(get_tile(g,i,j+1)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		if(get_tile(g,i,j-1)!=0)
 		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
 		return homo;
 	}
 
 	if (j== GRID_SIDE-1){
-
-		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		if(get_tile(g,i-1,j)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		if(get_tile(g,i,j-1)!=0)
 		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
+		if(get_tile(g,i+1,j)!=0)
 		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
 		return homo;
 	}
 	 if(i==0 && j==0){
-		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+	 	if(get_tile(g,i,j+1)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		if(get_tile(g,i+1,j)!=0)
 		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
 		return homo;
 	 }
 
 	 if(j==GRID_SIDE-1 && i==GRID_SIDE-1){
-
-		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+	 	if(get_tile(g,i-1,j)!=0)
+			homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		if(get_tile(g,i,j-1)!=0)
 		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
 		return homo;
 	 }
@@ -71,7 +86,7 @@ static int value_grid(grid g,int score){
 		}
 	}
 
-	return score_move + void_tile*2 - homo;
+	return score_move*3 + void_tile*5 - 2*homo + max_on_side(g);
 }
 
 //static int valeur_grille(grid g){
@@ -292,13 +307,13 @@ static int max_i (grid g){
     int max = 0;
     for (int i = 0; i < GRID_SIDE-1; i++){
         for (int j = 0; j < GRID_SIDE-1 ; j++){
-            if (get_tile(g, i, j) > m){
-                m = get_tile(g, i, j);
-                i_max = i;
+            if (get_tile(g, i, j) > max){
+                max = get_tile(g, i, j);
+                max_i = i;
             }
         }
     }
-    return i_max
+    return max_i;
 }
 
 static int max_j (grid g){
@@ -306,8 +321,8 @@ static int max_j (grid g){
     int max = 0;
     for (int i = 0; i < GRID_SIDE-1; i++){
         for (int j = 0; j < GRID_SIDE-1; j++){
-            if (get_tile(g,i,j)> m){
-                m = get_tile(g, i, j);
+            if (get_tile(g,i,j)> max){
+                max = get_tile(g, i, j);
                 max_j = j;
             }
         }
@@ -316,12 +331,12 @@ static int max_j (grid g){
 }
 
 static int max_on_side (grid g){
-    int max_i = max_i(g);
-    int max_j = max_j(g);
+    int maxI = max_i(g);
+    int maxJ = max_j(g);
     int point = 0;
-    if (max_i == 0 || max_i == GRID_SIDE-1)
+    if (maxI == 0 || maxI == GRID_SIDE-1)
         point += const_side;
-    if (max_j == 0 || max_j == GRID_SIDE-1)
+    if (maxJ == 0 || maxJ == GRID_SIDE-1)
         point +=const_side;
     return point;
 }
