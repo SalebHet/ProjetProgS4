@@ -8,7 +8,7 @@ static double choose_worst_tile(grid g, int i, int score);
 static dir ExpectedMax(strategy s,grid g);
 static int max_j (grid g);
 static int max_i (grid g);
- int max_on_side(grid g);
+static int max_on_side(grid g);
 
 # define CONST_SIDE 25
 
@@ -16,13 +16,13 @@ void free_memless_strat (strategy strat)
 {
   free (strat);
 }
-int homogeneous_tile(grid g,int i,int j){
+static int homogeneous_tile(grid g,int i,int j){
   int diff=0;
   if(i!=0 && get_tile(g,i-1,j)!=0)
     diff+=abs(get_tile(g,i,j)-get_tile(g,i-1,j));
   if(j!=0 && get_tile(g,i,j-1)!=0)
     diff+=abs(get_tile(g,i,j)-get_tile(g,i,j-1));
-  return diff*get_tile(g,i,j);
+  return diff;
 }
 #if 1
 static int value_grid(grid g,int score){
@@ -39,7 +39,7 @@ static int value_grid(grid g,int score){
 		}
 	}
 
-	return log(score_move)* + void_tile*5 +5000*(10000-homo) + max_on_side(g);
+	return log(score_move)*5 + void_tile*10 +500*(10000-homo) + max_on_side(g);
 }
 #endif
 #if 0
@@ -286,7 +286,7 @@ static int max_j (grid g){
     return max_j;
 }
 
-int max_on_side (grid g){
+static int max_on_side (grid g){
     int maxI = max_i(g);
     int maxJ = max_j(g);
     int point = 0;
