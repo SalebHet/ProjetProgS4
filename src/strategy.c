@@ -10,7 +10,7 @@ static int max_j (grid g);
 static int max_i (grid g);
 static int max_on_side(grid g);
 
-# define const_side 25
+# define CONST_SIDE 25
 
 void free_memless_strat (strategy strat)
 {
@@ -289,9 +289,9 @@ static int max_on_side (grid g){
     int maxJ = max_j(g);
     int point = 0;
     if (maxI == 0 || maxI == GRID_SIDE-1)
-        point += const_side;
+        point += CONST_SIDE;
     if (maxJ == 0 || maxJ == GRID_SIDE-1)
-        point +=const_side;
+        point +=CONST_SIDE;
     return point;
 }
 
