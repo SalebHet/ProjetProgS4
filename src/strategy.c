@@ -12,7 +12,9 @@ void free_memless_strat (strategy strat)
 {
   free (strat);
 }
-
+//static int homogeneous_tile(g,i,j){
+//	
+//}
 static int value_grid(grid g,int score){
 	if (game_over(g))
 		return 0;
@@ -104,6 +106,7 @@ static int choose_best_dir(grid g, int i, int score){
 		if (!(can_move(g,d)))
 			continue;
 		copy_grid(g,g2);
+		score = grid_score(g);
 		do_move(g2,d);
 		int vInter = choose_worst_tile(g,i,score);
 		if(vInter>vMax)
@@ -130,10 +133,13 @@ static double choose_worst_tile(grid g, int i,int score){
 		for (int y = 0; y<GRID_SIDE;y++){
 			if(get_tile(g,x,y)==0){
 				set_tile(g,x,y,1);
+				score = grid_score(g);
 				m+=choose_best_dir(g,i-1,score);
 				set_tile(g,x,y,2);
+				score = grid_score(g);
 				m+=choose_best_dir(g,i-1,score);
 				set_tile(g,x,y,0);
+				score = grid_score(g);
 				n+=2;
 			}
 		}
@@ -178,8 +184,7 @@ static dir ExpectedMax(strategy s,grid g){
 		copy_grid(g,g2);
 		int score = grid_score(g);
 		do_move(g2,d2);
-		double vInter = choose_worst_tile(g2,4,score);
-		double vInter = choose_worst_tile(g2,*(int*)s->mem);
+		double vInter = choose_worst_tile(g2,*(int*)s->mem,score);
 		if(vInter>=vMax){
 			vMax = vInter;
 			d=d2;
