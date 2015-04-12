@@ -7,6 +7,7 @@ static int choose_best_dir(grid g, int i,int score);
 static double choose_worst_tile(grid g, int i, int score);
 static dir ExpectedMax(strategy s,grid g);
 
+# define const_side = 50;
 
 void free_memless_strat (strategy strat)
 {
@@ -243,6 +244,44 @@ dir FirstStrat(strategy s,grid g){
 	}
 }
 
+static int max_i (grid g){
+    int max_i = 0;
+    int max = 0;
+    for (int i = 0; i < GRID_SIDE-1; i++){
+        for (int j = 0; j < GRID_SIDE-1 ; j++){
+            if (get_tile(g, i, j) > m){
+                m = get_tile(g, i, j);
+                i_max = i;
+            }
+        }
+    }
+    return i_max
+}
+
+static int max_j (grid g){
+    int max_j = 0;
+    int max = 0;
+    for (int i = 0; i < GRID_SIDE-1; i++){
+        for (int j = 0; j < GRID_SIDE-1; j++){
+            if (get_tile(g,i,j)> m){
+                m = get_tile(g, i, j);
+                max_j = j;
+            }
+        }
+    }
+    return max_j;
+}
+
+static int max_on_side (grid g){
+    int max_i = max_i(g);
+    int max_j = max_j(g);
+    int point = 0;
+    if (max_i == 0 || max_i == GRID_SIDE-1)
+        point += const_side;
+    if (max_j == 0 || max_j == GRID_SIDE-1)
+        point +=const_side;
+    return point;
+}
 
 strategy (*listFunctionsStrat[])()={firstStratConstruct,expectedMaxConstruct,hybridAlgoConstruct,NULL};
 char* listNamesStrat[]={"firstStrat","expectedMax","algo hybride",NULL};
