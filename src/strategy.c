@@ -38,7 +38,7 @@ static int value_grid(grid g,int score){
 		}
 	}
 
-	return log(score_move)*3 + void_tile*5 +5*(10000-homo) + max_on_side(g);
+	return log(score_move)*5 + void_tile*10 +500*(10000-homo) + max_on_side(g);
 }
 
 //static int valeur_grille(grid g){
