@@ -12,22 +12,65 @@ void free_memless_strat (strategy strat)
 {
   free (strat);
 }
-//static int homogeneous_tile(g,i,j){
-//	
-//}
+static int homogeneous_tile(grid g,int i,int j){
+	int homo = 0;
+	if (i==0){
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
+		return homo;
+	}
+	if (j == 0){
+
+		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
+		return homo;
+	}
+	if (i== GRID_SIDE-1){
+
+		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
+		return homo;
+	}
+
+	if (j== GRID_SIDE-1){
+
+		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
+		return homo;
+	}
+	 if(i==0 && j==0){
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j+1));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i+1,j));
+		return homo;
+	 }
+
+	 if(j==GRID_SIDE-1 && i==GRID_SIDE-1){
+
+		homo += abs(get_tile(g,i,j)-get_tile(g,i-1,j));
+		homo += abs(get_tile(g,i,j)-get_tile(g,i,j-1));
+		return homo;
+	 }
+	 return homo;
+}
 static int value_grid(grid g,int score){
 	if (game_over(g))
 		return 0;
 	int score_move = grid_score(g)-score;
 	int void_tile = 0;
+	int homo = 0;
 	for(int i = 0 ; i<GRID_SIDE ; i++){
 		for (int j = 0 ; j<GRID_SIDE ; j++){
 			if (get_tile(g,i,j)==0)
 				void_tile++;
+				homo += homogeneous_tile(g,i,j);
 		}
 	}
 
-	return score_move + void_tile*2;
+	return score_move + void_tile*2 - homo;
 }
 
 //static int valeur_grille(grid g){
