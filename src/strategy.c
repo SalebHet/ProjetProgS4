@@ -6,11 +6,12 @@
 static int choose_best_dir(grid g, int i,int score);
 static double choose_worst_tile(grid g, int i, int score);
 static dir ExpectedMax(strategy s,grid g);
+#if 0
 static int max_j (grid g);
 static int max_i (grid g);
 static int max_on_side(grid g);
-
-# define CONST_SIDE 25
+#endif
+# define CONST_SIDE 100
 
 void free_memless_strat (strategy strat)
 {
@@ -24,6 +25,17 @@ static int homogeneous_tile(grid g,int i,int j){
     diff+=abs(get_tile(g,i,j)-get_tile(g,i,j-1));
   return diff;
 }
+/**
+ *return 2 if the tile (i;j) is in the corner, 1 if it is in an other part of the edge, else 0
+ */
+static int in_corner(int i,int j){
+  int result=0;
+  if(i==0 || i==GRID_SIDE-1)
+    result++;
+  if(j==0 || j==GRID_SIDE-1)
+    result++;
+  return result;
+}
 #if 1
 static int value_grid(grid g,int score){
 	if (game_over(g))
@@ -31,15 +43,35 @@ static int value_grid(grid g,int score){
 	int score_move = grid_score(g)-score;
 	int void_tile = 0;
 	int homo = 0;
+
+        int max_tile,max_i,max_j;
+        max_tile=0;
 	for(int i = 0 ; i<GRID_SIDE ; i++){
 		for (int j = 0 ; j<GRID_SIDE ; j++){
-			if (get_tile(g,i,j)==0)
-				void_tile++;
-				homo += homogeneous_tile(g,i,j);
+		  if (get_tile(g,i,j)==0){
+		    void_tile++;
+		  }
+		  else{
+		    homo += homogeneous_tile(g,i,j);
+		    if(get_tile(g,i,j)>max_tile){
+		      max_tile=get_tile(g,i,j);
+		      max_i=i;
+		      max_j=j;
+		    }
+		    else if(get_tile(g,i,j)==max_tile && in_corner(i,j)>in_corner(max_i,max_j)){
+		      max_tile=get_tile(g,i,j);
+		      max_i=i;
+		      max_j=j;
+		    }
+		  }
 		}
 	}
-
-	return log(score_move)*5 + void_tile*10 +500*(10000-homo) + max_on_side(g);
+	int val_on_side=0;
+	if(max_i==0 || max_i==GRID_SIDE)
+	  val_on_side+=CONST_SIDE;
+	if(max_j==0 || max_j==GRID_SIDE)
+	  val_on_side+=CONST_SIDE;
+	return score_move*16 + void_tile*20 +5000*(10000-homo) + val_on_side;
 }
 #endif
 #if 0
@@ -171,20 +203,24 @@ static double choose_worst_tile(grid g, int i,int score){
  *
  */
 static dir hybridAlgo(strategy s,grid g){
+#if 0
   if(*(int*)s->mem==0 && (grid_score(g)<500 ||
   (get_tile(g,0,GRID_SIDE-1) < get_tile(g,0,GRID_SIDE-2) || get_tile(g,0,GRID_SIDE-1)<get_tile(g,1,GRID_SIDE-1))))
     return FirstStrat(s,g);
+#endif
   int cases_vides=0;
   for(int i=0;i<GRID_SIDE;i++)
     for(int j=0;j<GRID_SIDE;j++)
       if(get_tile(g,i,j)==0)
 	cases_vides++;
-  if(cases_vides==0)
+  if(cases_vides<2)
     *(int*)s->mem=5;
   else if(cases_vides<6)
     *(int*)s->mem=4;
-  else
+  else if(cases_vides<9)
     *(int*)s->mem=3;
+  else
+    *(int*)s->mem=2;
   return ExpectedMax(s,g);
 }
 static dir ExpectedMax(strategy s,grid g){
@@ -257,7 +293,7 @@ dir FirstStrat(strategy s,grid g){
 		return RIGHT;
 	}
 }
-
+#if 0
 static int max_i (grid g){
     int max_i = 0;
     int max = 0;
@@ -296,6 +332,6 @@ static int max_on_side (grid g){
         point +=CONST_SIDE;
     return point;
 }
-
+#endif
 strategy (*listFunctionsStrat[])()={firstStratConstruct,expectedMaxConstruct,hybridAlgoConstruct,NULL};
 char* listNamesStrat[]={"firstStrat","expectedMax","algo hybride",NULL};
