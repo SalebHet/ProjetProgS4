@@ -11,7 +11,7 @@ static int max_j (grid g);
 static int max_i (grid g);
 static int max_on_side(grid g);
 #endif
-# define CONST_SIDE 100
+# define CONST_SIDE 25000
 
 void free_memless_strat (strategy strat)
 {
@@ -67,11 +67,11 @@ static int value_grid(grid g,int score){
 		}
 	}
 	int val_on_side=0;
-	if(max_i==0 || max_i==GRID_SIDE)
+	if(max_i==0 || max_i==GRID_SIDE-1)
 	  val_on_side+=CONST_SIDE;
-	if(max_j==0 || max_j==GRID_SIDE)
+	if(max_j==0 || max_j==GRID_SIDE-1)
 	  val_on_side+=CONST_SIDE;
-	return score_move*16 + void_tile*20 +5000*(10000-homo) + val_on_side;
+	return score_move*16+ void_tile*25 +8000*(10000-homo) + val_on_side;
 }
 #endif
 #if 0
