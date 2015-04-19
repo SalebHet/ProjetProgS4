@@ -45,7 +45,6 @@ static int rand_a_b(int a, int b) {     // fonction permettant de retourner un e
 }
 
 grid new_grid() {
-    srand(time(NULL));          // Initialisation de TIME pour le random
     grid gr = malloc(sizeof(struct grid_s));    //Allocation mémoire pour la nouvelle instance de grille
     gr->score = 0;              //Initialisation du score à 0
     for (int i = 0; i < GRID_SIDE; i++) {
@@ -188,7 +187,7 @@ static void turn(grid g) {
             int oldx = x;
             int oldy = y;
             int tmp1 = g->g[x][y];
-            for (int i = 0; i < GRID_SIDE; i++) {
+            for (int i = 0; i < 4; i++) {
                 /*On va appliquer au point une rotation d'un quart de cercle.
                    Rappel : si p est un point de la forme a+ib alors p*i vaut -b+ia et p*i est l'image de
                    p après y avoir appliqué une rotation  de PI/2 dans le sens antihoraire autour du sens du repère.
