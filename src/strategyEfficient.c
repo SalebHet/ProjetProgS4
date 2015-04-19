@@ -13,6 +13,12 @@ void free_memless_strat (strategy strat)
   free (strat);
 }
 
+/**
+* \brief find if a grid is homogeneous or not. The int returned is higher if the grid is highly homogeneous.
+* \brief grid g, the grid
+* \brief int i, the abscissa of the tile
+* \brief int j, the ordinate of the tile
+**/
 static int homogeneous_tile(grid g,int i,int j){
   int diff=0;
   if(i!=0 && get_tile(g,i-1,j)!=0)
@@ -21,8 +27,11 @@ static int homogeneous_tile(grid g,int i,int j){
     diff+=abs(get_tile(g,i,j)-get_tile(g,i,j-1));
   return diff;
 }
+
 /**
- *return 2 if the tile (i;j) is in the corner, 1 if it is in an other part of the edge, else 0
+ * \brief return 2 if the tile (i;j) is in the corner, 1 if it is in an other part of the edge, else 0
+ * \param int i, the tile's abscissa
+ * \param int j, the tile's ordinate
  */
 static int in_corner(int i,int j){
   int result=0;
@@ -33,6 +42,11 @@ static int in_corner(int i,int j){
   return result;
 }
 
+/**
+* \brief return the value of the grid
+* \param grid g, the grid
+* \param int score, the score before the move
+**/
 static int value_grid(grid g,int score){
 	if (game_over(g))
 		return 0;
@@ -70,6 +84,10 @@ static int value_grid(grid g,int score){
 	return score_move*16+ void_tile*25 +8000*(10000-homo) + val_on_side;
 }
 
+/**
+* \brief turn an int into a direction
+* \param int i, the direction as an int: 0 for UP, 1 for RIGHT, 2 for DOWN. The default direction is LEFT.
+**/
 static dir int_to_dir(int i){
 	if (i==0)
 		return UP;
@@ -82,6 +100,12 @@ static dir int_to_dir(int i){
 	}
 }
 
+/**
+* \brief this function choose the best grid
+* \param grid g, the grid
+* \param int i, how many moves ahead
+* \param int score, the score before the move
+**/
 static int choose_best_dir(grid g, int i, int score){
   if(game_over(g))// si on a un game over, alors la valeur de la grille est de 0
 		return 0;
@@ -104,13 +128,12 @@ static int choose_best_dir(grid g, int i, int score){
 	return vMax;
 }
 
-
 /**
  *
  * \brief this function returns the medium grid's value obtained by placing 2 or 4 in a free case
  * \param grid g, the grid
- * \param int i, the direction
- *
+ * \param int i, how many moves ahead
+ * \param int score, the score before the move
  **/
 static double choose_worst_tile(grid g, int i,int score){
 	if (game_over(g))
@@ -137,6 +160,11 @@ static double choose_worst_tile(grid g, int i,int score){
 	return m/n;
 }
 
+/**
+* \brief give the direction choosen
+* \param strategy s, the strategy choosen
+* \param grid g, the grid
+**/
 static dir ExpectedMax(strategy s,grid g){
 	double vMax=0;
 	dir d;
@@ -153,8 +181,6 @@ static dir ExpectedMax(strategy s,grid g){
 			vMax = vInter;
 			d=d2;
 		}
-
-
 	}
 	delete_grid(g2);
 	return d;
