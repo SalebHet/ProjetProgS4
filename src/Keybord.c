@@ -7,7 +7,7 @@
 /**
 * \brief return the direction given by the user
 **/
-static dir getDir() {
+dir getDir() {
     srand(time(NULL));
     while (true) {
         int c = getch();
