@@ -4,7 +4,7 @@ add_library(A2_beziau_pathe_nerestan_efficient SHARED strategyEfficient.c)
 add_library(A2_beziau_pathe_nerestan_fast SHARED strategyFast.c)
 
 add_executable(test-grid test.c afficher.c)
-add_executable(2048 main.c afficher.c)
+add_executable(2048 main.c afficher.c Keybord.c)
 add_executable(2048-gui 2048-gui.c)
 add_executable(stratMain stratmain.c grid.c afficher.c)
 

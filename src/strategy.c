@@ -3,15 +3,18 @@
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
+
 static int choose_best_dir(grid g, int i,int score);
 static double choose_worst_tile(grid g, int i, int score);
 static dir ExpectedMax(strategy s,grid g);
+
+# define CONST_SIDE 25000
+
 #if 0
 static int max_j (grid g);
 static int max_i (grid g);
 static int max_on_side(grid g);
 #endif
-# define CONST_SIDE 25000
 
 void free_memless_strat (strategy strat)
 {
@@ -36,6 +39,7 @@ static int in_corner(int i,int j){
     result++;
   return result;
 }
+
 #if 1
 static int value_grid(grid g,int score){
 	if (game_over(g))
@@ -74,6 +78,7 @@ static int value_grid(grid g,int score){
 	return score_move*16+ void_tile*25 +8000*(10000-homo) + val_on_side;
 }
 #endif
+
 #if 0
 static int value_grid(grid g, int rjesz){
   if(game_over(g))
@@ -161,7 +166,6 @@ static int choose_best_dir(grid g, int i, int score){
 	return vMax;
 }
 
-
 /**
  *
  * \brief this function returns the medium grid's value obtained by placing 2 or 4 in a free case
@@ -193,7 +197,6 @@ static double choose_worst_tile(grid g, int i,int score){
 	  return choose_best_dir(g,i-1,score);
 	return m/n;
 }
-
 
 /**
  *
