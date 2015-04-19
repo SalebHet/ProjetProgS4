@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <time.h>
-#include "Keybord.h"
+#include "keyboard.h"
 
 
 int main() {
