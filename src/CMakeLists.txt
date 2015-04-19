@@ -5,10 +5,12 @@ add_library(A2_beziau_pathe_nerestan_fast SHARED strategyFast.c)
 
 add_executable(test-grid test.c afficher.c)
 add_executable(2048 main.c afficher.c)
+add_executable(2048-gui 2048-gui.c)
 add_executable(stratMain stratmain.c grid.c afficher.c)
 
 target_link_libraries(test-grid strategy ncurses grid m)
 target_link_libraries(2048 ncurses grid m)
 target_link_libraries(stratMain strategy ncurses grid m)
+target_link_libraries(2048-gui SDL SDLmain grid m)
 target_link_libraries(A2_beziau_pathe_nerestan_fast m)
 target_link_libraries(A2_beziau_pathe_nerestan_efficient m)
