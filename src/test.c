@@ -40,6 +40,9 @@ int main() {
     test_strat_opti();
 }
 
+/**
+* \brief test if the initialization is correctly done
+**/
 void test_init() {
     grid g = new_grid();
     for (int x = 0; x < GRID_SIDE; x++) {
@@ -55,6 +58,9 @@ void test_init() {
     printf("succes : initialisation\n");
 }
 
+/**
+* \brief test the addition of the tiles
+**/
 void test_add() {
     grid g = new_grid();
     int nb_tile = 0;
@@ -86,6 +92,9 @@ void test_add() {
     delete_grid(g);
 }
 
+/**
+* \brief test the function "gameover()"
+**/
 void test_over() {
     grid g = new_grid();
     int val_tile = 1;
@@ -104,6 +113,9 @@ void test_over() {
     delete_grid(g);
 }
 
+/**
+* \brief test "can_move()"
+**/
 void test_can_move() {
     grid g1 = new_grid();
     for (int y = 0; y < GRID_SIDE; y++) {
@@ -128,6 +140,9 @@ void test_can_move() {
     delete_grid(g2);
 }
 
+/**
+* \brief test "do_move(grid g, dir d)"
+**/
 void test_do_move() {
     grid g = new_grid();
     for (int i = 0; i < GRID_SIDE; i++) {
@@ -155,6 +170,9 @@ void test_do_move() {
     delete_grid(g);
 }
 
+/**
+* \brief test "play(grid g, dir d)"
+**/
 void test_play() {
     grid g = new_grid();
     set_tile(g, 1, 2, 1);
@@ -177,6 +195,9 @@ void test_play() {
     delete_grid(g);
 }
 
+/**
+* \brief test "set_tile(grid g, int x, int y, tile t)"
+**/
 void test_set_tile() {
     grid g = new_grid();
     set_tile(g, 3, 2, 1);
@@ -193,6 +214,9 @@ void test_set_tile() {
     delete_grid(g);
 }
 
+/**
+* \brief test the copy of the grid
+**/
 void test_copy() {
     grid g = new_grid();
     grid c = new_grid();
@@ -211,7 +235,9 @@ void test_copy() {
     delete_grid(g);
     delete_grid(c);
 }
-
+/**
+* \brief test "grid_score(grid g)"
+**/
 void test_score() {
     grid g = new_grid();
     set_tile(g, 0, 0, 1);
@@ -225,6 +251,10 @@ void test_score() {
     delete_grid(g);
 }
 
+/**
+* \brief find the grid's maximum
+* \param gird g, the grid
+**/
 static int max_grid(grid g){
     int m = 0;
     for (int i = 0 ; i<GRID_SIDE;i++){
@@ -236,6 +266,9 @@ static int max_grid(grid g){
     return (int) pow(2,m);
 }
 
+/**
+* \brief test a strategy
+**/
 void test_strat(){
     grid* tabGrid = malloc(sizeof(grid)*10000);
     for (int i= 0; i<10000; i++){
@@ -268,6 +301,9 @@ void test_strat(){
 
 }
 
+/**
+* \brief test the optimal strategy
+**/
 void test_strat_opti(){
     grid g = new_grid();        //Création de la grille de jeu
     strategy strat;
