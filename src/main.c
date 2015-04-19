@@ -4,25 +4,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <time.h>
-
-static dir getDir() {           //Fonction permettant de récupérer une touche du clavier et d'y associer une direction
-    srand(time(NULL));
-    while (true) {
-        int c = getch();
-        if (c != ERR) {
-            switch (c) {
-            case KEY_UP:
-                return UP;
-            case KEY_LEFT:
-                return LEFT;
-            case KEY_DOWN:
-                return DOWN;
-            case KEY_RIGHT:
-                return RIGHT;
-            }
-        }
-    }
-}
+#include "Keybord.h"
 
 
 int main() {

@@ -3,14 +3,11 @@
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
+
 static int choose_best_dir(grid g, int i,int score);
 static double choose_worst_tile(grid g, int i, int score);
 static dir ExpectedMax(strategy s,grid g);
-#if 0
-static int max_j (grid g);
-static int max_i (grid g);
-static int max_on_side(grid g);
-#endif
+
 # define CONST_SIDE 25000
 
 void free_memless_strat (strategy strat)
@@ -36,7 +33,7 @@ static int in_corner(int i,int j){
     result++;
   return result;
 }
-#if 1
+
 static int value_grid(grid g,int score){
 	if (game_over(g))
 		return 0;
@@ -73,44 +70,6 @@ static int value_grid(grid g,int score){
 	  val_on_side+=CONST_SIDE;
 	return score_move*16+ void_tile*25 +8000*(10000-homo) + val_on_side;
 }
-#endif
-#if 0
-static int value_grid(grid g, int rjesz){
-  if(game_over(g))
-    return 0;
-  int grille_pleines=1;
-  int diff_tuiles=0;
-  int nb_diff_tuile=0;
-  for(int i=0;i<GRID_SIDE;i++){
-    if(get_tile(g,i,0)!=0)
-      grille_pleines++;
-  }
-  for(int i=1;i<GRID_SIDE;i++){
-    if(get_tile(g,0,i)!=0)
-      grille_pleines++;
-  }
-  for(int i=1;i<GRID_SIDE;i++){
-    for(int j=1;j<GRID_SIDE;j++){
-      int a=get_tile(g,i,j);
-      int b=get_tile(g,i-1,j);
-      if(a!=0){
-        grille_pleines++;
-        if(b!=0){
-           diff_tuiles+=abs(a-b);
-            nb_diff_tuile++;
-        }
-        b=get_tile(g,i,j-1);
-        if(b!=0){
-           diff_tuiles+=abs(a-b);
-           nb_diff_tuile++;
-        }
-      }
-    }
-  }
-  float moy_diff_tuiles=(nb_diff_tuile!=0)?1+diff_tuiles/nb_diff_tuile:1;
-  return log(grid_score(g))/log(2)+1.5f/moy_diff_tuiles;
-}
-#endif
 
 
 /**
@@ -161,7 +120,6 @@ static int choose_best_dir(grid g, int i, int score){
 	return vMax;
 }
 
-
 /**
  *
  * \brief this function returns the medium grid's value obtained by placing 2 or 4 in a free case
@@ -194,7 +152,6 @@ static double choose_worst_tile(grid g, int i,int score){
 	return m/n;
 }
 
-
 /**
  *
  * \brief give out the direction choose by expectedMax
@@ -203,11 +160,6 @@ static double choose_worst_tile(grid g, int i,int score){
  *
  */
 static dir hybridAlgo(strategy s,grid g){
-#if 0
-  if(*(int*)s->mem==0 && (grid_score(g)<500 ||
-  (get_tile(g,0,GRID_SIDE-1) < get_tile(g,0,GRID_SIDE-2) || get_tile(g,0,GRID_SIDE-1)<get_tile(g,1,GRID_SIDE-1))))
-    return FirstStrat(s,g);
-#endif
   int cases_vides=0;
   for(int i=0;i<GRID_SIDE;i++)
     for(int j=0;j<GRID_SIDE;j++)
@@ -293,45 +245,5 @@ dir FirstStrat(strategy s,grid g){
 		return RIGHT;
 	}
 }
-#if 0
-static int max_i (grid g){
-    int max_i = 0;
-    int max = 0;
-    for (int i = 0; i < GRID_SIDE-1; i++){
-        for (int j = 0; j < GRID_SIDE-1 ; j++){
-            if (get_tile(g, i, j) > max){
-                max = get_tile(g, i, j);
-                max_i = i;
-            }
-        }
-    }
-    return max_i;
-}
-
-static int max_j (grid g){
-    int max_j = 0;
-    int max = 0;
-    for (int i = 0; i < GRID_SIDE-1; i++){
-        for (int j = 0; j < GRID_SIDE-1; j++){
-            if (get_tile(g,i,j)> max){
-                max = get_tile(g, i, j);
-                max_j = j;
-            }
-        }
-    }
-    return max_j;
-}
-
-static int max_on_side (grid g){
-    int maxI = max_i(g);
-    int maxJ = max_j(g);
-    int point = 0;
-    if (maxI == 0 || maxI == GRID_SIDE-1)
-        point += CONST_SIDE;
-    if (maxJ == 0 || maxJ == GRID_SIDE-1)
-        point +=CONST_SIDE;
-    return point;
-}
-#endif
 strategy (*listFunctionsStrat[])()={firstStratConstruct,expectedMaxConstruct,hybridAlgoConstruct,NULL};
 char* listNamesStrat[]={"firstStrat","expectedMax","algo hybride",NULL};
