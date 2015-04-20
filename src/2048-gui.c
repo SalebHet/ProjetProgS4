@@ -71,6 +71,13 @@ void event(game g){
   }
 }
 
+Uint32 get_tile_color(SDL_PixelFormat* f,int tile){
+  if(tile==0)
+    return SDL_MapRGB(f,80,80,80);
+  else
+    return SDL_MapRGB(f,120,120,120);
+}
+
 void draw(vars_draw v,game g){
   Uint32 rmask, gmask, bmask, amask;
 
@@ -85,21 +92,25 @@ void draw(vars_draw v,game g){
  SDL_Rect rect={5,5,90,90};
   SDL_Color c={255,255,255};
   char* str=malloc(10*sizeof(char));
-  SDL_FillRect(tile, &rect,SDL_MapRGB(tile->format,80,80,80)); 
   SDL_FillRect(v->screen, NULL, SDL_MapRGB(v->screen->format, 100, 100, 100));
   for(int x=0;x<GRID_SIDE;x++){
-    for(int y=0;y<GRID_SIDE;y++){
+    for(int y=0;y<GRID_SIDE;y++){ 
       int t=get_tile(g->g,x,y);
+      SDL_FillRect(tile, &rect,get_tile_color(tile->format,t));
       SDL_Rect tilePos={100*x,100*y};
-      SDL_BlitSurface(tile,NULL,v->screen,&tilePos);
-      if(t==0)
-	continue;
-      t=pow(2,t);
-      int taille=sprintf(str,"%d",t);
-      SDL_Surface* s=TTF_RenderText_Solid( v->fonts[taille<3?0:1], str, c );
       
+      if(t!=0){
 
-      SDL_BlitSurface(s,NULL,v->screen,&tilePos);
+	t=pow(2,t);
+	int taille=sprintf(str,"%d",t);
+	SDL_Surface* s=TTF_RenderText_Solid( v->fonts[taille<3?0:1], str, c );
+	assert(s->w <= tile->w-10);//la taille du texte doit rentrer dans une tuile privée de sa marge
+	assert(s->h <= tile->h-10);
+	SDL_Rect tileRect={45 - (s->w)/2 , 45 - (s->h)/2 , 0,0};
+	SDL_BlitSurface(s,NULL,tile,&tileRect);
+      }
+      
+      SDL_BlitSurface(tile,NULL,v->screen,&tilePos);
     }
   }
 
