@@ -38,6 +38,14 @@ game new_game(){
   add_tile(g->g);
   return g;
 }
+/**
+ * \brief free the game
+ * \param g the game to free
+ */
+void free_game(game g){
+  delete_grid(g->g);
+  free(g);
+}
 
 /**
  * \brief contain the variables needed for the display
@@ -60,6 +68,16 @@ vars_draw new_vars_draw(){
   v->fonts[2]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",30);
   v->fonts[3]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",25);
   return v;
+}
+/**
+ * \brief destroy a vars_draw structure
+ * \param v the vars_draw to destroy
+ */
+void free_vars_draw(vars_draw v){
+  for(int i=0;i<4;i++)//il y a 4 polices
+    TTF_CloseFont(v->fonts[i]);
+  free(v->fonts);
+  free(v);
 }
 
 /**
@@ -133,6 +151,7 @@ void event(game g){
       break;
     }
   }
+  free(event);
 }
 /**
  * \brief return the color of the tile for this value
@@ -194,7 +213,7 @@ void draw(vars_draw v,game g){
 	SDL_Surface* s=TTF_RenderText_Solid( v->fonts[size_police], str, c );
 	assert(s->w <= tile->w-10);//la taille du texte doit rentrer dans une tuile privée de sa marge
 	assert(s->h <= tile->h-10);
-	SDL_Rect tileRect={45 - (s->w)/2 , 45 - (s->h)/2 , 0,0};
+	SDL_Rect tileRect={50 - (s->w)/2 , 50 - (s->h)/2 , 0,0};
 	SDL_BlitSurface(s,NULL,tile,&tileRect);
 	SDL_FreeSurface(s);
       }
@@ -208,7 +227,7 @@ void draw(vars_draw v,game g){
   SDL_BlitSurface(der,NULL,v->screen,&fpsPos);
   SDL_Flip(v->screen);
 
-
+  free(str);
   SDL_FreeSurface(tile);
   SDL_FreeSurface(der);
 }
@@ -239,7 +258,7 @@ int main(int argc,char** argv){
   TTF_Init();
   game g=new_game();
   vars_draw v=new_vars_draw();
-#if 0
+#if 1
   int i=2;
   for(int x=0;x<GRID_SIDE;x++)
     for(int y=0;y<GRID_SIDE;y++)
@@ -250,6 +269,10 @@ int main(int argc,char** argv){
     execute(g);
     draw(v,g);
   }
+  TTF_Quit();
   SDL_Quit();
+
+  free_game(g);
+  free_vars_draw(v); 
   return EXIT_SUCCESS;
 }
