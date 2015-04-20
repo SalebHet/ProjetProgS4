@@ -1,0 +1,44 @@
+\indexentry{game@{game}|hyperpage}{5}
+\indexentry{grid\discretionary {-}{}{}\_\discretionary {-}{}{}s@{grid\discretionary {-}{}{}\_\discretionary {-}{}{}s}|hyperpage}{5}
+\indexentry{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s@{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}|hyperpage}{5}
+\indexentry{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s@{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}!free\discretionary {-}{}{}\_\discretionary {-}{}{}strategy@{free\discretionary {-}{}{}\_\discretionary {-}{}{}strategy}|hyperpage}{6}
+\indexentry{free\discretionary {-}{}{}\_\discretionary {-}{}{}strategy@{free\discretionary {-}{}{}\_\discretionary {-}{}{}strategy}!strategy_s@{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}|hyperpage}{6}
+\indexentry{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s@{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}!name@{name}|hyperpage}{6}
+\indexentry{name@{name}!strategy_s@{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}|hyperpage}{6}
+\indexentry{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s@{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}!play\discretionary {-}{}{}\_\discretionary {-}{}{}move@{play\discretionary {-}{}{}\_\discretionary {-}{}{}move}|hyperpage}{6}
+\indexentry{play\discretionary {-}{}{}\_\discretionary {-}{}{}move@{play\discretionary {-}{}{}\_\discretionary {-}{}{}move}!strategy_s@{strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}|hyperpage}{6}
+\indexentry{vars\discretionary {-}{}{}\_\discretionary {-}{}{}draw@{vars\discretionary {-}{}{}\_\discretionary {-}{}{}draw}|hyperpage}{6}
+\indexentry{include/grid.\discretionary {-}{}{}h@{include/grid.\discretionary {-}{}{}h}|hyperpage}{7}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!G\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}E@{G\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}E}|hyperpage}{8}
+\indexentry{G\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}E@{G\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}E}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{8}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!grid@{grid}|hyperpage}{8}
+\indexentry{grid@{grid}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{8}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!add\discretionary {-}{}{}\_\discretionary {-}{}{}tile@{add\discretionary {-}{}{}\_\discretionary {-}{}{}tile}|hyperpage}{8}
+\indexentry{add\discretionary {-}{}{}\_\discretionary {-}{}{}tile@{add\discretionary {-}{}{}\_\discretionary {-}{}{}tile}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{8}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!can\discretionary {-}{}{}\_\discretionary {-}{}{}move@{can\discretionary {-}{}{}\_\discretionary {-}{}{}move}|hyperpage}{8}
+\indexentry{can\discretionary {-}{}{}\_\discretionary {-}{}{}move@{can\discretionary {-}{}{}\_\discretionary {-}{}{}move}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{8}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!copy\discretionary {-}{}{}\_\discretionary {-}{}{}grid@{copy\discretionary {-}{}{}\_\discretionary {-}{}{}grid}|hyperpage}{9}
+\indexentry{copy\discretionary {-}{}{}\_\discretionary {-}{}{}grid@{copy\discretionary {-}{}{}\_\discretionary {-}{}{}grid}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{9}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!delete\discretionary {-}{}{}\_\discretionary {-}{}{}grid@{delete\discretionary {-}{}{}\_\discretionary {-}{}{}grid}|hyperpage}{9}
+\indexentry{delete\discretionary {-}{}{}\_\discretionary {-}{}{}grid@{delete\discretionary {-}{}{}\_\discretionary {-}{}{}grid}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{9}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!do\discretionary {-}{}{}\_\discretionary {-}{}{}move@{do\discretionary {-}{}{}\_\discretionary {-}{}{}move}|hyperpage}{9}
+\indexentry{do\discretionary {-}{}{}\_\discretionary {-}{}{}move@{do\discretionary {-}{}{}\_\discretionary {-}{}{}move}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{9}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!game\discretionary {-}{}{}\_\discretionary {-}{}{}over@{game\discretionary {-}{}{}\_\discretionary {-}{}{}over}|hyperpage}{9}
+\indexentry{game\discretionary {-}{}{}\_\discretionary {-}{}{}over@{game\discretionary {-}{}{}\_\discretionary {-}{}{}over}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{9}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!get\discretionary {-}{}{}\_\discretionary {-}{}{}tile@{get\discretionary {-}{}{}\_\discretionary {-}{}{}tile}|hyperpage}{9}
+\indexentry{get\discretionary {-}{}{}\_\discretionary {-}{}{}tile@{get\discretionary {-}{}{}\_\discretionary {-}{}{}tile}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{9}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!grid\discretionary {-}{}{}\_\discretionary {-}{}{}score@{grid\discretionary {-}{}{}\_\discretionary {-}{}{}score}|hyperpage}{10}
+\indexentry{grid\discretionary {-}{}{}\_\discretionary {-}{}{}score@{grid\discretionary {-}{}{}\_\discretionary {-}{}{}score}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{10}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!new\discretionary {-}{}{}\_\discretionary {-}{}{}grid@{new\discretionary {-}{}{}\_\discretionary {-}{}{}grid}|hyperpage}{10}
+\indexentry{new\discretionary {-}{}{}\_\discretionary {-}{}{}grid@{new\discretionary {-}{}{}\_\discretionary {-}{}{}grid}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{10}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!play@{play}|hyperpage}{10}
+\indexentry{play@{play}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{10}
+\indexentry{grid.\discretionary {-}{}{}h@{grid.\discretionary {-}{}{}h}!set\discretionary {-}{}{}\_\discretionary {-}{}{}tile@{set\discretionary {-}{}{}\_\discretionary {-}{}{}tile}|hyperpage}{10}
+\indexentry{set\discretionary {-}{}{}\_\discretionary {-}{}{}tile@{set\discretionary {-}{}{}\_\discretionary {-}{}{}tile}!grid.h@{grid.\discretionary {-}{}{}h}|hyperpage}{10}
+\indexentry{include/strategy.\discretionary {-}{}{}h@{include/strategy.\discretionary {-}{}{}h}|hyperpage}{11}
+\indexentry{strategy.\discretionary {-}{}{}h@{strategy.\discretionary {-}{}{}h}!strategy@{strategy}|hyperpage}{11}
+\indexentry{strategy@{strategy}!strategy.h@{strategy.\discretionary {-}{}{}h}|hyperpage}{11}
+\indexentry{strategy.\discretionary {-}{}{}h@{strategy.\discretionary {-}{}{}h}!First\discretionary {-}{}{}Strat@{First\discretionary {-}{}{}Strat}|hyperpage}{11}
+\indexentry{First\discretionary {-}{}{}Strat@{First\discretionary {-}{}{}Strat}!strategy.h@{strategy.\discretionary {-}{}{}h}|hyperpage}{11}
+\indexentry{strategy.\discretionary {-}{}{}h@{strategy.\discretionary {-}{}{}h}!free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat@{free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}|hyperpage}{12}
+\indexentry{free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat@{free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}!strategy.h@{strategy.\discretionary {-}{}{}h}|hyperpage}{12}

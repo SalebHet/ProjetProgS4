@@ -1,0 +1,116 @@
+\begin{theindex}
+
+  \item {add\discretionary {-}{}{}\_\discretionary {-}{}{}tile}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{8}
+
+  \indexspace
+
+  \item {can\discretionary {-}{}{}\_\discretionary {-}{}{}move}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{8}
+  \item {copy\discretionary {-}{}{}\_\discretionary {-}{}{}grid}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{9}
+
+  \indexspace
+
+  \item {delete\discretionary {-}{}{}\_\discretionary {-}{}{}grid}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{9}
+  \item {do\discretionary {-}{}{}\_\discretionary {-}{}{}move}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{9}
+
+  \indexspace
+
+  \item {First\discretionary {-}{}{}Strat}
+    \subitem {strategy.\discretionary {-}{}{}h}, \hyperpage{11}
+  \item {free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}
+    \subitem {strategy.\discretionary {-}{}{}h}, \hyperpage{12}
+  \item {free\discretionary {-}{}{}\_\discretionary {-}{}{}strategy}
+    \subitem {strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}, 
+		\hyperpage{6}
+
+  \indexspace
+
+  \item {G\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}E}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{8}
+  \item {game}, \hyperpage{5}
+  \item {game\discretionary {-}{}{}\_\discretionary {-}{}{}over}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{9}
+  \item {get\discretionary {-}{}{}\_\discretionary {-}{}{}tile}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{9}
+  \item {grid}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{8}
+  \item {grid.\discretionary {-}{}{}h}
+    \subitem {add\discretionary {-}{}{}\_\discretionary {-}{}{}tile}, 
+		\hyperpage{8}
+    \subitem {can\discretionary {-}{}{}\_\discretionary {-}{}{}move}, 
+		\hyperpage{8}
+    \subitem {copy\discretionary {-}{}{}\_\discretionary {-}{}{}grid}, 
+		\hyperpage{9}
+    \subitem {delete\discretionary {-}{}{}\_\discretionary {-}{}{}grid}, 
+		\hyperpage{9}
+    \subitem {do\discretionary {-}{}{}\_\discretionary {-}{}{}move}, 
+		\hyperpage{9}
+    \subitem {G\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}S\discretionary {-}{}{}I\discretionary {-}{}{}D\discretionary {-}{}{}E}, 
+		\hyperpage{8}
+    \subitem {game\discretionary {-}{}{}\_\discretionary {-}{}{}over}, 
+		\hyperpage{9}
+    \subitem {get\discretionary {-}{}{}\_\discretionary {-}{}{}tile}, 
+		\hyperpage{9}
+    \subitem {grid}, \hyperpage{8}
+    \subitem {grid\discretionary {-}{}{}\_\discretionary {-}{}{}score}, 
+		\hyperpage{10}
+    \subitem {new\discretionary {-}{}{}\_\discretionary {-}{}{}grid}, 
+		\hyperpage{10}
+    \subitem {play}, \hyperpage{10}
+    \subitem {set\discretionary {-}{}{}\_\discretionary {-}{}{}tile}, 
+		\hyperpage{10}
+  \item {grid\discretionary {-}{}{}\_\discretionary {-}{}{}s}, 
+		\hyperpage{5}
+  \item {grid\discretionary {-}{}{}\_\discretionary {-}{}{}score}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{10}
+
+  \indexspace
+
+  \item {include/grid.\discretionary {-}{}{}h}, \hyperpage{7}
+  \item {include/strategy.\discretionary {-}{}{}h}, \hyperpage{11}
+
+  \indexspace
+
+  \item {name}
+    \subitem {strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}, 
+		\hyperpage{6}
+  \item {new\discretionary {-}{}{}\_\discretionary {-}{}{}grid}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{10}
+
+  \indexspace
+
+  \item {play}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{10}
+  \item {play\discretionary {-}{}{}\_\discretionary {-}{}{}move}
+    \subitem {strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}, 
+		\hyperpage{6}
+
+  \indexspace
+
+  \item {set\discretionary {-}{}{}\_\discretionary {-}{}{}tile}
+    \subitem {grid.\discretionary {-}{}{}h}, \hyperpage{10}
+  \item {strategy}
+    \subitem {strategy.\discretionary {-}{}{}h}, \hyperpage{11}
+  \item {strategy.\discretionary {-}{}{}h}
+    \subitem {First\discretionary {-}{}{}Strat}, \hyperpage{11}
+    \subitem {free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}, 
+		\hyperpage{12}
+    \subitem {strategy}, \hyperpage{11}
+  \item {strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}, 
+		\hyperpage{5}
+    \subitem {free\discretionary {-}{}{}\_\discretionary {-}{}{}strategy}, 
+		\hyperpage{6}
+    \subitem {name}, \hyperpage{6}
+    \subitem {play\discretionary {-}{}{}\_\discretionary {-}{}{}move}, 
+		\hyperpage{6}
+
+  \indexspace
+
+  \item {vars\discretionary {-}{}{}\_\discretionary {-}{}{}draw}, 
+		\hyperpage{6}
+
+\end{theindex}
