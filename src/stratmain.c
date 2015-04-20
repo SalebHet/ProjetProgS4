@@ -63,7 +63,7 @@ int main (){
     while(!game_over(g)){
       display(g);
       play(g,strat->play_move(strat,g));
-      usleep(500000);
+      usleep(100000);
     }
     display(g);
     sleep(7);

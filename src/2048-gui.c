@@ -9,8 +9,14 @@
 #include <stdbool.h>
 
 #include "grid.h"
-
+/**
+ * \brief list of the possible state of the game
+ */
 typedef enum {MOVE_UP=UP,MOVE_LEFT=LEFT,MOVE_DOWN=DOWN,MOVE_RIGHT=RIGHT,RUN,GAME_OVER,QUIT} state;
+
+/**
+ * \brief contain the information relative of the game
+ */
 typedef struct{
   state st;
   bool disable_play_mouse;
@@ -18,6 +24,10 @@ typedef struct{
   int fps;
   grid g;
 } *game;
+/**
+ * \brief Initialise the game structure
+ * \return created a game structure at the state play
+ */
 game new_game(){
   game g=malloc(sizeof(*g));
   g->st=RUN;
@@ -30,11 +40,18 @@ game new_game(){
   return g;
 }
 
-
+/**
+ * \brief contain the variables needed for the display
+ */
 typedef struct{
   SDL_Surface* screen;
   TTF_Font** fonts;
 } *vars_draw;
+
+/**
+ * \brief initialise the vars_draw structure and the SDL display
+ * \return created a structure with the surface of the screen and a police in 4 diferents sizes
+ */
 vars_draw new_vars_draw(){
   vars_draw v=malloc(sizeof(*v));
   v->screen=SDL_SetVideoMode( 400,450, 32, SDL_HWSURFACE );
@@ -46,6 +63,13 @@ vars_draw new_vars_draw(){
   return v;
 }
 
+/**
+ * \brief indicate the movement of the mouse
+ * \param x the relative motion of the mouse in X direction
+ * \param y the relative motion of the mouse in Y direction
+ * \param fps the number of frame per second of the application
+ * \return MOVE_<DIRECTION> if a movement is detected, RUN else
+ */
 state mouse_move(int x,int y,int fps){
   if(fabs(x)>fabs(y)){
     if(x*fps<-400)
@@ -62,6 +86,10 @@ state mouse_move(int x,int y,int fps){
   return RUN;
 }
 
+/**
+ * \brief process the extern events and update the state of the game if needed
+ * \param g the structure of the actual game
+ */
 void event(game g){
   SDL_Event* event=malloc(sizeof(SDL_Event));
   while(SDL_PollEvent(event)){
@@ -107,7 +135,11 @@ void event(game g){
     }
   }
 }
-
+/**
+ * \brief return the color of the tile for this value
+ * \param f a pointer to the format needed for the pixel
+ * \param tile the value of the tile
+ */
 Uint32 get_tile_color(SDL_PixelFormat* f,int tile){
   int r,g,b;
   if(tile == 0)
@@ -120,6 +152,12 @@ Uint32 get_tile_color(SDL_PixelFormat* f,int tile){
   return SDL_MapRGB(f,r,g,b);
 }
 
+
+/**
+ * \brief draw the game
+ * \param v the variable vars_draw of the actual window
+ * \param g the structure of the actual game
+ */
 void draw(vars_draw v,game g){
   Uint32 rmask, gmask, bmask, amask;
 
@@ -136,32 +174,32 @@ void draw(vars_draw v,game g){
   char* str=malloc(15*sizeof(char));
   SDL_FillRect(v->screen, NULL, SDL_MapRGB(v->screen->format, 100, 100, 100));
   for(int x=0;x<GRID_SIDE;x++){
-    for(int y=0;y<GRID_SIDE;y++){ 
+    for(int y=0;y<GRID_SIDE;y++){
       int t=get_tile(g->g,x,y);
       SDL_FillRect(tile, &rect,get_tile_color(tile->format,t));
       SDL_Rect tilePos={100*x,100*y};
-      
+
       if(t!=0){
 
 	t=pow(2,t);
-	int taille=sprintf(str,"%d",t);
-	int size_police;
-	if(taille<3)
-	  size_police=0;
-	else if(taille==3)
-	  size_police=1;
-	else if(taille==4)
-	  size_police=2;
+	int size=sprintf(str,"%d",t);
+	int size_font;
+	if(size<3)
+	  size_font=0;
+	else if(size==3)
+	  size_font=1;
+	else if(size==4)
+	  size_font=2;
 	else
-	  size_police=3;
-	SDL_Surface* s=TTF_RenderText_Solid( v->fonts[size_police], str, c );
+	  size_font=3;
+	SDL_Surface* s=TTF_RenderText_Solid( v->fonts[size_font], str, c );
 	assert(s->w <= tile->w-10);//la taille du texte doit rentrer dans une tuile privée de sa marge
 	assert(s->h <= tile->h-10);
 	SDL_Rect tileRect={45 - (s->w)/2 , 45 - (s->h)/2 , 0,0};
 	SDL_BlitSurface(s,NULL,tile,&tileRect);
 	SDL_FreeSurface(s);
       }
-      
+
       SDL_BlitSurface(tile,NULL,v->screen,&tilePos);
     }
   }
@@ -175,7 +213,10 @@ void draw(vars_draw v,game g){
   SDL_FreeSurface(tile);
   SDL_FreeSurface(der);
 }
-
+/**
+ * \brief process the game
+ * \param g the structure of the actual game
+ */
 void execute(game g){
   Uint32 time=SDL_GetTicks();
   g->fps=1000.f/((time-g->time));
