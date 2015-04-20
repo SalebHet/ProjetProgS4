@@ -1,0 +1,78 @@
+\hypertarget{strategy_8h}{\section{include/strategy.h File Reference}
+\label{strategy_8h}\index{include/strategy.\-h@{include/strategy.\-h}}
+}
+
+
+Defines the \char`\"{}strategy\char`\"{} structure.  
+
+
+{\ttfamily \#include \char`\"{}grid.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structstrategy__s}{strategy\-\_\-s}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structstrategy__s}{strategy\-\_\-s} $\ast$ \hyperlink{strategy_8h_a1c5c1046e8ada212d56c538c53030434}{strategy}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{strategy_8h_a3fa53767df6ed070cd3efef3868a4e2b}{\hyperlink{strategy_8h_a1c5c1046e8ada212d56c538c53030434}{strategy} {\bfseries first\-Strat\-Construct} ()}\label{strategy_8h_a3fa53767df6ed070cd3efef3868a4e2b}
+
+\item 
+void \hyperlink{strategy_8h_a6c1d996bbf6f49123a46d9b88454d0ab}{free\-\_\-memless\-\_\-strat} (\hyperlink{strategy_8h_a1c5c1046e8ada212d56c538c53030434}{strategy} strat)
+\item 
+\hyperlink{grid_8h_a862c63b15eab5b0d2781cea356e5d935}{dir} \hyperlink{strategy_8h_a74268667b80a55c463b5f6af2a378b15}{First\-Strat} (\hyperlink{strategy_8h_a1c5c1046e8ada212d56c538c53030434}{strategy} s, \hyperlink{grid_8h_a1de57b3be5a7cf6542078fcb2fd1e042}{grid} g)
+\begin{DoxyCompactList}\small\item\em choose the first direction possible in this order\-: L\-E\-F\-T, D\-O\-W\-N, U\-P, R\-I\-G\-H\-T \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{strategy_8h_ab8965a4d70ea088a84a399c9bc74bbfc}{\hyperlink{strategy_8h_a1c5c1046e8ada212d56c538c53030434}{strategy}($\ast$ {\bfseries list\-Functions\-Strat} \mbox{[}$\,$\mbox{]})()}\label{strategy_8h_ab8965a4d70ea088a84a399c9bc74bbfc}
+
+\item 
+\hypertarget{strategy_8h_acd047ef72a00e34cfaa27a25902f0591}{char $\ast$ {\bfseries list\-Names\-Strat} \mbox{[}$\,$\mbox{]}}\label{strategy_8h_acd047ef72a00e34cfaa27a25902f0591}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Defines the \char`\"{}strategy\char`\"{} structure. 1.\-0 
+
+\subsection{Typedef Documentation}
+\hypertarget{strategy_8h_a1c5c1046e8ada212d56c538c53030434}{\index{strategy.\-h@{strategy.\-h}!strategy@{strategy}}
+\index{strategy@{strategy}!strategy.h@{strategy.\-h}}
+\subsubsection[{strategy}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf strategy\-\_\-s}$\ast$ {\bf strategy}}}\label{strategy_8h_a1c5c1046e8ada212d56c538c53030434}
+{\bfseries strategy} is a pointer to a \hyperlink{structstrategy__s}{strategy\-\_\-s} structure 
+
+\subsection{Function Documentation}
+\hypertarget{strategy_8h_a74268667b80a55c463b5f6af2a378b15}{\index{strategy.\-h@{strategy.\-h}!First\-Strat@{First\-Strat}}
+\index{First\-Strat@{First\-Strat}!strategy.h@{strategy.\-h}}
+\subsubsection[{First\-Strat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dir} First\-Strat (
+\begin{DoxyParamCaption}
+\item[{{\bf strategy}}]{s, }
+\item[{{\bf grid}}]{g}
+\end{DoxyParamCaption}
+)}}\label{strategy_8h_a74268667b80a55c463b5f6af2a378b15}
+
+
+choose the first direction possible in this order\-: L\-E\-F\-T, D\-O\-W\-N, U\-P, R\-I\-G\-H\-T 
+
+
+\begin{DoxyParams}{Parameters}
+{\em strategy} & s, a structure strategy \\
+\hline
+{\em grid} & g, the grid \\
+\hline
+\end{DoxyParams}
+\hypertarget{strategy_8h_a6c1d996bbf6f49123a46d9b88454d0ab}{\index{strategy.\-h@{strategy.\-h}!free\-\_\-memless\-\_\-strat@{free\-\_\-memless\-\_\-strat}}
+\index{free\-\_\-memless\-\_\-strat@{free\-\_\-memless\-\_\-strat}!strategy.h@{strategy.\-h}}
+\subsubsection[{free\-\_\-memless\-\_\-strat}]{\setlength{\rightskip}{0pt plus 5cm}void free\-\_\-memless\-\_\-strat (
+\begin{DoxyParamCaption}
+\item[{{\bf strategy}}]{strat}
+\end{DoxyParamCaption}
+)}}\label{strategy_8h_a6c1d996bbf6f49123a46d9b88454d0ab}
+Naively frees the $<$strat$>$ pointer. 
