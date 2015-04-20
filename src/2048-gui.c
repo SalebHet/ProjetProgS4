@@ -2,6 +2,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include <SDL/SDL_mixer.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
@@ -191,11 +192,21 @@ void execute(game g){
   else if(g->st==GAME_OVER)
     g->st=QUIT;
 }
+
+
 int main(int argc,char** argv){
   SDL_Init(SDL_INIT_VIDEO);
   TTF_Init();
+  SDL_WM_SetCaption("SDL_mixer", NULL);
   game g=new_game();
   vars_draw v=new_vars_draw();
+  if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+    printf("%s",Mix_GetError() );
+  Mix_Music *music;
+  music = Mix_LoadMUS("src/music.mp3");
+  Mix_PlayMusic(music, -1);
+  if (Mix_PlayingMusic()!=1)
+      printf("La music ne joue pas\n");
 #if 0
   int i=2;
   for(int x=0;x<GRID_SIDE;x++)
@@ -207,6 +218,8 @@ int main(int argc,char** argv){
     execute(g);
     draw(v,g);
   }
+  Mix_FreeMusic(music);
+  Mix_CloseAudio();
   SDL_Quit();
   return EXIT_SUCCESS;
 }
