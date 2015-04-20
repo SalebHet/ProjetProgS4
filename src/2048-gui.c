@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "grid.h"
 /**
@@ -256,10 +257,11 @@ void execute(game g){
 int main(int argc,char** argv){
   SDL_Init(SDL_INIT_VIDEO);
   TTF_Init();
+  srand(time(NULL));
   game g=new_game();
   vars_draw v=new_vars_draw();
 
-#if 1
+#if 0
   int i=2;
   for(int x=0;x<GRID_SIDE;x++)
     for(int y=0;y<GRID_SIDE;y++)
@@ -270,10 +272,12 @@ int main(int argc,char** argv){
     execute(g);
     draw(v,g);
   }
-  TTF_Quit();
-  SDL_Quit();
+
 
   free_game(g);
   free_vars_draw(v); 
+  TTF_Quit();
+  SDL_Quit();
+
   return EXIT_SUCCESS;
 }
