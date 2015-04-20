@@ -22,7 +22,7 @@ static char *itoa(int i) {
         copie--;                //on passe au caractère de gauche.
         i /= 10;
     }
-    ret[6] = '\0';              //Le seotièmle caractère devient un 0.
+    ret[6] = '\0';              //Le septième caractère devient un 0.
     return ret;
 }
 
