@@ -45,6 +45,21 @@ vars_draw new_vars_draw(){
   return v;
 }
 
+state mouse_move(int x,int y,int fps){
+  if(fabs(x)>fabs(y)){
+    if(x*fps<-400)
+      return MOVE_LEFT;
+    else if(x*fps>400)
+      return MOVE_RIGHT;
+  }
+  else{
+    if(y*fps<-400)
+      return MOVE_UP;
+    else if(y*fps>400)
+      return MOVE_DOWN;
+  }
+  return RUN;
+}
 
 void event(game g){
   SDL_Event* event=malloc(sizeof(SDL_Event));
@@ -73,6 +88,18 @@ void event(game g){
       break;
     case SDL_QUIT:
       g->st=QUIT;
+      break;
+    case SDL_MOUSEMOTION:
+      if(!g->disable_play_mouse &&  event->motion.state&SDL_BUTTON(1)){
+	state st=mouse_move(event->motion.xrel,event->motion.yrel,g->fps);
+	if(st!=RUN){
+	  g->st=st;
+	  g->disable_play_mouse=true;
+	}
+      }
+      break;
+    case SDL_MOUSEBUTTONUP:
+      g->disable_play_mouse=false;
       break;
     default:
       break;
