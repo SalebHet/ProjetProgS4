@@ -271,12 +271,13 @@ static int max_grid(grid g){
 **/
 void test_strat(){
     grid* tabGrid = malloc(sizeof(grid)*10000);
+    strategy strat=listFunctionsStrat[0]();
     for (int i= 0; i<10000; i++){
         tabGrid[i] = new_grid();
         add_tile(tabGrid[i]);
         add_tile(tabGrid[i]);
         while(!game_over(tabGrid[i])){
-	  play(tabGrid[i],FirstStrat(NULL,tabGrid[i]));
+	  play(tabGrid[i],strat->play_move(NULL,tabGrid[i]));
         }
     }
     int tmax = 0;
