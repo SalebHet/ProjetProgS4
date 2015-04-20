@@ -1,218 +1,24 @@
 #include "strategy.h"
-#include "stdlib.h"
-#include <stdbool.h>
-#include <math.h>
-#include <assert.h>
-
-static int choose_best_dir(grid g, int i,int score);
-static double choose_worst_tile(grid g, int i, int score);
-static dir ExpectedMax(strategy s,grid g);
-
-# define CONST_SIDE 25000
-
-void free_memless_strat (strategy strat)
-{
-  free (strat);
-}
-static int homogeneous_tile(grid g,int i,int j){
-  int diff=0;
-  if(i!=0 && get_tile(g,i-1,j)!=0)
-    diff+=abs(get_tile(g,i,j)-get_tile(g,i-1,j));
-  if(j!=0 && get_tile(g,i,j-1)!=0)
-    diff+=abs(get_tile(g,i,j)-get_tile(g,i,j-1));
-  return diff;
-}
-/**
- *return 2 if the tile (i;j) is in the corner, 1 if it is in an other part of the edge, else 0
- */
-static int in_corner(int i,int j){
-  int result=0;
-  if(i==0 || i==GRID_SIDE-1)
-    result++;
-  if(j==0 || j==GRID_SIDE-1)
-    result++;
-  return result;
-}
-
-static int value_grid(grid g,int score){
-	if (game_over(g))
-		return 0;
-	int score_move = grid_score(g)-score;
-	int void_tile = 0;
-	int homo = 0;
-
-        int max_tile,max_i,max_j;
-        max_tile=0;
-	for(int i = 0 ; i<GRID_SIDE ; i++){
-		for (int j = 0 ; j<GRID_SIDE ; j++){
-		  if (get_tile(g,i,j)==0){
-		    void_tile++;
-		  }
-		  else{
-		    homo += homogeneous_tile(g,i,j);
-		    if(get_tile(g,i,j)>max_tile){
-		      max_tile=get_tile(g,i,j);
-		      max_i=i;
-		      max_j=j;
-		    }
-		    else if(get_tile(g,i,j)==max_tile && in_corner(i,j)>in_corner(max_i,max_j)){
-		      max_tile=get_tile(g,i,j);
-		      max_i=i;
-		      max_j=j;
-		    }
-		  }
-		}
-	}
-	int val_on_side=0;
-	if(max_i==0 || max_i==GRID_SIDE-1)
-	  val_on_side+=CONST_SIDE;
-	if(max_j==0 || max_j==GRID_SIDE-1)
-	  val_on_side+=CONST_SIDE;
-	return score_move*16+ void_tile*25 +8000*(10000-homo) + val_on_side;
-}
-
 
 /**
 *
-* \brief turn a int between 0 and 4 into a direction
-* \param int i the int to turn
+* \brief choose the first direction possible in this order: LEFT, DOWN, UP, RIGHT
+* \param strategy s, a structure strategy
+* \param grid g, the grid
 *
 **/
-static dir int_to_dir(int i){
-	if (i==0)
-		return UP;
-	if (i==1)
-		return RIGHT;
-	if (i==2)
-		return DOWN;
-	else{
-		return LEFT;
-	}
+static dir FirstStrat(strategy s,grid g){
+  if(can_move(g,LEFT))
+    return LEFT;
+  if (can_move(g,DOWN))
+    return DOWN;
+  if (can_move(g,UP))
+    return UP;
+  else{
+    return RIGHT;
+  }
 }
 
-/**
- *
- * \brief returns grid's value if i == 0 or if there's game over.
- *  Else, this function returns the grid's value after the best mouvment.
- * \param grid g the grid
- * \param int i the direction
- *
- **/
-static int choose_best_dir(grid g, int i, int score){
-  if(game_over(g))// si on a un game over, alors la valeur de la grille est de 0
-		return 0;
-  if (i==0)//sinon de celle du score
-		return value_grid(g,score);
-	grid g2 = new_grid();
-	int vMax=0;
-	for(int a = 0;a<4;a++){ // 4 représente ici le nombre de directions
-		dir d = int_to_dir(a);
-		if (!(can_move(g,d)))
-			continue;
-		copy_grid(g,g2);
-		score = grid_score(g);
-		do_move(g2,d);
-		int vInter = choose_worst_tile(g,i,score);
-		if(vInter>vMax)
-			vMax=vInter;
-	}
-	delete_grid(g2);
-	return vMax;
-}
-
-/**
- *
- * \brief this function returns the medium grid's value obtained by placing 2 or 4 in a free case
- * \param grid g, the grid
- * \param int i, the direction
- *
- **/
-static double choose_worst_tile(grid g, int i,int score){
-	if (game_over(g))
-		return 0;
-	int n = 0;
-	int m = 0;
-	for (int x =0 ; x<GRID_SIDE;x++){
-		for (int y = 0; y<GRID_SIDE;y++){
-			if(get_tile(g,x,y)==0){
-				set_tile(g,x,y,1);
-				score = grid_score(g);
-				m+=choose_best_dir(g,i-1,score);
-				set_tile(g,x,y,2);
-				score = grid_score(g);
-				m+=choose_best_dir(g,i-1,score);
-				set_tile(g,x,y,0);
-				score = grid_score(g);
-				n+=2;
-			}
-		}
-	}
-	if(n==0)
-	  return choose_best_dir(g,i-1,score);
-	return m/n;
-}
-
-/**
- *
- * \brief give out the direction choose by expectedMax
- * \param strategy s, structure strategy
- * \param grid g, the grid
- *
- */
-static dir hybridAlgo(strategy s,grid g){
-  int cases_vides=0;
-  for(int i=0;i<GRID_SIDE;i++)
-    for(int j=0;j<GRID_SIDE;j++)
-      if(get_tile(g,i,j)==0)
-	cases_vides++;
-  if(cases_vides<0)
-    *(int*)s->mem=5;
-  else if(cases_vides<4)
-    *(int*)s->mem=4;
-  else if(cases_vides<7)
-    *(int*)s->mem=3;
-  else
-    *(int*)s->mem=2;
-  return ExpectedMax(s,g);
-}
-static dir ExpectedMax(strategy s,grid g){
-	double vMax=0;
-	dir d;
-	grid g2 = new_grid();
-	for (int i = 0 ; i<4;i++){
-		dir d2 = int_to_dir(i);
-		if(!(can_move(g,d2)))
-			continue;
-		copy_grid(g,g2);
-		int score = grid_score(g);
-		do_move(g2,d2);
-		double vInter = choose_worst_tile(g2,*(int*)s->mem,score);
-		if(vInter>=vMax){
-			vMax = vInter;
-			d=d2;
-		}
-
-
-	}
-	delete_grid(g2);
-	return d;
-}
-
-/**
-*
-* \brief construct a nex structure strategy
-*
-**/
-strategy expectedMaxConstruct(){
-  strategy s=malloc(sizeof(struct strategy_s));
-  s->play_move=ExpectedMax;
-  s->name="algo expectedMax groupe H";
-  s->mem=NULL;
-  s->mem=malloc(sizeof(int));
-  *(int*)(s->mem)=3;
-  s->free_strategy=free_memless_strat;
-  return s;
-}
 strategy firstStratConstruct(){
   strategy s=malloc(sizeof(struct strategy_s));
   s->play_move=FirstStrat;
@@ -221,29 +27,8 @@ strategy firstStratConstruct(){
   s->free_strategy=free_memless_strat;
   return s;
 }
-strategy hybridAlgoConstruct(){
-  strategy s=expectedMaxConstruct();
-  *(int*)s->mem=0;
-  s->play_move=hybridAlgo;
-  return s;
-}
-/**
-*
-* \brief choose the first direction possible in this order: LEFT, DOWN, UP, RIGHT
-* \param strategy s, a structure strategy
-* \param grid g, the grid
-*
-**/
-dir FirstStrat(strategy s,grid g){
-	if(can_move(g,LEFT))
-		return LEFT;
-	if (can_move(g,DOWN))
-		return DOWN;
-	if (can_move(g,UP))
-		return UP;
-	else{
-		return RIGHT;
-	}
-}
-strategy (*listFunctionsStrat[])()={firstStratConstruct,expectedMaxConstruct,hybridAlgoConstruct,NULL};
-char* listNamesStrat[]={"firstStrat","expectedMax","algo hybride",NULL};
+
+
+strategy (*listFunctionsStrat[])()={firstStratConstruct,A2_beziau_pathe_nerestan_efficient,
+				    A2_beziau_pathe_nerestan_fast,NULL};
+char* listNamesStrat[]={"firstStrat","expected max efficace","expected max rappide",NULL};

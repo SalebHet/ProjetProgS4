@@ -14,10 +14,9 @@
 /** \b strategy is a pointer to a strategy_s structure */
 typedef struct strategy_s *strategy;
 
-strategy firstStratConstruct();
 
-extern strategy (*listFunctionsStrat[])();//={firstStratConstruct,NULL};
-extern char* listNamesStrat[];//={"firstStrat",NULL};
+extern strategy (*listFunctionsStrat[])();
+extern char* listNamesStrat[];
 /**
  * \b Structure that contains a strategy.
  *
@@ -35,6 +34,9 @@ struct strategy_s
 };
 
 
+strategy A2_beziau_pathe_nerestan_efficient();
+strategy A2_beziau_pathe_nerestan_fast();
+
 /**
  * Naively frees the <strat> pointer.
  */
@@ -42,6 +44,5 @@ extern void free_memless_strat (strategy strat);
 
 
 
-dir FirstStrat(strategy s,grid g);
 
 #endif /* STRATEGY_H_ */
