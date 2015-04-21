@@ -169,9 +169,9 @@ Uint32 get_tile_color(SDL_PixelFormat* f,int tile){
   if(tile == 0)
     r=g=b=80;
   else{
-    b=16*fmax(0,fmax(11-fabs(3-tile),16-fabs(18-tile)-1));
-    r=16*fmax(11-fabs(3-tile),16-fabs(9-tile)-1);
-    g=16*fmax(11-fabs(3-tile),fmax(16-fabs(9-tile)-1,16-fabs(14-tile)-1));
+    b=16*fmax(0,fmax(11-fabs(4-tile),16-fabs(18-tile)-1));
+    r=16*fmax(11-fabs(4-tile),16-fabs(9-tile)-1);
+    g=16*fmax(11-fabs(4-tile),fmax(16-fabs(9-tile)-1,16-fabs(14-tile)-1));
   }
   return SDL_MapRGB(f,r,g,b);
 }
@@ -266,12 +266,6 @@ int main(int argc,char** argv){
   game g=new_game();
   vars_draw v=new_vars_draw();
 
-#if 0
-  int i=2;
-  for(int x=0;x<GRID_SIDE;x++)
-    for(int y=0;y<GRID_SIDE;y++)
-      set_tile(g->g,x,y,i++);
-#endif
   while(g->st!=QUIT){
     event(g);
     execute(g);
