@@ -235,7 +235,7 @@ void draw(vars_draw v,game g){
   sprintf(str,"score : %5ld",grid_score(g->g));
   SDL_Rect scorePos={0,400};//on affiche le score en bas à gauche (400 veut dire en dessous de la 4eme tuile)
   SDL_Surface *der=TTF_RenderText_Solid( v->fonts[2],str , c );
-  SDL_BlitSurface(der,NULL,v->screen,&fpsPos);
+  SDL_BlitSurface(der,NULL,v->screen,&scorePos);
   if(g->st==GAME_OVER){
     SDL_Color noir = {0,0,0};
     SDL_Surface *texte = TTF_RenderText_Blended(v->fonts[4],"GAME OVER !",noir);
@@ -243,7 +243,7 @@ void draw(vars_draw v,game g){
     SDL_BlitSurface(texte, NULL,v->screen,&GOPos);  
     SDL_FreeSurface(texte);
   }
-  SDL_BlitSurface(der,NULL,v->screen,&scorePos);
+  //SDL_BlitSurface(der,NULL,v->screen,&scorePos);
   SDL_Flip(v->screen);
   free(str);
   SDL_FreeSurface(tile);
@@ -265,6 +265,8 @@ void execute(game g){
       play(g->g,d);
     if(game_over(g->g))
       g->st=GAME_OVER;
+    else
+      g->st=RUN;
   }
 }
 
