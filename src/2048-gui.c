@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #include <time.h>
 
+#include <unistd.h>
+
 #include "grid.h"
 /**
  * \brief list of the possible state of the game
@@ -66,12 +68,13 @@ vars_draw new_vars_draw(){
   //il possède aussi une marge de 50 pixels en bas (encore une fois, taille arbitraire) pour pouvoir afficher le score
   //les pixels sont codés sur 32 bits
   v->screen=SDL_SetVideoMode( GRID_SIDE*100,GRID_SIDE*100+50, 32, SDL_HWSURFACE );
-  v->fonts=malloc(sizeof(TTF_Font*)*4);//on utilise 4 polices de tailles différentes pour pouvoir écrire toutes les valeurs
+  v->fonts=malloc(sizeof(TTF_Font*)*4);//on utilise 5 polices de tailles différentes pour pouvoir écrire toutes les valeurs
   //de tuiles sans déborder.
   v->fonts[0]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",60);
   v->fonts[1]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",40);
   v->fonts[2]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",30);
   v->fonts[3]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",25);
+  v->fonts[4]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeSerifBoldItalic.ttf",50);
   return v;
 }
 /**
@@ -79,7 +82,7 @@ vars_draw new_vars_draw(){
  * \param v the vars_draw to destroy
  */
 void free_vars_draw(vars_draw v){
-  for(int i=0;i<4;i++)//il y a 4 polices à libérer dans le tableau
+  for(int i=0;i<5;i++)//il y a 5 polices
     TTF_CloseFont(v->fonts[i]);
   free(v->fonts);
   free(v);
@@ -231,11 +234,20 @@ void draw(vars_draw v,game g){
   SDL_Rect scorePos={0,400};//on affiche le score en bas à gauche (400 veut dire en dessous de la 4eme tuile)
   SDL_Surface *der=TTF_RenderText_Solid( v->fonts[2],str , c );
   SDL_BlitSurface(der,NULL,v->screen,&scorePos);
+  if(g->st==GAME_OVER){
+    SDL_Color noir = {0,0,0};
+    SDL_Surface *texte = TTF_RenderText_Blended(v->fonts[4],"GAME OVER !",noir);
+    SDL_Rect GOPos={50,75};
+    SDL_BlitSurface(texte, NULL,v->screen,&GOPos);  
+    SDL_FreeSurface(texte);
+  } 
+  //  SDL_BlitSurface(der,NULL,v->screen,&scorePos);
   SDL_Flip(v->screen);
-
   free(str);
   SDL_FreeSurface(tile);
   SDL_FreeSurface(der);
+
+
 }
 /**
  * \brief process the game
@@ -254,8 +266,6 @@ void execute(game g){
     else
       g->st=RUN;
   }
-  else if(g->st==GAME_OVER)
-    g->st=QUIT;
 }
 
 
