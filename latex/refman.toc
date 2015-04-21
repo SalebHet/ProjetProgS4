@@ -4,6 +4,7 @@
 \contentsline {section}{\numberline {2.1}File List}{3}{section.2.1}
 \contentsline {chapter}{\numberline {3}Data Structure Documentation}{5}{chapter.3}
 \contentsline {section}{\numberline {3.1}game Struct Reference}{5}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Detailed Description}{5}{subsection.3.1.1}
 \contentsline {section}{\numberline {3.2}grid\discretionary {-}{}{}\_\discretionary {-}{}{}s Struct Reference}{5}{section.3.2}
 \contentsline {section}{\numberline {3.3}strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s Struct Reference}{5}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Detailed Description}{6}{subsection.3.3.1}
@@ -12,6 +13,7 @@
 \contentsline {subsubsection}{\numberline {3.3.2.2}name}{6}{subsubsection.3.3.2.2}
 \contentsline {subsubsection}{\numberline {3.3.2.3}play\discretionary {-}{}{}\_\discretionary {-}{}{}move}{6}{subsubsection.3.3.2.3}
 \contentsline {section}{\numberline {3.4}vars\discretionary {-}{}{}\_\discretionary {-}{}{}draw Struct Reference}{6}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Detailed Description}{6}{subsection.3.4.1}
 \contentsline {chapter}{\numberline {4}File Documentation}{7}{chapter.4}
 \contentsline {section}{\numberline {4.1}include/grid.h File Reference}{7}{section.4.1}
 \contentsline {subsection}{\numberline {4.1.1}Detailed Description}{8}{subsection.4.1.1}
@@ -36,6 +38,5 @@
 \contentsline {subsection}{\numberline {4.2.2}Typedef Documentation}{11}{subsection.4.2.2}
 \contentsline {subsubsection}{\numberline {4.2.2.1}strategy}{11}{subsubsection.4.2.2.1}
 \contentsline {subsection}{\numberline {4.2.3}Function Documentation}{11}{subsection.4.2.3}
-\contentsline {subsubsection}{\numberline {4.2.3.1}First\discretionary {-}{}{}Strat}{11}{subsubsection.4.2.3.1}
-\contentsline {subsubsection}{\numberline {4.2.3.2}free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}{12}{subsubsection.4.2.3.2}
-\contentsline {chapter}{Index}{13}{section*.14}
+\contentsline {subsubsection}{\numberline {4.2.3.1}free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}{11}{subsubsection.4.2.3.1}
+\contentsline {chapter}{Index}{12}{section*.14}

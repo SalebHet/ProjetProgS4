@@ -19,10 +19,8 @@
 
   \indexspace
 
-  \item {First\discretionary {-}{}{}Strat}
-    \subitem {strategy.\discretionary {-}{}{}h}, \hyperpage{11}
   \item {free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}
-    \subitem {strategy.\discretionary {-}{}{}h}, \hyperpage{12}
+    \subitem {strategy.\discretionary {-}{}{}h}, \hyperpage{11}
   \item {free\discretionary {-}{}{}\_\discretionary {-}{}{}strategy}
     \subitem {strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}, 
 		\hyperpage{6}
@@ -96,9 +94,8 @@
   \item {strategy}
     \subitem {strategy.\discretionary {-}{}{}h}, \hyperpage{11}
   \item {strategy.\discretionary {-}{}{}h}
-    \subitem {First\discretionary {-}{}{}Strat}, \hyperpage{11}
     \subitem {free\discretionary {-}{}{}\_\discretionary {-}{}{}memless\discretionary {-}{}{}\_\discretionary {-}{}{}strat}, 
-		\hyperpage{12}
+		\hyperpage{11}
     \subitem {strategy}, \hyperpage{11}
   \item {strategy\discretionary {-}{}{}\_\discretionary {-}{}{}s}, 
 		\hyperpage{5}

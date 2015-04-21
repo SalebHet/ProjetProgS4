@@ -66,6 +66,12 @@ vars_draw new_vars_draw(){
   vars_draw v=malloc(sizeof(*v));
   v->screen=SDL_SetVideoMode( 400,450, 32, SDL_HWSURFACE );
   v->fonts=malloc(sizeof(TTF_Font*)*5);
+  //l'écran de rendu comporte GRID_SIDE tuiles de 100 pixels de cotés chacuns (taille arbitraire)
+  //il possède aussi une marge de 50 pixels en bas (encore une fois, taille arbitraire) pour pouvoir afficher le score
+  //les pixels sont codés sur 32 bits
+  v->screen=SDL_SetVideoMode( GRID_SIDE*100,GRID_SIDE*100+50, 32, SDL_HWSURFACE );
+  v->fonts=malloc(sizeof(TTF_Font*)*4);//on utilise 4 polices de tailles différentes pour pouvoir écrire toutes les valeurs
+  //de tuiles sans déborder.
   v->fonts[0]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",60);
   v->fonts[1]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",40);
   v->fonts[2]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",30);
@@ -92,16 +98,17 @@ void free_vars_draw(vars_draw v){
  * \return MOVE_<DIRECTION> if a movement is detected, RUN else
  */
 state mouse_move(int x,int y,int fps){
+  const int real_movement = 400;//le déplacement doit etre de au moins 400 pixel/s pour etre considéré comme valide
   if(fabs(x)>fabs(y)){
-    if(x*fps<-400)
+    if(x*fps<-real_movement)
       return MOVE_LEFT;
-    else if(x*fps>400)
+    else if(x*fps>real_movement)
       return MOVE_RIGHT;
   }
   else{
-    if(y*fps<-400)
+    if(y*fps<-real_movement)
       return MOVE_UP;
-    else if(y*fps>400)
+    else if(y*fps>real_movement)
       return MOVE_DOWN;
   }
   return RUN;
@@ -182,31 +189,31 @@ Uint32 get_tile_color(SDL_PixelFormat* f,int tile){
  */
 void draw(vars_draw v,game g){
   Uint32 rmask, gmask, bmask, amask;
-
+  //on définit les masques pour déterminer quelle partie du pixel correspond à quelle couleur
  rmask = 0xff000000;
  gmask = 0x00ff0000;
  bmask = 0x0000ff00;
  amask = 0x000000ff;
-
+ //une tuile a pour taille 100x100 et est codée sur 32 bits.
  SDL_Surface *tile=SDL_CreateRGBSurface(SDL_HWSURFACE,100,100,32,rmask,gmask,bmask,amask);
 
  SDL_FillRect(tile, NULL,SDL_MapRGBA(tile->format,0,0,0,0));
- SDL_Rect rect={5,5,90,90};
- SDL_Color c={0,0,0};
+ SDL_Rect rect={5,5,90,90};//on définit une marge de 5 pixels pour chaque tuile
+ SDL_Color c={0,0,0};//la couleur du texte est le noir
   char* str=malloc(15*sizeof(char));
-  SDL_FillRect(v->screen, NULL, SDL_MapRGB(v->screen->format, 100, 100, 100));
+  SDL_FillRect(v->screen, NULL, SDL_MapRGB(v->screen->format, 100, 100, 100));//on définit un fond gris foncé
   for(int x=0;x<GRID_SIDE;x++){
     for(int y=0;y<GRID_SIDE;y++){
       int t=get_tile(g->g,x,y);
       SDL_FillRect(tile, &rect,get_tile_color(tile->format,t));
-      SDL_Rect tilePos={100*x,100*y};
+      SDL_Rect tilePos={100*x,100*y};//toujours 100 pour la taille d'une tuile
 
       if(t!=0){
 
 	t=pow(2,t);
 	int size=sprintf(str,"%d",t);
 	int size_font;
-	if(size<3)
+	if(size<3)//on adapte la taille de la police en fonction du nombre de caractères que contient la valeur de la tuile
 	  size_font=0;
 	else if(size==3)
 	  size_font=1;
@@ -217,7 +224,7 @@ void draw(vars_draw v,game g){
 	SDL_Surface* s=TTF_RenderText_Solid( v->fonts[size_font], str, c );
 	assert(s->w <= tile->w-10);//la taille du texte doit rentrer dans une tuile privée de sa marge
 	assert(s->h <= tile->h-10);
-	SDL_Rect tileRect={50 - (s->w)/2 , 50 - (s->h)/2 , 0,0};
+	SDL_Rect tileRect={50 - (s->w)/2 , 50 - (s->h)/2 , 0,0};//on écrit le texte au millieu de la tuile (50 = 100/2)
 	SDL_BlitSurface(s,NULL,tile,&tileRect);
 	SDL_FreeSurface(s);
       }
@@ -226,7 +233,7 @@ void draw(vars_draw v,game g){
     }
   }
   sprintf(str,"score : %5ld",grid_score(g->g));
-  SDL_Rect fpsPos={0,400};
+  SDL_Rect scorePos={0,400};//on affiche le score en bas à gauche (400 veut dire en dessous de la 4eme tuile)
   SDL_Surface *der=TTF_RenderText_Solid( v->fonts[2],str , c );
   SDL_BlitSurface(der,NULL,v->screen,&fpsPos);
   if(g->st==GAME_OVER){
@@ -236,6 +243,7 @@ void draw(vars_draw v,game g){
     SDL_BlitSurface(texte, NULL,v->screen,&GOPos);  
     SDL_FreeSurface(texte);
   }
+  SDL_BlitSurface(der,NULL,v->screen,&scorePos);
   SDL_Flip(v->screen);
   free(str);
   SDL_FreeSurface(tile);
@@ -249,7 +257,7 @@ void draw(vars_draw v,game g){
  */
 void execute(game g){
   Uint32 time=SDL_GetTicks();
-  g->fps=1000.f/((time-g->time));
+  g->fps=1000.f/((time-g->time));//SDL_GetTicks renvoie une valeur en ms, il faut la diviser par 1000 pour avoir une valeur en secondes 
   g->time=time;
   if(g->st<RUN){
     dir d=g->st;
