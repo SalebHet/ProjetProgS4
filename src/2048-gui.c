@@ -64,13 +64,11 @@ typedef struct{
  */
 vars_draw new_vars_draw(){
   vars_draw v=malloc(sizeof(*v));
-  v->screen=SDL_SetVideoMode( 400,450, 32, SDL_HWSURFACE );
-  v->fonts=malloc(sizeof(TTF_Font*)*5);
   //l'écran de rendu comporte GRID_SIDE tuiles de 100 pixels de cotés chacuns (taille arbitraire)
   //il possède aussi une marge de 50 pixels en bas (encore une fois, taille arbitraire) pour pouvoir afficher le score
   //les pixels sont codés sur 32 bits
   v->screen=SDL_SetVideoMode( GRID_SIDE*100,GRID_SIDE*100+50, 32, SDL_HWSURFACE );
-  v->fonts=malloc(sizeof(TTF_Font*)*4);//on utilise 4 polices de tailles différentes pour pouvoir écrire toutes les valeurs
+  v->fonts=malloc(sizeof(TTF_Font*)*4);//on utilise 5 polices de tailles différentes pour pouvoir écrire toutes les valeurs
   //de tuiles sans déborder.
   v->fonts[0]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",60);
   v->fonts[1]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",40);
@@ -242,8 +240,8 @@ void draw(vars_draw v,game g){
     SDL_Rect GOPos={50,75};
     SDL_BlitSurface(texte, NULL,v->screen,&GOPos);  
     SDL_FreeSurface(texte);
-  }
-  //SDL_BlitSurface(der,NULL,v->screen,&scorePos);
+  } 
+  //  SDL_BlitSurface(der,NULL,v->screen,&scorePos);
   SDL_Flip(v->screen);
   free(str);
   SDL_FreeSurface(tile);
