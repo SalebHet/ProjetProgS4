@@ -68,7 +68,7 @@ vars_draw new_vars_draw(){
   //il possède aussi une marge de 50 pixels en bas (encore une fois, taille arbitraire) pour pouvoir afficher le score
   //les pixels sont codés sur 32 bits
   v->screen=SDL_SetVideoMode( GRID_SIDE*100,GRID_SIDE*100+50, 32, SDL_HWSURFACE );
-  v->fonts=malloc(sizeof(TTF_Font*)*4);//on utilise 5 polices de tailles différentes pour pouvoir écrire toutes les valeurs
+  v->fonts=malloc(sizeof(TTF_Font*)*5);//on utilise 5 polices de tailles différentes pour pouvoir écrire toutes les valeurs
   //de tuiles sans déborder.
   v->fonts[0]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",60);
   v->fonts[1]=TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeMono.ttf",40);
