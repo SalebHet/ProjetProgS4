@@ -21,13 +21,13 @@ int main() {
     add_tile(g);
     printw("z, q, s ou d et 'entree' pour faire un mouvement\n");
     while (!game_over(g)) {     //Boucle jusqu'à la fin de la partie
-        display(g);            //Affiche la grille à chaque mouvement
+        display(g);             //Affiche la grille à chaque mouvement
         dir d = getDir();       //Récupère la direction pour le prochain tour
         if (can_move(g, d)) {   //Vérifie si le mouvement est possible
             play(g, d);         //Effectue le mouvement, s'il est possible
         }
     }
-    display(g);                //Affiche la grille lors du dernier tour
+    display(g);                 //Affiche la grille lors du dernier tour
     printw("game over \n");     //Affiche que la partie est terminée
     delete_grid(g);             //Supprime la grille
     endwin();

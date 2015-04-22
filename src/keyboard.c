@@ -4,6 +4,7 @@
 #include <time.h>
 #include "keyboard.h"
 #include "grid.h"
+
 /**
 * \brief return the direction given by the user
 **/

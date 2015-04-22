@@ -235,6 +235,7 @@ void test_copy() {
     delete_grid(g);
     delete_grid(c);
 }
+
 /**
 * \brief test "grid_score(grid g)"
 **/
@@ -255,46 +256,48 @@ void test_score() {
 * \brief find the grid's maximum
 * \param gird g, the grid
 **/
-static int max_grid(grid g){
+static int max_grid(grid g) {
     int m = 0;
-    for (int i = 0 ; i<GRID_SIDE;i++){
-        for (int j = 0 ; j<GRID_SIDE;j++){
-            if(get_tile(g,i,j)>m)
-                m= get_tile(g,i,j);
+    for (int i = 0; i < GRID_SIDE; i++) {
+        for (int j = 0; j < GRID_SIDE; j++) {
+            if (get_tile(g, i, j) > m)
+                m = get_tile(g, i, j);
         }
     }
-    return (int) pow(2,m);
+    return (int) pow(2, m);
 }
 
 /**
 * \brief test a strategy
 **/
-void test_strat(){
-    grid* tabGrid = malloc(sizeof(grid)*10000);
-    strategy strat=listFunctionsStrat[0]();
-    for (int i= 0; i<10000; i++){
+void test_strat() {
+    grid *tabGrid = malloc(sizeof(grid) * 10000);
+    strategy strat = listFunctionsStrat[0] ();
+    for (int i = 0; i < 10000; i++) {
         tabGrid[i] = new_grid();
         add_tile(tabGrid[i]);
         add_tile(tabGrid[i]);
-        while(!game_over(tabGrid[i])){
-	  play(tabGrid[i],strat->play_move(NULL,tabGrid[i]));
+        while (!game_over(tabGrid[i])) {
+            play(tabGrid[i], strat->play_move(NULL, tabGrid[i]));
         }
     }
     int tmax = 0;
     unsigned long int max = 0;
     int moyenne = 0;
-    for (int i = 0 ; i<10000;i++){
-        moyenne+=grid_score(tabGrid[i]);
-        if (max<grid_score(tabGrid[i]))
-            max=grid_score(tabGrid[i]);
-        if(max_grid(tabGrid[i])>tmax){
+    for (int i = 0; i < 10000; i++) {
+        moyenne += grid_score(tabGrid[i]);
+        if (max < grid_score(tabGrid[i]))
+            max = grid_score(tabGrid[i]);
+        if (max_grid(tabGrid[i]) > tmax) {
             tmax = max_grid(tabGrid[i]);
         }
     }
 
-    moyenne = moyenne/10000;
-    printf("Le score moyen est de: %i , le score max est de: %li et la tuile max obtenue est : %i\n",moyenne,max,tmax);
-    for (int i = 0 ; i<10000;i++){
+    moyenne = moyenne / 10000;
+    printf
+        ("Le score moyen est de: %i , le score max est de: %li et la tuile max obtenue est : %i\n",
+         moyenne, max, tmax);
+    for (int i = 0; i < 10000; i++) {
         delete_grid(tabGrid[i]);
     }
     free(tabGrid);
@@ -305,16 +308,18 @@ void test_strat(){
 /**
 * \brief test the optimal strategy
 **/
-void test_strat_opti(){
+void test_strat_opti() {
     grid g = new_grid();        //Création de la grille de jeu
     strategy strat;
     add_tile(g);                //ajout des 2 premières tuiles pour le jeux
     add_tile(g);
-    strat=listFunctionsStrat[1]();
-    while(!game_over(g)){
-      play(g,strat->play_move(NULL,g));
-  }
-  int Tmax = max_grid(g);
-  printf("Vous avez obtenue un score de %i et votre plus grande tuile est %i \n",(int)grid_score(g),Tmax);
-  delete_grid(g);
+    strat = listFunctionsStrat[1] ();
+    while (!game_over(g)) {
+        play(g, strat->play_move(NULL, g));
+    }
+    int Tmax = max_grid(g);
+    printf
+        ("Vous avez obtenue un score de %i et votre plus grande tuile est %i \n",
+         (int) grid_score(g), Tmax);
+    delete_grid(g);
 }

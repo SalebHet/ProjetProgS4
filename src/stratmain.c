@@ -19,38 +19,38 @@ struct strategy_s
 };
 */
  /*
-static int getStrat() {              //Fonction permettant de récupérer une touche du clavier et d'y associer une stratégie
+    static int getStrat() {              //Fonction permettant de récupérer une touche du clavier et d'y associer une stratégie
     while (true) {
-        int c = getch();
-        if (c != ERR) {
-            switch (c) {
-            case KEY_1:
-                return 1;
-            case KEY_2:
-                return 2;
+    int c = getch();
+    if (c != ERR) {
+    switch (c) {
+    case KEY_1:
+    return 1;
+    case KEY_2:
+    return 2;
 
-            }
-        }
     }
-    }*/
+    }
+    }
+    } */
 
-int main (){
+int main() {
 
     grid g = new_grid();        //Cr�ation de la grille de jeu
     strategy strat;
     add_tile(g);                //ajout des 2 premi�res tuiles pour le jeux
     add_tile(g);
-    int i=0;
-    while(listNamesStrat[i]!=NULL){
-      printf("strat n %d : %s\n",i,listNamesStrat[i]);
-      i++;
+    int i = 0;
+    while (listNamesStrat[i] != NULL) {
+        printf("strat n %d : %s\n", i, listNamesStrat[i]);
+        i++;
     }
     printf("Choisissez une strategie a executer : ");
     unsigned int nb_strat;
-    do{
-      scanf("%d",&nb_strat);
-    }while(nb_strat>=i);
-    strat=listFunctionsStrat[nb_strat]();
+    do {
+        scanf("%d", &nb_strat);
+    } while (nb_strat >= i);
+    strat = listFunctionsStrat[nb_strat] ();
 
     initscr();
     curs_set(FALSE);
@@ -60,10 +60,10 @@ int main (){
     timeout(-1);
     noecho();
 
-    while(!game_over(g)){
-      display(g);
-      play(g,strat->play_move(strat,g));
-      //      usleep(500000);
+    while (!game_over(g)) {
+        display(g);
+        play(g, strat->play_move(strat, g));
+        //      usleep(500000);
     }
     display(g);
     sleep(7);

@@ -30,7 +30,7 @@ static char *itoa(int i) {
  * \brief display a line of GRID_SIZE times the size of a tile (left or up side)
  * \pre the window must be large enough to display the grid
  */
-static void displayline() {   //Fonction permettant d'display une ligne horizontale de la taille de la grille.
+static void displayline() {     //Fonction permettant d'display une ligne horizontale de la taille de la grille.
     printw("+");
     for (int i = 0; i < GRID_SIDE; i++)
         printw("------+");
