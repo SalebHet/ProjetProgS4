@@ -4,7 +4,11 @@
 #endif
 
 #ifndef STRAT_NAME
-#error "you must define the macro DEPTH with the depth of the algorythme expected max"
+#error "you must define the macro STRAT_NAME with the name of the algorythme"
+#endif
+
+#ifndef NAME
+#error "you must define the macro NAME with the name of the generate library without extension"
 #endif
 
 //Les deux lignes suivantes ont été trouvées sur le site suivant :
