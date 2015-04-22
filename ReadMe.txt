@@ -11,6 +11,10 @@ Création de l'éxecutable:
 	 -cmake .
 	 -make
 
+Création de la documentation:
+	- Utilisez la commande "make doc" à la racine du projet et après avoir fais un cmake .
+	vous obtiendrai ainsi un "compteRenduFinale.pdf"
+
 L'exécutable de jeu ainsi qu'un programme de test est créé dans un dossier bin à la racine du projet.
 La bibliothèque grid est créée dans un dossier lib à la racine du projet.
 
