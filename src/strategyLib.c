@@ -7,6 +7,9 @@
 #error "you must define the macro DEPTH with the depth of the algorythme expected max"
 #endif
 
+//Les deux lignes suivantes ont été trouvées sur le site suivant :
+//https://gcc.gnu.org/onlinedocs/cpp/Stringification.html#Stringification
+//Elles permettent d'utiliser le contenu d'une macro comme une chaine de caractère.
 #define str(s) #s
 #define xstr(s) str(s)
 
